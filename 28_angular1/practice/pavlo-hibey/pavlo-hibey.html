@@ -1,0 +1,14 @@
+<section class="card-header">
+  <div ng-hide="editMode" class="card-profile">
+    <img class='avatar' src={{imgUrl}} alt="Profile avatar">
+    <span class='name'>{{firstName}} {{lastName}}</span>      
+  </div>
+  <div ng-show="editMode">
+    <input ng-model="firstName" type="text" placeholder="First Name" required>
+    <input ng-model="lastName" type="text" placeholder="Last Name" required>
+  </div>
+</section>
+
+<section class="card-footer">
+  <input type="button" ng-click="toggleEdit()" value={{editButtonTitle}} class="edit-button">  
+</section>

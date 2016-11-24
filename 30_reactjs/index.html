@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>React.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../assets/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/fonts.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/typography.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div class="wrapper">
+  <header class="mainheader">
+    <div class="logo">
+      <a href=""><span class="logotext">React.js</span></a>
+    </div>
+  </header>
+</div>
+
+<!-- ================== Slides ================== -->
+    <textarea id="source">
+
+class: center, middle
+
+.title[
+Front-end training
+# ReactJS
+]
+
+---
+
+### About
+
+- A javascript *library* for building user interfaces
+- Made by [Facebook's and Instagram's](https://facebook.github.io/react/support.html) teams
+- ~50k stars on [github](https://github.com/facebook/react)
+- HTML-like syntax ([JSX](https://facebook.github.io/react/docs/jsx-in-depth.html)) in javascript files
+- Very easy to learn and understand the logic behind main approaches
+
+---
+### Key Points
+
+- UI components are the cohesive units
+- UI description and UI logic are tightly coupled
+- Re-render everything on every update
+- Virtual DOM and Synthetic Events
+
+---
+### Virtual DOM
+
+1. Create lightweight description of component UI
+2. Diff it with the old one
+3. Compute minimal set of changes to apply to the DOM
+4. Batch execute all updates
+
+---
+
+### Hello World!
+
+```html
+...
+<div id="app" />
+...
+```
+
+```
+var HelloMessage = React.createClass({
+  render: function() {
+    return <div>Hello World</div>;
+  }
+});
+
+ReactDOM.render(
+  <HelloMessage />,
+  document.getElementById('app')
+);
+```
+---
+
+### Component Composition
+
+```
+var HomePage = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <Header />
+        <SearchBar />
+        <BearList />
+      </div>
+    );
+  }
+});
+```
+
+---
+### Data Flow
+
+- Parent-to-Child
+  - Data can be passed to children as properties and available as `this.props`
+  - Properties are immutable
+
+- Child-to-Parent
+  - Event handlers (callbacks) can be passed as properties
+
+```
+...
+onSearch: function(keyword) {
+  alert(keyword)
+},
+render: function() {
+  return (
+    <Header title="Hello World" />
+    <SearchBar onSearch={this.onSearch} />
+  );
+}
+...
+```
+
+---
+### Data Flow cont.
+
+```
+// Header.js
+...
+propTypes: {
+  title: React.PropTypes.string
+},
+render: function() {
+  return <h1>{this.props.title}</h1>;
+}
+...
+```
+```
+// SearchBar.js
+...
+onChange: function(e) {
+  this.props.onSearch(e.target.value);
+},
+render: function() {
+  return (
+    <input type="text" onChange={this.onChange} />;
+  );
+}
+...
+```
+
+---
+
+### State
+
+State is mutable and a [private](https://medium.com/react-tutorials/react-state-14a6d4f736f5#.6byg04o4r) data-set of a component
+
+```
+var HomePage = React.createClass({
+  getInitialState: function() {
+    return { beers: [] }
+  },
+  onSearch: function(q) {
+    this.props.service.findByKey(q).then(function(items) {
+      this.setState({ beers: items });
+    }.bind(this));
+  },
+  render: function() {
+    return (
+      <div>
+        <SearchBar onSearch={this.onSearch} />
+        <BeerList items={this.state.beers} />
+      </div>
+    );
+  }
+});
+```
+
+---
+### Component Lifecycle
+
+![component lifecycle](https://staminaloops.github.io/undefinedisnotafunction/images/react-lifecycle.jpg)
+
+---
+### Resources
+<br />
+- https://facebook.github.io/react/
+- https://facebook.github.io/flux/docs/overview.html
+- Best Practices
+  - https://blog.risingstack.com/react-js-best-practices-for-2016/
+  - https://www.toptal.com/react/tips-and-practices
+  - https://github.com/planningcenter/react-patterns
+- CheatSheets
+  - http://ricostacruz.com/cheatsheets/react.html
+  - http://reactcheatsheet.com/
+
+---
+
+class: center, middle
+
+# Thank You!
+### Questions?
+
+    </textarea>
+<!-- ================== End of Slides ================== -->
+
+    <script src="../assets/js/remark-latest.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      remark.create({
+        highlightStyle: 'github',
+        highlightLanguage: 'javascript',
+        highlightLines: true,
+        countIncrementalSlides: false
+      });
+    </script>
+</body>
+</html>

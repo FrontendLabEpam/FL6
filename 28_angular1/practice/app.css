@@ -1,0 +1,11 @@
+/* Styles go here */
+* {
+  box-sizing: border-box;
+}
+.card {
+  width: 200px;
+  height: 300px;
+  border: 1px solid #ccc;
+  float: left;
+  margin: 10px;
+}

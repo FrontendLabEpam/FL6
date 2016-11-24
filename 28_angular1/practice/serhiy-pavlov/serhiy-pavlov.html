@@ -1,0 +1,31 @@
+<div>
+
+  <div ng-show="!edit">
+    <img src="https://avatars0.githubusercontent.com/u/17480570?v=3&s=460" alt="my photo" height="200px" width="100%"/>
+    <div class="info">
+      <span>{{name}}</span>
+      <span>{{surname}}</span><br/>
+      <input class="btn" type="button" value="edit" ng-click="change()" />
+    </div>
+    
+
+  </div>
+
+  <div style="padding:10px;" ng-show="edit">
+    <label>name:
+     <input type="text" ng-model="name" >
+    </label>
+    
+    <label>surname:
+     <input type="text" ng-model="surname">
+    </label>
+  
+    <div style="text-align:center">
+      <input class="btn" type="button" value="save" ng-click="change()" />
+    </div>
+    
+  
+  </div>
+
+
+</div>

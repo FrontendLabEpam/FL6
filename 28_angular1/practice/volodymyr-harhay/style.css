@@ -1,0 +1,46 @@
+.volodymyr-harhay .cl_wrap {
+    background: url(photo.jpg);
+    background-size:cover;
+    background-position: center;
+    height: 100%;
+}
+
+.volodymyr-harhay .cl_view_normal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    color:beige;
+    font-weight: 500;
+    font-size: 30px;
+    top: 123px;
+    margin-bottom: 5px;
+    transition:opacity 1.5s linear;
+    opacity: 1;
+}
+
+.volodymyr-harhay .cl_view_edit {
+    padding-top: 5px;
+    padding-left: 5px;
+    color:grey;
+    position: relative;
+    transition:opacity 1.5s linear;
+    opacity: 1;
+}
+
+
+.volodymyr-harhay [type = "text"] {
+    width: 100px;
+}
+
+.volodymyr-harhay .cl_wrap label {
+    margin-left: 5px;
+}
+
+.volodymyr-harhay .cl_view_edit input {
+    margin-top: 5px;
+}
+
+.volodymyr-harhay .cl_view_edit [type="button"]{
+    margin-left: 25px;
+} 

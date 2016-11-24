@@ -1,0 +1,60 @@
+/* Styles go here */
+
+
+.yura-yarovyj.card {
+  text-align: center;
+  border: 5px solid black;
+}
+
+.yura-yarovyj img {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px 1px rgba(0, 0, 0, 0.2), 0 6px 20px 1px rgba(0, 0, 0, 0.19);
+}
+/* inputs */
+.yura-yarovyj input {
+  margin: 5px;
+}
+/* buttons */
+.yura-yarovyj button {
+  cursor: pointer;
+  margin: 5px;
+  background: #fff;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.yura-yarovyj button:focus {
+  outline: none;
+}
+.yura-yarovyj button:hover {
+  background: #000;
+  color: #fff;
+}
+/* Animation */
+
+.yura-yarovyj .edit.ng-hide-remove {
+  animation: 0.5s show;
+}
+
+.yura-yarovyj .profile.ng-hide-remove {
+  animation: 0.5s show;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  70% {
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

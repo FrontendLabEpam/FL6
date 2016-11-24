@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ES2015</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../assets/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/fonts.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/typography.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div class="wrapper">
+  <header class="mainheader">
+    <div class="logo">
+      <a href=""><span class="logotext">ES2015</span></a>
+    </div>
+  </header>
+</div>
+
+<!-- ================== Slides ================== -->
+    <textarea id="source">
+
+class: center, middle
+
+.title[
+Front-end training
+# ES 2015
+]
+
+---
+# Variable Declarations
+
+```
+let variable = 5;
+
+{
+  console.log('inside', variable); // error
+  let variable = 10;
+}
+
+console.log('outside', variable); // 5
+```
+--
+```
+{
+  const variable = 5; // same scoping rules as let
+  variable = variable*2; // error
+}
+```
+--
+```
+const variable = [5];
+variable[0] = variable[0]*2; // [10] :'(
+```
+
+---
+# String Templates
+
+```
+const world = 'World';
+const str = `Hello ${world + '!'}`;
+```
+--
+```
+const multiline = `
+  Sir, in my heart there was a kind of fighting
+  That would not let me sleep. Methought I lay
+`;
+```
+
+---
+# Destructuring
+Convenient syntax to extract values from objects and arrays.
+
+```
+const arr = [1, 2, 3, 4];
+const [a, b, c] = arr;
+
+console.log(a, b, c); // 1, 2, 3
+```
+--
+```
+let obj = {e: 1, f: 2, g: 3};
+let {e, f, h} = obj;
+
+console.log(e, f, g); {{content}}
+```
+--
+// ReferenceError: g is not defined
+
+---
+# Spread
+Convenient way to get "everything else that remains".
+
+```
+const [head, ...tail] = [1,2,3,4,5];
+console.log(head, tail); // 1, [2, 3, 4, 5]
+```
+--
+
+```
+let {a, ...rest} = {a: 1, b: 2, c: 3};
+console.log(a, rest); {{content}}
+```
+--
+// SyntaxError: Unexpected token ... // not es2015
+
+---
+# Arrow Functions
+An arrow function is always bound to the scope it's defined in.
+Arrow functions are always anonymous.
+
+```
+let arr = [1,2,3,4].reduce((mem, n) => mem + n);
+console.log(arr); // 10
+```
+--
+
+Shorthand
+```
+let localInc = n => n+1;
+console.log(localInc(1)); // 2
+```
+
+---
+# Function Parameters
+Easier way to achieve named params, default params, and optional params.
+
+```
+function sum (a = 0, b = 0) {
+  return a + b;
+}
+
+console.log(sum(2)); // 2
+```
+--
+```
+function sum (...vals) {
+  // better than arguments!
+  return vals.reduce((mem, n) => mem + n, 0);
+}
+console.log(sum(1, 2, 3, 4)); // 10
+```
+--
+```
+function rectArea ({ width = 5, height = 5 } = {}) {
+  return width * height;
+}
+console.log(rectArea({height: 30})); // 150
+```
+
+---
+# Classes
+```
+class Animal {
+  constructor (name, legs) {
+    this.name = name;
+    this.legs = legs;
+  }
+
+  describe () {
+    return `${this.name} has ${this.legs} legs`;
+  }
+}
+
+class Cat extends Animal {
+  constructor (name) {
+    super(name, 4);
+  }
+
+  describe () {
+    return `${super.describe()} and says meow`;
+  }
+}
+
+let cat = new Cat('Tom');
+console.log(cat.describe()); // Tom has 4 legs and says meow
+```
+
+---
+# Getters/Setters
+
+```
+const someGuy = {
+  get status () {
+    return this.isMarried ? 'married' : 'single';
+  },
+  set name (name) {
+    if (!name) throw new Error('Need a name');
+    this._name = wateva
+  }
+}
+
+log(someGuy.status); // 'single'
+log(someGuy.name = null); // Error: Need a name
+```
+
+---
+# Modules
+```
+// imports
+import React from 'react';
+import { NavigationMixin as Navigation } from 'navigation';
+
+// exports
+export default MiscUtilities;
+export { buildQuery as toQuery };
+```
+
+---
+class: center, middle
+
+# Thank You!
+### Questions?
+
+    </textarea>
+<!-- ================== End of Slides ================== -->
+
+    <script src="../assets/js/remark-latest.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      remark.create({
+        highlightStyle: 'github',
+        highlightLanguage: 'javascript',
+        highlightLines: true,
+        countIncrementalSlides: false
+      });
+    </script>
+</body>
+</html>

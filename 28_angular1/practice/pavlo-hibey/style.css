@@ -1,0 +1,59 @@
+/* Styles go here */
+
+.pavlo-hibey.card {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.pavlo-hibey .card-header {
+  height: 33%;
+  background: #39c2d7;
+  padding: 10px;
+  display: block;
+}
+
+.pavlo-hibey .card-footer {
+  padding: 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;  
+}
+
+.pavlo-hibey .avatar {
+  width: 90%;
+  border-radius: 50%;
+  border: 3px solid #39c2d7;
+}
+
+.pavlo-hibey .name {
+  font: 20px 'Roboto';
+  padding: 10px;
+}
+
+.pavlo-hibey .edit-button {
+  margin-right: 2px;
+  font: 500 13px 'Roboto';
+  border-radius: 2px;
+  padding: 11px 20px;
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  text-decoration: none;
+  transition: all 0.2s linear;
+  text-transform: uppercase;
+  color: #fff;
+  background: #39c2d7;
+}
+
+.pavlo-hibey .edit-button:hover {  
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.pavlo-hibey input[type=text] {
+  border: 3px solid #fff;
+  margin: 5px 0;
+  padding: 3px;
+}

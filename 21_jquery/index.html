@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link href="../assets/css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/fonts.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/typography.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/shCore.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/shThemeDefault.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../assets/js/lib/shCore.js"></script>
+	<script type="text/javascript" src="../assets/js/lib/shBrushJScript.js"></script>
+	<script type="text/javascript" src="../assets/js/lib/shAutoloader.js"></script>
+	<script type="text/javascript">
+		SyntaxHighlighter.all();
+	</script>
+</head>
+<body>
+	<div class="wrapper">
+		<header class="mainheader">
+			<div class="logo">
+				<div class="divider"><a href="../index.html"><img src="../assets/img/Logo.png"></a></div>
+				<a href="../html/html.html#1"><span class="logotext">Intro to OOP</span></a>
+			</div>
+		</header>
+	</div>
+
+
+<!-- ================== Slides ================== -->
+<textarea id="source">
+
+class: center, middle
+
+#jQuery
+
+---
+
+## Features
+
+- HTML/DOM traversal and manipulation (alternative to getElementsBySelector) -- under the box - Sizzle selector-parser framework
+
+- CSS manipulation
+
+- HTML events handling
+
+- Ajax
+
+- Effects and animations
+
+- Extensibility (over plugins)
+
+https://sizzlejs.com/
+
+---
+
+##Get Started
+
+Add downloaded library
+
+```html
+<script type="text/javascript" src="jquery.js"></script>
+```
+
+or use jQuery/Google/Microsoft Content Delivery Networks (CDNs)
+
+```html
+<script src="https://code.jquery.com/jquery-3.1.0.js"
+    integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
+    crossorigin="anonymous"></script>
+```
+
+https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity
+
+---
+
+##The focus of jQuery
+
+```javascript
+$('#purchase_btn').addClass('focal');
+```
+
+- $() - call jQuery
+- '#someid' - get elements with css like selector
+- .addClass() - do something to selected elements
+
+---
+
+##Selectors
+
+###Basic
+```css
+'*', elementTag, #id, .class
+```
+###Hierarchy
+```css
+parent > child, prev + next, prev ~ siblings
+```
+
+---
+
+##Selectors
+###Filters
+```css
+:even, :odd, :first, :last, :not(), :empty
+:gt() /* all elements at an index greater then specified */
+:lt() /* all elements at an index less then specified */
+:hidden /* display: none, type="hidden", width & height = 0, ancestor is hidden */
+:visible /* are visible */
+:parent /* are parents to other elements, including text node */
+:contains() /* contain the specified text */
+:has() /* contain at least one element that matches the specified selector */
+```
+
+---
+
+##Selectors
+###Attribute
+```css
+[name], [name|='value'], [name*='value'], [name~='value'],
+[name$='value'], [name^='value']
+[name!='value'] /* either no such attribute or specified value */
+```
+https://css-tricks.com/attribute-selectors/
+
+###Child filters
+```css
+:first-child, :last-child, :only-child, :first-of-type, :last-of-type,
+:only-of-type, :nth-child(), :nth-last-child(), :nth-last-of-type(),
+:nth-of-type()
+```
+https://css-tricks.com/pseudo-class-selectors/
+
+---
+
+##Selectors
+###Forms
+```css
+:button, :checkbox, :file, :image, :input, :password, :radio, :reset,
+:submit, :text, :disabled, :enabled, :focus, :checked, :selected
+```
+
+---
+
+###The Document Ready Event
+Specify a function to execute when the DOM is fully loaded.
+
+```javascript
+$( document ).ready(function() {
+  // Handler for .ready() called.
+});
+
+$(function() {
+  // Handler for .ready() called.
+});
+```
+
+https://learn.javascript.ru/onload-ondomcontentloaded
+
+---
+###Traversing
+
+Though traversing is quite a powerfull tool, it is wiser not to abbuse it too much.
+Overcomplicated selectors are hard to understand and affect performance.
+Note: find() is an exception, sometimes gives performance benefits
+
+```javascript
+is(), not(), has()
+eq(), first(), last()
+find(), parent(), parents(), closest()
+children(), prev(), next(), siblings()
+add(), addBack(), contents()
+```
+---
+
+##DOM manipulations
+
+###Attributes
+```javascript
+attr(), prop(), val()
+removeAttr(), removeProp()
+```
+Note: as lots of other methods, could be used as both getters and setters
+```javascript
+$('input').attr('type'); // "checkbox"
+$('input').attr('disabled', true); // [<input type="text" disabled="disabled">]
+```
+
+###CSS
+```javascript
+css() // sets inline style. ( { 'top' : 5, 'right' : 4 } ) or ( 'top', 5 )
+addClass(), removeClass(), hasClass()
+toggleClass(),
+$(element).hasClass(class) ? removeClass(class) : addClass(class)
+```
+
+---
+##DOM manipulations
+
+```javascript
+$('<div>') // create element
+html(), text() // get/set html/text
+remove() // removes element from DOM
+append(), prepend() // insert specified content to the end/beginning of element
+after(), before() // insert content after/before element
+height(), width() // get/set value
+clone() // create a deep copy of an element
+wrap() // wrap element with another element
+detach() // same as remove but keeps all jQuery related data
+```
+
+---
+##Animation
+
+```javascript
+hide(), show(), toggle()
+fadeOut(), fadeIn(), fadeToggle()
+slideOut(), slideDown(), slideToggle()
+```
+
+Note: all of these methods accept configurations, e.g {duration: 500}
+
+animate() - animates given css properties.
+Note: in most cases it is wiser to use css animations as those are much faster
+
+---
+##Events
+
+###Event Handlers
+on(), off(), one(), trigger(), triggerHandler()
+
+###Form Events
+focus(), blur(), change(), select(), submit()
+
+###Keyboard Events
+keydown(), keyup(), keypress()
+
+---
+##Events
+
+###Mouse Events
+click(), dblclick(), hover()
+
+###Event Object
+event.preventDefault(), event.stopPropagation(), event.target
+
+Note: some events can be used as both handlers and triggers
+$('input').focus(handler) -> attaches handler onFocus
+$('input').focus() -> sets focus on input
+
+---
+##Ajax
+
+###Basic usage
+```javascript
+$.ajax({
+    type: 'POST',
+    url: 'authorization.php',
+    data: { login: 'John', password: 'gfhjkm' },
+    success: onSuccess,
+    error: onError,
+    complete: onComplete
+  });
+```
+###Shorthand methods
+```javascript
+$.get(), $.post()
+$.getJSON(), $.getScript()
+```
+
+---
+##Utilities
+```javascript
+$.each() // generic iterator function
+$.extend() // merge the content of second+ objects into first one
+$.trim() // remove whitespace from the beginning and end of a string
+$.isArray(), $.isEmptyObject(), $.isFunction(), $.isNumeric()
+$.parseHTML(), $.parseJSON()
+```
+---
+##jQuery Plugins
+
+One of the reasons jQuery gained so much popularity is the ease of creating plugins.
+Which led to a huge collection of available plugins.
+As a tradeoff, lots of those plugins are poorly coded and rarely properly maintained.
+
+```javascript
+$.fn.paintMe = function(color){
+  this.css('background', color);
+  return this;
+}
+$('p').paintMe('red').text('ima red!!');
+```
+---
+##jQuery does everything !!1!
+
+[<img src="assets/20091116-so-large.gif" width="600">](http://www.doxdesk.com/img/updates/20091116-so-large.gif)
+
+---
+##Namespacing
+
+window Global variables are evil! window.jQuery / window.$
+to avoid conflict with other JavaScript Frameworks
+
+```javascript
+jQuery.noConflict();
+
+jQuery( document ).ready(function($) {
+  // Code that uses jQuery's $ can follow here.
+});
+
+// Code that uses other library's $ can follow here.
+```
+
+---
+##Let's make a quiz
+
+http://www.w3schools.com/quiztest/quiztest.asp?qtest=jQuery
+
+---
+## Deffered
+
+A factory function that returns a chainable utility object with methods to
+register multiple callbacks into callback queues, invoke callback queues,
+and relay the success or failure state of any synchronous or asynchronous function.
+
+The jQuery.Deferred() factory creates a new deferred object.
+
+```javascript
+var deferred = jQuery.Deferred();
+
+function double(value) {
+    return value * 2;
+}
+
+var chained = deferred.then(double);
+
+setTimeout(function() {
+    deferred.resolve(5);
+}, 2000);
+
+chained.done(function() {
+    console.log('I am done!')
+});
+
+```
+---
+
+##Deferred methods
+
+```javascript
+deferred.then(),
+deferred.always(),
+deferred.done(),
+deferred.fail(),
+deferred.resolve(),
+deferred.reject()
+```
+
+---
+##jQuery Promises
+
+Promise is an object to observe when all actions of a certain type bound to the collection, queued or not, have finished. All ajax requests return promices
+
+```javascript
+$( "button" ).on( "click", function() {
+  $( "p" ).append( "Started..." );
+
+  $( "div" ).each(function( i ) {
+    $( this ).fadeIn().fadeOut( 1000 * ( i + 1 ) );
+  });
+
+  $( "div" ).promise().done(function() {
+    $( "p" ).append( " Finished! " );
+  });
+});
+```
+
+---
+##jQuery Promises
+
+```javascript
+var effect = function() {
+  return $( "div" ).fadeIn( 800 ).delay( 1200 ).fadeOut();
+};
+
+$( "button" ).on( "click", function() {
+  $( "p" ).append( " Started... " );
+
+  $.when( effect() ).done(function() {
+    $( "p" ).append( " Finished! " );
+  });
+});
+```
+
+---
+##Resources
+
+- https://oscarotero.com/jquery/
+- http://learn.jquery.com/plugins/basic-plugin-creation/
+- http://try.jquery.com/
+- http://james.padolsey.com/jquery/#v=2.0.3&fn=
+- http://blog.garstasio.com/you-dont-need-jquery/
+- http://zeptojs.com/
+
+</textarea>
+<!-- ================== End of Slides ================== -->
+
+    <script src="../assets/js/remark-latest.min.js" type="text/javascript"></script>
+    <script type="text/javascript">remark.create({highlightStyle: 'github'});</script>
+</body>
+</html>

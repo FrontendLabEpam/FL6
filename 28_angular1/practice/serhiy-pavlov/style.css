@@ -1,0 +1,19 @@
+/* Styles go here */
+
+.serhiy-pavlov .info {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.serhiy-pavlov .btn {
+  margin-top: 5px;
+    background-color: #e7e7e7;;
+    border: none;
+    color: black;
+    padding: 8px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
