@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>HTML</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link href="../assets/css/reset.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/fonts.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/typography.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <header class="mainheader">
+                <div class="logo">
+                    <div class="divider"><a href="../index.html"><img src="../assets/img/Logo.png"></a></div>
+                    <a href="../html/html.html#1"><span class="logotext">HTML</span></a>
+                </div>
+            </header>
+        </div>
+<!-- ================== Slides ================== -->
+<textarea id="source">
+class: center, middle
+
+.title[
+Front-end training
+# HTML
+]
+
+---
+
+# HyperText Markup Language
+
+- Markup language not equal programming language
+- Hypertext is text displayed on a computer display or other electronic devices with references
+
+---
+
+# Features
+
+Web page is a web document that is suitable for the World Wide Web and the web browser
+
+HTML or HyperText Markup Language is the standard markup language used to create web pages.
+
+HTML is written in the form of HTML elements consisting of tags enclosed in angle brackets (like `<html>`). HTML describes the structure of a website semantically along with cues for presentation, making it a markup language rather than a programming language
+
+---
+
+# Tags
+
+- Example:
+``` html
+<tag>
+```
+
+- Opening and closing tags:
+    ``` html
+    <tag>Some ext</tag>
+    ```
+
+- Single tag:
+    ``` html
+    <tag/>
+    ```
+
+- Parent and child tags:
+    ``` html
+    <first-tag>
+        <second-tag>Some text</second-tag>
+    </first-tag>
+    ```
+- Comment:
+    ``` html
+    <!-- Comment content -->
+    ```
+
+---
+
+# Attributes
+
+``` html
+<tag attribute1="value" attribute2="value"> ... </tag>
+```
+
+- Extend the capabilities of individual tags.
+- The order of the attributes doesn’t matter.
+- Examples: `id`, `class`, `name`, `title`, `style`, `src`, `type`
+
+---
+
+# <!DOCTYPE>
+
+Element `<!DOCTYPE>` is intended to indicate the type of the document - DTD (document type definition), for the browser to know how to parse the page.
+
+- Currently used <!DOCTYPE html> - for all types of documents
+- Should always be the first line of document
+
+---
+
+# Types of DOCTYPE: XHTML 1.0
+
+- Strict XHTML:
+    ``` html
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    ```
+- Transitional XHTML:
+    ``` html
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    ```
+---
+
+# Rules of XHTML
+
+- All tags and their attributes must be typed in lower case;
+- The value of any attribute must be enclosed in quotation marks;
+- You must close all tags, even those that do not have a closing tag;
+- Must follow the rules of correct tags nesting;
+- You can not use a shortened tag attributes (without the quotes);
+- Instead attribute name in certain situations should be used id;
+- Always specify `<!DOCTYPE>`
+
+---
+
+# Web-page structure
+
+`<html>` - This is a container that includes the entire page content.
+There is always two sections on the page : head and body.
+
+`<head>` - contains information about the HTML file: the name of the page, style, meta tags and additional information.
+
+`<meta>` - meta tags that contain information for browsing and retrieval systems (charset, description, keywords).
+
+`<body>` - contains all the text and tags that are displayed on the page.
+
+``` html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page name</title>
+        <meta charset="utf-8">
+    </head>
+    <body> ... </body>
+</html>
+```
+
+---
+
+# Validation
+
+Validator checks the markup validity of Web documents in HTML and XHTML
+
+[validator.w3.org](http://validator.w3.org)
+
+---
+
+# Block and inline element
+
+Block elements occupy all available width of container, height of these component is determined by its content, and it always starts on a new line.
+
+Inline elements are directly part of another element, such as a text paragraph. They are mainly used to change the appearance of text or a logical selection.
+
+You can not insert an inline elements into block elements according to specification (eg `<h1>` in `<a>`).
+
+
+
+---
+
+
+
+# Elements of the page
+
+### Headings:
+`<h1>`, `<h2>`, `<h3>`, `<h4>`, `<h5>`, `<h6>`
+
+### Some block elements:
+`<p>`, `<pre>`, `<address>`, `<blockquote>`
+
+### Some inline elements:
+`<sub>`, `<sup>`, `<del>`, `<ins>`, `<code>`, `<q>`, `<cite>`, `<big>`, `<small>`, `<b>`, `<strong>`, `<i>`, `<em>`, `<br>`, `<hr>`
+
+[https://webref.ru](https://webref.ru)
+
+---
+
+
+
+# Lists
+
+## Ordered list:
+
+.columns[.col-50[
+``` html
+<ol>
+  <li>Item first</li>
+  <li>Item second</li>
+</ol>
+```
+].col-50.demo[
+<ol>
+  <li>Item first</li>
+  <li>Item second</li>
+</ol>
+]]
+
+
+
+---
+
+# Lists
+
+## Unordered list:
+
+.columns[.col-50[
+``` html
+<ul>
+    <li>Item 1</li>
+    <li>Item 2
+        <ul>
+            <li>Item 2.1</li>
+            <li>Item 2.2</li>
+        </ul>
+    </li>
+</ul>
+```
+].col-50.demo[
+<ul>
+    <li>Item 1</li>
+    <li>Item 2
+        <ul>
+            <li>Item 2.1</li>
+            <li>Item 2.2</li>
+        </ul>
+    </li>
+</ul>
+]]
+
+
+
+---
+
+
+
+# Lists
+
+## Definitions list:
+
+.columns[.col-50[
+``` html
+<dl>
+    <dt>Title 1</dt>
+        <dd>Definition</dd>
+    <dt>Title 2</dt>
+        <dd>Definition</dd>
+        <dd>Definition</dd>
+</dl>
+```
+].col-50.demo[
+<dl>
+    <dt>Title 1</dt>
+        <dd>Definition</dd>
+    <dt>Title 2</dt>
+        <dd>Definition</dd>
+        <dd>Definition</dd>
+</dl>
+]]
+
+
+
+---
+
+
+
+# Elements of the page
+
+### Images:
+
+.columns[.col-70[
+``` html
+<img src="img/picture.png" alt="Назва картинки" />
+```
+].col-30.demo[
+<img src="../assets/img/logoo.PNG" alt="Назва картинки" />
+]]
+
+### Links:
+
+.columns[.col-70[
+``` html
+<a href="http://www.epam.com/">Перейти на сайт Epam</a>
+```
+].col-30.demo[
+<a href="http://www.epam.com/">Перейти на сайт Epam</a>
+]]
+
+### Image inside a link:
+
+.columns[.col-70[
+``` html
+<a href="http://www.epam.com/">
+    <img src="img/picture.png"/>
+</a>
+```
+].col-30.demo[
+<a href="http://www.epam.com/">
+    <img src="../assets/img/logoo.PNG"/>
+</a>
+]]
+
+
+
+---
+
+
+
+# Tables
+
+`<table>` It is used as a container for elements that define the contents of the table. Every table has a rows and cells are set using tags `<tr>` and `<td>`. Inside `<table>` it is permissible to use the following elements: `<caption>`, `<col>`, `<colgroup>`, `<tbody>`, `<td>`, `<tfoot>`, `<th>`, `<thead>` and `<tr>`.
+
+`colspan` attribute is used to conbine neighboring columns in the table `rowspan` - to combine rows.
+
+
+
+---
+
+
+
+# Tables
+
+.columns[.col-60[
+``` html
+<table>
+    <caption>Prices for buses</caption>
+    <thead>
+        <tr>
+            <th>Bus number</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>3А</td>
+            <td rowspan=”2”>3 hrn</td>
+        </tr>
+        <tr>
+            <td>25</td>
+        </tr>
+         <tr>
+            <td>133</td>
+            <td>4 hrn</td>
+        </tr>
+    </tbody>
+</table>
+```
+].col-40.demo[
+<table>
+    <caption>Prices for buses</caption>
+    <thead>
+        <tr>
+            <th>Bus number</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>3А</td>
+            <td rowspan="2">3 hrn</td>
+        </tr>
+        <tr>
+            <td>25</td>
+        </tr>
+         <tr>
+            <td>133</td>
+            <td>4 hrn</td>
+        </tr>
+    </tbody>
+</table>
+
+<style>
+    .table-demo {
+        width: 100%;
+        border: #ccc solid 1px;
+        border-collapse: collapse;
+    }
+    .table-demo caption {
+        text-align: right;
+        font-size: 12px;
+        font-style: italic;
+        padding-right: 10px;
+    }
+    .table-demo th,
+    .table-demo td {
+        padding: 5px;
+        border: 1px solid #ccc;
+    }
+</style>
+<br />
+<p>Demo with some styles:</p>
+<table class="table-demo">
+    <caption>Prices for buses</caption>
+    <thead>
+        <tr>
+            <th>Bus number</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>3А</td>
+            <td rowspan="2">3 hrn</td>
+        </tr>
+        <tr>
+            <td>25</td>
+        </tr>
+         <tr>
+            <td>133</td>
+            <td>4 hrn</td>
+        </tr>
+    </tbody>
+</table>
+]]
+
+
+
+---
+
+
+# Elements with no semantic meaning
+
+These tags are designed to highlight the portion of the document to change the appearance of the content but without creating additional semantic value fragment.
+
+`<div>` - block element
+
+`<span>` - inline element
+
+
+---
+
+# Special Characters and Signs
+
+Many mathematical, technical, and currecy symbols, are not presented on a normal keyboard.
+
+To add these symbols to an HTML page, you can use an HTML entity name.
+
+If no entity name exists, you can use an entity number; a decimal (or hexadecimal) reference.
+
+.columns[.col-50[
+``` html
+<p>Euro symbol: &amp;euro; &amp;#8364; &amp;#x20AC;</p>
+<p>&amp;copy; &amp;trade; &amp;laquo; &amp;raquo;
+   &amp;amp; &amp;nbsp; &amp;lt; &amp;gt;
+   &amp;ndash; &amp;mdash;</p>
+```
+].col-50.demo[
+<p>Euro symbol: &euro; &#8364; &#x20AC;</p>
+<p>&copy; &trade; &laquo; &raquo; &amp; &nbsp; &lt; &gt; &ndash; &mdash;</p>
+]]
+
+---
+
+# HTML5 Features.
+
+- Simplified Markup
+- New semantic tags and attributes
+- Audio, video support
+- New graphic elements
+- New form control attributes
+- New HTML5 API's
+
+---
+
+# New Semantic Tags
+
+.columns[.col-40[
+- `<article>`
+- `<section>`
+- `<aside>`
+- `<nav>`
+- `<figure>`
+- `<figcaption>`
+- `<header>`
+- `<footer>`
+
+].col-40[
+- `<mark>`
+- `<audio>`
+- `<video>`
+- `<source>`
+- `<canvas>`
+- `<svg>`
+- `<datalist>`
+- `<progress>`
+]]
+
+
+---
+
+
+# New Semantic Tags
+## Section
+Represents a generic document or application section. In this context, a section is a thematic grouping of content, typically with a header, possibly with a footer. Examples include chapters in a book, the various tabbed pages in a tabbed dialog box, or the numbered sections of a thesis. A web site's home page could be split into sections for an introduction, news items, contact information.
+``` html
+<section>
+    <h1>Level 1</h1>
+    <section>
+        <h1>Level 2</h1>
+    </section>
+</section>
+```
+
+
+---
+
+
+# New Semantic Tags
+## Article
+Represents a section of a page that consists of a composition that forms an independent part of a document, page, or site. This could be a forum post, a magazine or newspaper article, a Web log entry, a user-submitted comment, or any other independent item of content.
+``` html
+<article>
+    <header>
+        <h4><a href="#comment-2" rel="bookmark">Comment #2</a>
+        by <a href="http://example.com/">Jack Osborne</a></h4>
+    </header>
+    <p>Pellentesque habitant morbi tristique senectus.</p>
+</article>
+```
+
+---
+
+
+# New Semantic Tags
+## Nav
+Represents navigation for a document. The nav element is a section containing links to other documents or to parts within the current document.
+
+Not all groups of links on a page need to be in a nav element — only groups of primary navigation links. In particular, it is common for footers to have a list of links to various key parts of a site, but the footer element is more appropriate in such cases.
+``` html
+<nav>
+    <ul>
+        <li>Nav Link</li>
+        <li>Nav Link</li>
+        <li>Nav Link</li>
+    </ul>
+</nav>
+```
+
+---
+
+
+# New Semantic Tags
+## Aside
+Represents a section of a page consisting of content that is tangentially related to the content around the aside element, and which could be considered separate from that content. Such sections are often represented as sidebars in printed typography.
+``` html
+<aside>
+    <h2>Blogroll</h2>
+    <ul>
+        <li><a href="#">My Friend</a></li>
+        <li><a href="#">My Other Friend</a></li>
+        <li><a href="#">My Best Friend</a></li>
+    </ul>
+</aside>
+```
+
+---
+
+
+# New Semantic Tags
+## Header
+Represents the "header" of a document or section of a document. The header element is typically used to group a set of h1–h6 elements to mark up a page's title with its subtitle or tagline. header elements may, however, contain more than just the section's headings and subheadings — e.g., version history information or publication date.
+``` html
+<header>
+    <h1>Header string</h1>
+    <p>Other content</p>
+</header>
+```
+---
+
+
+# New Semantic Tags
+## Footer
+Represents the "footer" of a document or section of a document. The footer element typically contains metadata about its enclosing section, such as who wrote it, links to related documents, copyright data, etc. Contact information for the section given in a footer should be marked up using the address element.
+
+---
+
+# New Semantic Tags
+## Figure, Figcaption
+The figure element represents some flow content, optionally with a caption, that is self-contained and is typically referenced as a single unit from the main flow of the document.
+
+The figure element can be used to annotate illustrations, diagrams, photos, code listings, etc., that are referenced in the main content of the document, but that could, without affecting the flow of the document, be moved away from that primary content — e.g., to the side of the page, to dedicated pages, or to an appendix.
+``` html
+<figure>
+    <img ... > (or video, table etc)
+    <figcaption>A rabid unicorn goring a fairy.</figcaption>
+</figure>
+```
+---
+
+# New Semantic Tags
+## Mark
+Represents a run of text in one document marked or highlighted because of its relevance in another context.
+
+When used in a quotation or other block of text referenced in a document, it indicates a highlight that was not present in the original document — e.g., a portion of text in an academic publication that has recently come under additional scrutiny.
+
+.columns[.col-50[
+``` html
+In this sentence we will be using
+the mark element. <mark>HTML5</mark>
+Can you see where it has been used?
+```
+].col-50.demo[
+In this sentence we will be using
+the mark element. <mark>HTML5</mark>
+Can you see where it has been used?
+]]
+---
+
+# New Semantic Tags
+## Audio
+Represents a sound or audio stream.
+
+Content may be nested inside the audio element. User agents should not show this content to the user. Authors should use this content to force older browsers to use a legacy audio plugin or to inform the user of how to access the audio content.
+
+.columns[.col-50[
+``` html
+<audio src="music.oga" controls>
+    <a href="music.oga">Download song</a>
+</audio>
+```
+].col-50.demo[
+<audio src="http://www.w3schools.com/html/horse.ogg" controls>
+    <a href="music.oga">Download song</a>
+</audio>
+]]
+---
+
+# New Semantic Tags
+## Video
+Represents a video or movie.
+
+.columns[.col-60[
+Content may be nested inside the video element. User agents should not show this content to the user. Authors should use this content to force older browsers to use a legacy video plugin or to inform the user of how to access the video content.
+
+``` html
+<video src="video.ogv" controls
+poster="poster.jpg" width="240" height="240">
+    <a href="video.ogv">Download song</a>
+</video>
+```
+].col-40.demo[
+<video src="http://www.w3schools.com/html/mov_bbb.mp4" controls width="240" height="240">
+    <a href="video.ogv">Download song</a>
+</video>
+]]
+---
+
+#SVG and Canvas
+
+- Provide native drawing functionality
+- Completely integrated into HTML5 documents (part of DOM)
+- Can be styled with CSS
+- Can be controlled with JavaScript
+- Use for animation, charts, images, pixel manipulation, and so on
+- Canvas supports 2D and 3D (WebGL)
+
+---
+
+
+#SVG
+
+SVG stands for **S**calable **V**ector **G**raphics and it is a language for describing 2D-graphics and graphical applications in XML and the XML is then rendered by an SVG viewer.
+.small[
+``` html
+<h4>HTML5 SVG Circle</h4>
+<svg id="svgelem" height="150" xmlns="http://www.w3.org/2000/svg">
+    <circle id="redcircle" cx="50" cy="50" r="50" fill="red" />
+</svg>
+
+<h4>HTML5 SVG Rectangle</h4>
+<svg id="svgelem" height="150" xmlns="http://www.w3.org/2000/svg">
+    <rect id="redrect" width="300" height="100" fill="red" />
+</svg>
+```
+]
+<br>
+.columns[.col-50.demo[
+<h4>HTML5 SVG Circle</h4>
+<svg id="svgelem" height="100" xmlns="http://www.w3.org/2000/svg">
+    <circle id="redcircle" cx="50" cy="50" r="50" fill="red" />
+</svg>
+].col-50.demo[
+<h4>HTML5 SVG Rectangle</h4>
+<svg id="svgelem" height="100" xmlns="http://www.w3.org/2000/svg">
+    <rect id="redrect" width="50" height="80" fill="red" />
+</svg>
+]]
+
+---
+
+
+#SVG example
+.small[
+index.html:
+```html
+<object data="assets/img/svg-example.svg" type="image/svg+xml" />
+<img src="assets/img/svg-example.svg" />
+```
+svg-example.svg:
+```xml
+<svg version="1.1"
+     baseProfile="full"
+     width="300" height="120"
+     xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="red" />
+  <circle cx="150" cy="60" r="50" fill="green" />
+  <text x="150" y="70" font-size="30" text-anchor="middle" fill="white">SVG</text>
+</svg>
+```
+]
+<br>
+.columns[.col-50.demo[
+<img src="assets/img/svg-example.svg" />
+].col-50.demo[
+<object data="assets/img/svg-example.svg" type="image/svg+xml" />
+]]
+---
+
+#SVG icons
+Icons are a great place to start using SVG on the web. SVGs are flexible, resolution independent, and light weight, so icons naturally lend themselves to the vector format.
+
+With SVG, the freedom exists to style individual elements within an icon, which opens up entirely new possibilities.
+
+<br>
+.col-80.center[
+  ![SVG icons](assets/img/font-awesome-icons.png)
+
+  [SVG icons](http://fortawesome.github.io/Font-Awesome/icons/)
+]
+
+
+---
+
+#Canvas
+.small[
+`<canvas>` is an HTML element which can be used to draw graphics using scripting (usually JavaScript). This can, for instance, be used to draw graphs, make photo composition or simple (and not so simple) animations. [Demo](assets/example-canvas.html)
+
+
+```html
+<html>
+ <head>
+  <script>
+    function draw() {
+      var canvas = document.getElementById("rectangles");   // Get canvas element
+      if (canvas.getContext) {
+        var ctx = canvas.getContext("2d");                  // Draw here
+        ctx.fillStyle = "rgb(200,0,0)";                     // Red fill color
+        ctx.fillRect (10, 10, 55, 50);                      // Create a red rectangle
+        ctx.fillStyle = "rgba(0, 0, 200, 0.5)";             // Blue fill color
+        ctx.fillRect (30, 30, 55, 50);                      // Create a second rectangle
+      }
+    }
+  </script>
+ </head>
+ <body onload="draw();">
+    <canvas id="rectangles" width="150" height="150">
+      <img src="../assets/img/logo.png" width="150" height="150" alt="Epam logo" />
+    </canvas>
+ </body>
+</html>
+
+```
+]
+
+---
+
+
+#Canvas example. Game
+.center[
+  ![Canvas game demo](assets/img/canvas-game.png)
+
+  [Canvas game demo](http://dougx.net/plunder/plunder.html)
+]
+
+
+---
+
+#HTML5 Shiv
+
+HTML5Shiv is a JavaScript workaround, invented by Sjoerd Visscher, to enable styling of HTML5 elements in versions of Internet Explorer prior to version 9, which do not allow unknown elements to be styled without JavaScript. HTML5Shiv is calling `document.createElement("tagname")` for each of the new HTML5 elements, which causes IE to parse them correctly. It also includes basic default styling for those HTML5 elements.
+
+``` html
+<!DOCTYPE html>
+<html>
+ <head>
+  <!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+   <section>
+     <article> ... </article>
+   </section>
+ </body>
+</html>
+```
+
+
+---
+
+# Additional links
+<br><br>
+
+- [SVG Tutorial](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial)
+- [Canvas Tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
+- [Manipulating SVG Icons With Simple CSS](http://webdesign.tutsplus.com/articles/manipulating-svg-icons-with-simple-css--webdesign-15694)
+- [Справочник по HTML5](https://webref.ru/)
+- [w3schools. HTML5 Introduction](http://www.w3schools.com/html/html5_intro.asp)
+
+
+---
+
+class: center, middle
+
+.title[
+# Thank you
+]
+
+</textarea>
+<!-- ================== End of Slides ================== -->
+
+        <script src="../assets/js/remark-latest.min.js" type="text/javascript"></script>
+        <script type="text/javascript">remark.create({highlightStyle: 'github'});</script>
+    </body>
+</html>
