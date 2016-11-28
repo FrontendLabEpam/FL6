@@ -69,53 +69,89 @@ Front-end training
 # CSS basics
 ]
 
-
 ---
-class: center, middle
+ # Intent
 
-.title[
-# HTML
-]
+<img src="assets/virtual-epam-site.png" >
 
-
----
- # Plain HTML
-<iframe src="http://motherfuckingwebsite.com/" frameborder="0" width="100%" height="100%"></iframe>
-
----
-# A few strings of CSS
-
-```css
-body {
-    margin: 40px auto;
-    max-width: 650px;
-    line-height: 1.6;
-    font-size: 18px;
-    color: #444;
-    padding: 0 10px
-}
-
-h1,h2,h3 {
-    line-height: 1.2
-}
+```html
+<table width="100%">
+    <tr valign="middle">
+        <td width="5%">&nbsp;</td>
+        <td width="40%"><img src="images/logo.svg" width="108"></td>
+        <td><font color="#464547" face="helvetica"><strong>SOLUTIONS</strong></font></td>
+        <td><font color="#464547" face="helvetica"><strong>INDUSTRIES</strong></font></td>
+        <td><font color="#464547" face="helvetica"><strong>ABOUT</strong></font></td>
+        ...
+    </tr>
+</table>
+<img src="image.jpg" width="100%" alt="EPAM"/>
 ```
 
 ---
-# Plain HTML + a little bit of CSS
-<iframe src="http://bettermotherfuckingwebsite.com/" frameborder="0" width="100%" height="100%"></iframe>
 
+#Cons
 
+<ul>
+    <li>Additional tags/attributes for styling</li>
+    <li>Duplications</li>
+    <li>Hard to maintain</li>
+    <li>No common style guides</li>
+</ul>
+
+```html
+<table width="100%">
+    <tr valign="middle">
+        <td width="5%">&nbsp;</td>
+        <td width="40%"><img src="images/logo.svg" width="108"></td>
+        <td><font color="#464547" face="helvetica"><strong>SOLUTIONS</strong></font></td>
+        <td><font color="#464547" face="helvetica"><strong>INDUSTRIES</strong></font></td>
+        <td><font color="#464547" face="helvetica"><strong>ABOUT</strong></font></td>
+        ...
+    </tr>
+</table>
+<img src="image.jpg" width="100%" alt="EPAM"/>
+```
 ---
-# What is CSS
 
-## CSS - Cascading Style Sheets
-Styles are a collection of settings that control the appearance and position of the elements of a Web page.
+#CSS is a solution
+- presenting language
+- present markup languages
 
 The types of styles:
 - a browser’s style
 - an author’s style
 - a user’s styles
 
+---
+#What we get with CSS
+
+```html
+<div class="logo">
+    <img src="images/logo.svg" width="108">
+</div>
+<div class="navigation">
+    <div>SOLUTIONS</div>
+    <div>INDUSTRIES</div>
+    <div>ABOUT</div>
+    ...
+</div>
+```
+```css
+.logo {
+    float: left;
+    padding: 10px;
+}
+.navigation {
+    text-align: right;
+}
+.navigation > div {
+    display: inline-block;
+    padding: 20px;
+    color: #464547;
+    font-family: helvetica;
+}
+```
 
 
 ---
@@ -123,9 +159,8 @@ The types of styles:
 
 # Benefits of styles
 
-- The separation of code and design;
+- The separation of markup and design;
 - Different design for different devices;
-- Extended methods to design elements over HTML;
 - Accelerate site download speed;
 - The only style design set for all documents on a web site;
 - Centralized storage.
@@ -305,7 +340,7 @@ All described methods of using CSS can be used either alone or in combination wi
 | print         | Used for printers       | Active |
 | projection    | Used for projected presentations, like slides       | **Deprecated** |
 | screen        | Used for computer screens, tablets, smart-phones etc.       | Active |
-| speech        | Used for screenreaders that "reads" the page out loud       | Active |
+| speech        | Used for screenreaders that "read" the page out loud       | Active |
 | tty           | Used for media using a fixed-pitch character grid, like teletypes and terminals       | **Deprecated** |
 | tv            | Used for television-type devices       | **Deprecated** |
 
@@ -584,7 +619,7 @@ p {
 ---
 
 
-# Context selectors
+# Contextual selectors
 
 .columns[
 .col-50[
@@ -638,12 +673,12 @@ p {
 ---
 
 
-# Next selectors
+# Sequential selectors (one next)
 
 ``` html
 <style>
  b + i {
-   color: yellow;
+   color: red;
  }
 </style>
 
@@ -652,9 +687,32 @@ p {
 &nbsp;
 .demo.demo-3[
 <style>
- .demo-3 b + i {
+.demo.demo-3 b + i {
    color: red;
  }
+</style>
+
+<p>Lorem <b>ipsum </b> dolor sit amet, <i>"first i"</i> adipiscing <i>"second i"</i> elit.</p>
+]
+
+---
+# Sequential selectors (all next)
+
+``` html
+<style>
+ b ~ i {
+     color: red;
+ }
+</style>
+
+<p>Lorem <b>ipsum </b> dolor sit amet, <i>"first i"</i> adipiscing <i>"second i"</i> elit.</p>
+```
+&nbsp;
+.demo.demo-4[
+<style>
+.demo.demo-4 b ~ i {
+    color: red;
+}
 </style>
 
 <p>Lorem <b>ipsum </b> dolor sit amet, <i>"first i"</i> adipiscing <i>"second i"</i> elit.</p>
@@ -1134,7 +1192,6 @@ min-height: 1em;
 min-width: 50%;
 opacity: 0.5;
 overflow: hidden;
-float:left;
 
 ```
 ]]
@@ -1271,6 +1328,16 @@ Let's play with selectors
 <a href="http://flukeout.github.io/">CSS Selectors Game</a>
 
 ---
+
+Let's style squares
+<a href="./assets/squares.7z">Download archive</a>
+
+---
+
+Let's add styles to real site
+<a href="./assets/yachtclub.zip">Download archive</a>
+
+---
 # Additional links
 
 - [Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -1278,6 +1345,9 @@ Let's play with selectors
 - [Codeacademy. Learn to code interactively, for free (codecademy.com)](http://www.codecademy.com/tracks/web)
 - [W3Schools CSS Reference](http://www.w3schools.com/css/default.asp)
 
+
+#Homework
+https://docs.google.com/document/d/1J5wzKwRIOzHe5TmfTq_pp29mrI3z0amyhaZrRJ12dd8
 
     </textarea>
 <!-- ================== End of Slides ================== -->
