@@ -248,22 +248,240 @@ class: left, top
 - min-height
 
 ---
-class: left, middle
+#Overflow
 
-# Border-box
-
-There is a rule in CSS that tells all browsers to follow the more logical IE approach.
-
-```css
-    box-sizing: border-box;
+```html
+<div class="parent">
+    <div class="child"></div>
+</div>
 ```
 
-This is particularly helpful when dealing with fluid layouts or creating mobile-friendly sites.
+```css
+.parent {
+    border: 4px red dotted; width: 500px; height: 500px;
+}
+.child {
+    border: 4px solid green; height: 400px; width: 700px;
+}
+```
+<div style=" border: 4px red dotted; width: 250px; height: 250px;">
+    <div style="border: 4px solid green; height: 200px; width: 350px;"></div>
+</div>
+---
+#Overflow: visible (default)
 
-<br>
+```html
+<div class="parent">
+    <div class="child"></div>
+</div>
+```
 
-<a target="_blank" class="jsbin-embed" href="http://jsbin.com/poyisuv/2/edit?css,output">Live example</a>
+```css
+.parent {
+    border: 4px red dotted; width: 500px; height: 500px; overflow: visible;
+}
+.child {
+    border: 4px solid green; height: 400px; width: 700px;
+}
+```
+<div style=" border: 4px red dotted; width: 250px; height: 250px; overflow: visible">
+    <div style="border: 4px solid green; height: 200px; width: 350px;"></div>
+</div>
+---
+#Overflow: hidden
 
+```html
+<div class="parent">
+    <div class="child"></div>
+</div>
+```
+
+```css
+.parent {
+    border: 4px red dotted; width: 500px; height: 500px; overflow: hidden;
+}
+.child {
+    border: 4px solid green; height: 400px; width: 700px;
+}
+```
+<div style=" border: 4px red dotted; width: 250px; height: 250px; overflow: hidden">
+    <div style="border: 4px solid green; height: 200px; width: 350px;"></div>
+</div>
+---
+#Overflow: auto
+
+```html
+<div class="parent">
+    <div class="child"></div>
+</div>
+```
+
+```css
+.parent {
+    border: 4px red dotted; width: 500px; height: 500px; overflow: auto;
+}
+.child {
+    border: 4px solid green; height: 400px; width: 700px;
+}
+```
+<div style=" border: 4px red dotted; width: 250px; height: 250px; overflow: auto">
+    <div style="border: 4px solid green; height: 200px; width: 350px;"></div>
+</div>
+---
+#Overflow: scroll
+
+```html
+<div class="parent">
+    <div class="child"></div>
+</div>
+```
+
+```css
+.parent {
+    border: 4px red dotted; width: 500px; height: 500px; overflow: scroll;
+}
+.child {
+    border: 4px solid green; height: 400px; width: 700px;
+}
+```
+<div style=" border: 4px red dotted; width: 250px; height: 250px; overflow: scroll">
+    <div style="border: 4px solid green; height: 200px; width: 350px;"></div>
+</div>
+---
+
+#Outline
+```css
+padding: 50px;
+border: 50px solid green;
+margin: 50px;
+outline: 25px solid red;
+
+```
+<figure style="text-align: center;">
+    <img src="images/outline.png"/>
+</figure>
+---
+
+#Types of CSS boxes: block
+```html
+<div>I am text before a child
+    <div>I am a child</div>
+    I am text after child</div>
+```
+
+```css
+div > div {
+   display: block; /* default */
+   width: 200px; height: 80px;
+   padding: 20px; margin: 50px;
+   border: 2px blue solid;
+   background-color: yellow;
+}
+```
+
+<div>I am text before a child
+    <div style=" width: 200px;
+   height: 80px;
+   padding: 20px;
+   border: 2px blue solid;
+   margin: 50px;
+   background-color: yellow;">I am a child</div>
+    I am text after child
+</div>
+
+---
+
+#Types of CSS boxes: inline
+```html
+<div>I am text before a child
+    <div>I am a child</div>
+    I am text after child</div>
+```
+
+```css
+div > div {
+   display: inline;
+   width: 200px;
+   height: 80px;
+   padding: 20px;
+   margin: 50px;
+   border: 2px blue solid;
+   background-color: yellow;
+}
+```
+
+<div>I am text before a child
+    <div style=" width: 200px;
+    display: inline;
+   height: 80px;
+   padding: 20px;
+   margin: 50px;
+   border: 2px blue solid;
+   background-color: yellow;">I am a child</div>
+    I am text after child
+</div>
+---
+
+#Types of CSS boxes: inline-block
+```html
+<div>I am text before a child
+    <div>I am a child</div>
+    I am text after child</div>
+```
+
+```css
+div > div {
+   display: inline-block
+   width: 200px;
+   height: 80px;
+   padding: 20px;
+   margin: 50px;
+   border: 2px blue solid;
+   background-color: yellow;
+}
+```
+
+<div>I am text before a child
+    <div style=" width: 200px;
+    display: inline-block;
+   height: 80px;
+   padding: 20px;
+   margin: 50px;
+   border: 2px blue solid;
+   background-color: yellow;">I am a child</div>
+    I am text after child
+</div>
+---
+
+        <div style="float: left; margin-right: 40px;"><h2>Block HTML elements</h2>
+<ul>
+<li class="w3rlist">p</li>
+<li class="w3rlist">h1, h2, h3, h4, h5, h6</li>
+<li class="w3rlist">ol, ul</li>
+<li class="w3rlist">pre</li>
+<li class="w3rlist">address</li>
+<li class="w3rlist">blockquote</li>
+<li class="w3rlist">dl</li>
+<li class="w3rlist">div</li>
+<li class="w3rlist">fieldset</li>
+<li class="w3rlist">form</li>
+<li class="w3rlist">hr</li>
+<li class="w3rlist">noscript</li>
+<li class="w3rlist">table</li>
+</ul>
+</div>
+        <div><h2>Inline HTML elements</h2></div>
+<ul>
+<li class="w3rlist"> b, big, i, small, tt</li>
+<li class="w3rlist">abbr, acronym, cite, code, dfn, em, kbd, strong, samp, var</li>
+<li class="w3rlist">a, bdo, br, img, map, object, q, script, span, sub, sup</li>
+<li class="w3rlist">button, input, label, select, textarea </li>
+</ul>
+
+---
+
+#box-sizing: content-box | border-box
+<img src="images/box-model.png">
 
 ---
 
