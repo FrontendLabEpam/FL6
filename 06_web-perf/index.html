@@ -63,29 +63,17 @@ Front-end training
 
 # Anatomy of a web page loading
 
-- DNS resolution
-- TCP connection
+- DNS resolution (Time to map the domain name (www.google.com) to an IP address)
+- TCP connection (Time to open a connection to the server and get an acknowledgement)
 - Send request
-- Wait for response
-- Download response
+- Wait for response (Time between initial connection and the first byte of the response)
+- Download response (Time it takes to download the content that the server has finished creating)
 - Parse (DOM, CSSOM)
 - Request sub-resource
 - Execute JS/Apply CSS
 - Compose Layout
 - Render
 
-
-
----
-
-
-
-#Network stages
-
-- **DNS Lookup** - Time to map the domain name (www.google.com) to an IP address
-- **Initial Connection** - Time to open a connection to the server and get an acknowledgement
-- **Wait Time** - Time between initial connection and the first byte of the response (time it takes the server to “cook” the page).
-- **Content Download** - Time it takes to download the content that the server has finished creating
 
 
 
@@ -125,7 +113,7 @@ Before the browser can render the page it needs to construct the DOM and CSSOM t
 
 ### Simple DOM example:
 
-``` html 
+``` html
 <html>
     <head>
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -199,7 +187,7 @@ Chrome DevTools Timeline allows us to capture and inspect the construction and p
 
 
 
-layout: false 
+layout: false
 
 # Render-tree construction, Layout, and Paint
 
@@ -219,7 +207,7 @@ All the steps the browser went through:
 
 
 
-layout: true 
+layout: true
 
 # Render Blocking CSS
 
@@ -243,9 +231,9 @@ CSS is a render blocking resource, get it down to the client as soon and as quic
 
 The experience on the right is often referred to as a “Flash of Unstyled Content” (FOUC).
 
-.columns[.col-50[.img-wrap-60[ 
-    ![NYT with css](assets/img/css-render-blocking-with-css.png) 
-    ]].col-50[.img-wrap-60[ 
+.columns[.col-50[.img-wrap-60[
+    ![NYT with css](assets/img/css-render-blocking-with-css.png)
+    ]].col-50[.img-wrap-60[
     ![NYT without css](assets/img/css-render-blocking-without-css.png)
 ]]]
 
@@ -270,7 +258,7 @@ CSS “media types” and “media queries” allow us to address use-cases when
 
 ---
 
-layout: false 
+layout: false
 
 
 
@@ -324,7 +312,7 @@ layout: true
 
 
 
-No CSS, no JavaScript, or other types of resources
+No CSS, no JavaScript, or other types of resources ([Demo](https://googlesamples.github.io/web-fundamentals/fundamentals/performance/critical-rendering-path/basic_dom_nostyle.html))
 
 .small[
 ```html
@@ -344,11 +332,13 @@ No CSS, no JavaScript, or other types of resources
 
 
 
+
+
 ---
 
 
 
-The same page but with an external CSS file:
+The same page but with an external CSS file ([Demo](https://googlesamples.github.io/web-fundamentals/fundamentals/performance/critical-rendering-path/analysis_with_css.html)):
 
 .small[
 ```html
@@ -372,7 +362,7 @@ The same page but with an external CSS file:
 
 
 
-Let’s add an extra JavaScript file:
+Let’s add an extra JavaScript file ([Demo](https://googlesamples.github.io/web-fundamentals/fundamentals/performance/critical-rendering-path/analysis_with_css_js.html)):
 
 .small[
 ```html
@@ -397,7 +387,7 @@ Let’s add an extra JavaScript file:
 
 
 
-We can add the “async” attribute to the script tag to unblock the parser:
+We can add the “async” attribute to the script tag to unblock the parser ([Demo](https://googlesamples.github.io/web-fundamentals/fundamentals/performance/critical-rendering-path/analysis_with_css_js_async.html)):
 
 .small[
 ```html
@@ -422,7 +412,7 @@ We can add the “async” attribute to the script tag to unblock the parser:
 
 
 
-Let’s say the CSS stylesheet was only needed for print:
+Let’s say the CSS stylesheet was only needed for print ([Demo](https://googlesamples.github.io/web-fundamentals/fundamentals/performance/critical-rendering-path/analysis_with_css_nb_js_async.html)):
 
 .small[
 ```html
@@ -519,6 +509,33 @@ Using absolute positioning makes element a child of the body in the render tree,
 
 
 ---
+
+
+
+
+# Text compression with GZIP
+
+- GZIP performs best on text-based assets: CSS, JavaScript, HTML
+- All modern browsers support GZIP compression and will automatically request it
+- Your server needs to be configured to enable GZIP compression
+- Some CDNs require special care to ensure that GZIP is enabled
+
+
+.img-wrap-100[![Dom timing](assets/img/gzip-transfer-vs-actual-size.png)]
+
+
+
+---
+
+# Combine javascript and css fles
+
+
+.img-wrap-80[![Waterfall](assets/img/waterfall.png)]
+
+
+
+---
+
 
 
 
@@ -696,17 +713,11 @@ Fetching something over the network is both slow and expensive: large responses 
 
 
 
-# PageSpeed Rules and Recommendations
+#HTTP/2
 
-- Eliminate render-blocking JavaScript and CSS
-- Optimize JavaScript Use
-  - Prefer async JavaScript resources
-  - Defer parsing JavaScript
-  - Avoid long running JavaScript
-- Optimize CSS Use
-  - Put CSS in the document head
-  - Avoid CSS imports
-  - Inline render-blocking CSS
+The focus of the protocol is on performance; specifically, end-user perceived latency, network and server resource usage. One major goal is to allow the use of a single connection from browsers to a Web site.
+
+.img-wrap-70[![http2](assets/img/http1-vs-http2.png)]
 
 
 
@@ -714,60 +725,21 @@ Fetching something over the network is both slow and expensive: large responses 
 
 
 
-# Network checklist
+# Recommendations checklist
 
 - GZIP
-- Minify CSS & JS 
+- Minify CSS & JS
 - Combine CSS & JS
 - Cache static resources
 - Use a CDN
 - Optimize images
 - Sprite images
 - base64 images
-
-
-
----
-
-
-
-# Text compression with GZIP
-
-- GZIP performs best on text-based assets: CSS, JavaScript, HTML
-- All modern browsers support GZIP compression and will automatically request it
-- Your server needs to be configured to enable GZIP compression
-- Some CDNs require special care to ensure that GZIP is enabled
-
-
-.img-wrap-100[![Dom timing](assets/img/gzip-transfer-vs-actual-size.png)]
-
-
-
----
-
-
-
-# Use efficient CSS selectors
-
-The following categories of rules are considered to be inefficient:
-
-- Rules with descendant selectors 
-``` css
-body * { }
-.hide-scrollbars * { }
-html #atticPromo ul li a { }
-```
-- Rules with child or adjacent selectors
-``` css
-body > * { }
-ul > li > a { }
-```
-
-- Rules that apply the :hover pseudo-selector to non-link elements for IE7 and IE8
-``` css
-    h3:hover { }
-    .foo:hover { }
-```
+- Eliminate render-blocking JavaScript and CSS
+- Prefer async JavaScript resources
+- Put CSS in the document head
+- Avoid CSS imports
+- Inline render-blocking CSS
 
 
 
@@ -788,6 +760,7 @@ ul > li > a { }
 
 
 # Related resources
+- Waterfall Analysis [https://www.keycdn.com/blog/waterfall-analysis/](https://www.keycdn.com/blog/waterfall-analysis/)
 - Chrome Dev Tools Overview [https://developer.chrome.com/devtools](https://developer.chrome.com/devtools)
 - Jank Free [http://jankfree.org/](http://jankfree.org/)
 - Website Performance Optimization. [Udacity cource](https://www.udacity.com/course/ud884)
