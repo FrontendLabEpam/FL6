@@ -1,0 +1,131 @@
+/* USER */
+.user {
+  overflow: hidden;
+  margin-bottom: 20px;
+  }
+  .user-pic {
+    float: left;
+    width: 50px;
+    padding: 5px;
+    background: #fff;
+    border: #ccc solid 1px;
+  }
+  .user-info {
+    overflow: hidden;
+    padding: 10px 0 0 20px;
+  }
+  .user-name {
+    margin: 0 0 5px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .user-status {
+    color: #666;
+  }
+  .user-status:before {
+    content: '';
+    display: inline-block;
+    vertical-align: top;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: red;
+    margin: 4px 5px 0 0;
+  }
+
+
+/* Main nav */
+.main-nav {
+  margin: 0 0 20px;
+  padding: 0;
+  }
+  .main-nav > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    }
+    .main-nav > ul > li {
+      margin: 0;
+      padding: 0;
+      }
+      .main-nav-item {
+        display: block;
+        padding: 10px;
+        border-bottom: #ccc solid 1px;
+        color: #666;
+        text-decoration: none;
+        }
+        .main-nav-item:hover {
+          background: #ddd;
+        }
+        .main-nav-item.is-active {
+          background: #36B1B9;
+          color: #fff;
+        }
+
+/*Sidebar-footer */
+.sidebar-footer {
+  color: #999;
+  font-size: 12px;
+}
+
+/* Task */
+.task {
+  margin: 0 0 20px;
+  padding: 15px 20px;
+  border: #ccc solid 1px;
+  border-radius: 2px;
+}
+  .task-header {
+    padding: 0 0 10px;
+    border-bottom: #eee solid 1px;
+    color: #000;
+    font-weight: bold;
+  }
+  .task-body {
+    padding: 10px 0;
+  }
+  .task-footer {
+    padding: 10px 20px;
+    font-style: italic;
+    font-size: 12px;;
+    margin: 0 -20px -15px;
+    background: #eee;
+  }
+    .task-footer-date {
+      display: inline-block;
+      margin-right: 20px;
+    }
+    .task-footer-left {
+      display: inline-block;
+    }
+      .task-footer-left:before {
+        content: '';
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        overflow: hidden;
+        background: #36B1B9;
+        margin: 0 5px 0 0;
+      }
+      .task-footer-left.is-late:before {
+        background: red;
+      }
+
+  /* state: is-primary */
+  .task.is-primary {
+    border-color: #36B1B9;
+  }
+  .task.is-primary .task-footer {
+    background: #B8E4E7;
+  }
+  /* state: is-disabled */
+  .task.is-disabled {
+    background: #eee;
+    color: #999;
+  }
+  .task.is-disabled .task-header {
+    color: #999;
+  }
