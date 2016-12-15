@@ -208,7 +208,7 @@ will generate
 .columns.small[.col-60[
 
   ``` scss
-  /* Variables */
+  // Variables
   $orange: #ffcd01;
   $navLinkColor: $orange;
   $themePrimaryColor: $orange;
@@ -218,16 +218,13 @@ will generate
       ul {
           margin: 0;
           padding: 0;
-
           li {
               display: inline-block;
-
               a {
-                  border-color: $base;
+                  border-color: $themePrimaryColor;
                   color: $navLinkColor;
-
                   &:hover {
-                    color: lighten($navLinkColor, 20%);
+                     color: lighten($navLinkColor, 20%);
                   }
               }
           }
@@ -239,23 +236,21 @@ will generate
 ].col-40[
 
   ``` css
-    .footer-nav ul {
-      margin: 0;
-      padding: 0;
-    }
-
-    .footer-nav ul li {
-      display: inline-block;
-    }
-
-    .footer-nav ul li a {
-      border-color: #000;
-      color: #000;
-    }
-
-    .footer-nav ul li a:hover {
-      color: #333;
-    }
+  /* Navigation */
+  .footer-nav ul {
+    margin: 0;
+    padding: 0;
+  }
+  .footer-nav ul li {
+    display: inline-block;
+  }
+  .footer-nav ul li a {
+    border-color: #ffcd01;
+    color: #ffcd01;
+  }
+  .footer-nav ul li a:hover {
+    color: #ffe167;
+  }
 
   ```
 
@@ -280,7 +275,7 @@ will generate
 
 
 @mixin bordered($color, $width: 1px) {
-  color: #77C1EF;
+  color: $color;
   border: $width solid black;
   width: 450px;
 
