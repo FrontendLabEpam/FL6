@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 40px;
+  margin: 0;
+  background: #807391;
+}
+
+.sidebar {
+  background: #FCFBF7;
+  box-shadow:  -5px 0 10px rgba(0,0,0,0.1) inset;
+  padding: 20px;
+  float: left;
+  width: 300px;
+  margin-top: 20px;
+}
+
+.main-panel {
+  background: #fff;
+  padding: 40px;
+  margin-left: 300px;
+  min-height: 500px;
+}
+
+
+/* Columns */
+.columns {
+  overflow: hidden;
+  margin: 0 -10px;
+}
+.col-half {
+  float: left;
+  width: 50%;
+  padding: 0 10px;
+}

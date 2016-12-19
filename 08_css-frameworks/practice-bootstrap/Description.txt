@@ -1,0 +1,9 @@
+1. Create a project folder. 
+2. Download bootstrap framework files from http://getbootstrap.com/ end extract files info the project folder
+3. Create an index.html file according to provided example on http://getbootstrap.com/getting-started/#template
+4. Create a grid layout according to provided design using http://getbootstrap.com/css/#grid-example-fluid as an markup example
+5. Add a page header, panel, table and a simplified version of a form components
+6. Add additional markup elements of inputs and buttons
+7. Add javascript functionality to the form: close alert panel and open the modal window after click on question mark button in password field.
+8. Add the theme file to a page
+9. download any custom theme form http://bootswatch.com/ and attach related css file to the page instead of original theme file
