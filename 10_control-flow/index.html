@@ -74,15 +74,11 @@ Conditional execution is written with the if keyword in JavaScript. In the simpl
     // Bad style, always use braces
     if (a > 5) console.log(‘it is true’); 
 
-
-    if (a && a === ‘someString’) { 
-        console.log(1); 
-    } else if (a || b) { 
-        console.log(2); 
-    } else if ((c + 5) < 10 ) { 
-        console.log(3); 
-    } else { 
-        console.log(4);
+    var user = false;
+    if (user) {
+        console.log(‘hello dear user’);
+    } else {
+        console.log(‘please signIn’);
     }
 </pre>
 
@@ -161,18 +157,35 @@ Conditional execution is written with the if keyword in JavaScript. In the simpl
 
 ---
 
+# else if 
+Use the else if statement to specify a new condition if the first condition is false.
+
+<pre class="brush: jscript">   
+    if(city === "Lviv"){
+       console.log("Hi Lviv")
+    } else if (city === "Kiev"){
+        console.log("Hi Kiev")
+    } else if(city === "Ternopil") {
+         console.log("Hi Ternopil")
+    } else {
+         console.log("Hi Unknown city")
+    }
+    
+</pre>
+
+---
 
 # switch
 
 <pre class="brush: jscript">
     switch (city) {
-        case: "Lviv"
+        case "Lviv" :
             console.log("Hi Lviv");
             break;
-        case: "Kiev"
+        case "Kiev" :
             console.log("Hi Kiev");
             break;
-        case: "Ternopil"
+        case "Ternopil" :
             console.log("Hi Ternopil");
             break;
         default:
@@ -185,16 +198,6 @@ You may put any number of case labels inside the block opened by switch. The pro
 
 
 ---
-
-# if/else vs switch vs ternary
-
-[Performance test](https://jsperf.com/if-else-vs-arrays-vs-switch-vs-ternary)<br/><br/>
-
-
-![Alt text](../assets/img/if_else_vs_arrays_vs_switch_vs_ternary.jpg)
-
----
-
 
 # while
 
@@ -222,10 +225,10 @@ You may put any number of case labels inside the block opened by switch. The pro
 
 
     do {  
-        var name = prompt("Who are you?"); 
-    } while (!name); 
+        var userName = prompt("Who are you?"); 
+    } while (!userName); 
 
-    console.log(name);
+    console.log(userName);
 </pre>
 
 
@@ -245,8 +248,15 @@ You may put any number of case labels inside the block opened by switch. The pro
     } 
 
     console.log(i); //10
-</pre>
+    
+    
+    for (let i = 0; i < 10; i++) { 
+        console.log(i); 
+    } 
 
+    console.log(i); //error  
+
+</pre>
 
 ---
 
@@ -297,21 +307,11 @@ You may put any number of case labels inside the block opened by switch. The pro
             break; 
         }
     }   
-    console.log(i); //10
+    console.log(i); //9
 </pre>
 
 
 ---
-
-# for vs while vs do/while
-
-[Performance test](https://jsperf.com/while-vs-for-queue)<br/><br/>
-
-
-![Alt text](../assets/img/while_vs_for.jpg)
-
----
-
 
 
 class: center, middle
