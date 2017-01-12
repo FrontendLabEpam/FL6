@@ -131,7 +131,7 @@ Primitives Are Immutable, they cannot be changed. Each change will create new in
   A Symbol is a primitive data type whose instances are unique and immutable. In some programming languages they are also called atoms.
 
   ```javascript
-  var sym1 = Symbol(); // TypeError
+  var sym1 = Symbol();
   var sym2 = Symbol("foo");
   var sym3 = Symbol("foo");
 
@@ -139,8 +139,6 @@ Primitives Are Immutable, they cannot be changed. Each change will create new in
 
   var sym4 = Symbol("foo");
   typeof sym4;     // "symbol"
-  var symObj = Object(sym);
-  typeof symObj;  // "object"
 
   ```
 
@@ -159,10 +157,34 @@ Primitives Are Immutable, they cannot be changed. Each change will create new in
   // access property
   object.propA
   object.propB
+
+  // delete property
+  delete object.propA
+  delete object.propB
+
   ```
 
 ---
-
+### Enumerate the properties of an object
+ there are couple of native ways to list/traverse object properties:
+### for...in 
+  ```javascript
+  var obj = {a:1, b:2, c:3};
+      
+  for (var prop in obj) {
+    console.log("obj." + prop + " = " + obj[prop]);
+  }
+  // Output:
+  // "obj.a = 1"
+  // "obj.b = 2"
+  // "obj.c = 3"
+  ```
+### Object.keys(o)
+This method returns an array with all the own  (not in the prototype chain) enumerable properties' names ("keys") of an object o. 
+```javascript
+console.log(Object.keys(obj)); // ["a", "b", "c"] 
+```
+---
 ## Array
 
   Array is a list of values with 0 based index.
@@ -184,14 +206,33 @@ Primitives Are Immutable, they cannot be changed. Each change will create new in
   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 
 ---
+### indexOf() 
+Method which returns the first (least) index of an element within the array equal to the specified value, or -1  if none is found.
+```javascript
+var arr = [2, 9, 5, 9]; 
+arr.indexOf(2); // 0 
+arr.indexOf(7); // -1
+arr.indexOf(9); // 1
 
+if (a.indexOf(7) === -1) {
+  // element doesn't exist in array
+}
+```
+### join()
+Join the elements of an array into a string: 
+```javascript
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+var energy = fruits.join(); // "Banana,Orange,Apple,Mango"
+var anotherEnergy = fruits.join('+'); // "Banana+Orange+Apple+Mango"
+```
+---
 # Date
 
   ```javascript
   var date = new Date(); // current date
   var now = Date.now() // current date as milliseconds
   ```
-
+https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Date
 ---
 
 # Map (ES6)
@@ -311,24 +352,26 @@ Primitives Are Immutable, they cannot be changed. Each change will create new in
 ---
 
 # Practice
-
-1. Create a page with textarea and a button
-
-2. Go to http://mockaroo.com/ and generate some data
+1. Write a function "vote" which takes an array as argument and returns an object where keys are elements of array and values are numbers of how many they are in an array
+  ```javascript
+var votes = ["angular","angular","react","react","react","angular","ember","react","vanilla"];
+var vote = function(arr){...}
+var result = vote(votes); // {angular: 3, react: 4, ember: 1, vanilla: 1}
+  ```
+2. Create a page with textarea and a button
+3. Go to http://mockaroo.com/ and generate some data
   - Add field with name favorite_color and Type Color
   - Rows: 100
   - Format JSON
   - Click Preview
   - Copy to generated data to textarea
-  - Display statistics (from 3.) on data below in any format (preferably table)
-
-3. Lets find out something about generated data
+  - Display statistics (from 4.) on data below in any format (preferably table)
+4. Lets find out something about generated data
   - How many Female and Male
   - How many favorite unique colors
   - How many each of color
   - What is the most favorite color
   - Find out not unique names first_name if there are such
-
 ---
 
 # Links
