@@ -26,84 +26,48 @@ class: center, middle
 
 .title[
 Front-end training
-# JSTD Library, BOM, RegExp
+# Window, BOM, RegExp
 ]
 
 ---
+# Window Object
+It represents the browser's window.
+All global JavaScript objects, functions, and variables automatically become members of the window object.
+Global variables are properties of the window object.
+Global functions are methods of the window object.
 
-# Arrays &amp; Strings
-
-```
-/* splice affects applied array */
-var arr = [1, 2, 3]
-arr.splice(0 /* start */, 2 /* count */,  5, 4 /* optional items to replace */); // [1, 2]
-arr; // [5, 4, 3]
-
-/* slice does not mutate applied array */
-var arr2 = [1, 2, 3]
-arr2.slice(0 /* start */, 2 /* till */); // [1, 2]
-arr2; // [1, 2, 3];
-
-/* other usefull methods that does not mutate data */
-[].filter(fn); [].sort(fn);  [].map(fn);  [].reduce(fn);  [].every(fn);  [].some(fn);
-
-/* Replace first occurence of symbol `from` with symbol `to` */
-'waz up'.replace('waz', 'what\'s'); // "what's up"
-
-/* Convert string to array with splitting it by delimeter. */
-'not a fanboy'.split(' '); // ["not", "a", "fanboy"]
-
-/* splice for strings */
-'ahoy'.substr(-1); // "y"
-```
-
+![Alt text](../assets/img/windowObjects.png)
 ---
-
-# Numbers &amp; Math
-
+# Window Object (cont.)
+Global variables appear as properties of window object
 ```
-// Detect is value NaN
-isNaN(val);
+var myName = 'Petro';
+console.log(window.myName); //Petro
+console.log(window['myName']); //Petro
 
-// Detect is val is a number (excluding Infinity, NaN, etc). Val may be a string.
-isFinite(val);
-
-// Return lesser one from 'a' and 'b'
-Math.min(a, b);
-
-// Return greater one from 'a' and 'b'
-Math.max(a, b);
-
-// Value of PI
-Math.PI; // 3.1415....
-
-// Trigonometry. Radians used, so use (degrees * Math.PI) / 180 to convert values from
-// degrees.
-Math.sin(angle); Math.cos(angle); //, ...
+window.lastName = 'Jordand';
+console.log(lastName) //Jordand
+window['oneAnotherName'] = 'Ivan';
+console.log(oneAnotherName); //Ivan;
 ```
-
+also
+```
+window.alert(arg);
+window.prompt(arg);
+window.confirm(arg);
+```
 ---
+# BOM (Browser object model)
+The Browser Object Model (BOM) allows JavaScript to "talk to" the browser.
 
-# Numbers &amp; Math (cont.)
-
-```
-Math.pow(x, y);
-
-// simple round
-Math.round(4.2); // 4
-
-// round 'down', throw out decimal part.
-Math.floor(4.2); // 4
-
-// round 'up', throw out decimal part &amp; add 1.
-Math.ceil(4.2); // 5
-
-// get random float number in range from 0 to 1.
-Math.random();
-
-//get random number from 0 to 100.
-Math.floor(Math.random() * 100)
-```
+- alert/confirm/prompt
+- delayed execution (setTimeout, setInterval)
+- Location
+- Navigator
+- Data storage (cookies/LocalStorage)
+- Local/Session storage
+- Dimensions
+- ...
 
 ---
 
@@ -236,8 +200,8 @@ Same methods available for `sessionStorage`.
 ---
 
 # RegExp
-
-Create regexp:
+A regular expression is an object that describes a pattern of characters.
+Regular expressions are used to perform pattern-matching and "search-and-replace" functions on text.
 
 `/word/` pattern that matches "word", using regex syntax
 
@@ -255,6 +219,9 @@ Create regexp:
 
 RegExps are matched __line by line__.
 
+http://regexr.com/
+
+http://regexper.com/
 ---
 
 # RegExp Usage
@@ -343,11 +310,6 @@ Reserved symbols: `(, ), \, /, *, +, ?, ., [, ]`
 ---
 
 # Further reading
-
-JS Library:
-
-- [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)
-- [WebPlatform.org](https://www.webplatform.org)
 
 BOM:
 
