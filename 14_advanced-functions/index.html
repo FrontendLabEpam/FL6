@@ -35,7 +35,7 @@ Front-end training
 
 Functions have builtin properties:
 
-`.length` shows how many arguments function awaits to get.  
+`.length` shows how many arguments function awaits to get.
 `.name` shows function's name if there is one.
 ```
 function isBigger(a, b) { return a > b; }
@@ -72,10 +72,10 @@ function showThis() {
 
 There can be total 4 contexts:
 
-- __window__ if you simply call function  
+- __window__ if you simply call function
 `showThis(); // -> window`
 
-- DOM element, if you call function as event listener  
+- DOM element, if you call function as event listener
 ` document.body.onclick = showThis; // ... -> &lt;body...`
 
 - object, if you call function as method:
@@ -84,7 +84,7 @@ var obj = { fn: showThis };
 obj.fn(); // -> Object { fn: function }
 ```
 
-- new object, if function used as constructor:  
+- new object, if function used as constructor:
 `new showThis; // -> showThis {}`
 
 ---
@@ -94,8 +94,8 @@ obj.fn(); // -> Object { fn: function }
 There are methods which allow you to change context:
 
 ```
-Function.call(context/*, comma-separated list of arguments */);
-Function.apply(context/*, list of arguments as array */);
+Function.prototype.call(context/*, comma-separated list of arguments */);
+Function.prototype.apply(context/*, list of arguments as array */);
 ```
 
 ```
