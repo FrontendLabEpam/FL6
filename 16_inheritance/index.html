@@ -26,23 +26,23 @@
 class: center, middle
 
 .title[
-Front-end training
-# Inheritance in JS &amp; Prototypes
+  Front-end training
+  # Inheritance
 ]
 
 ---
 
 # Inheritance
 
-Is a way to reuse code of existing objects,  
-or to establish a subtype from an existing object,   
+Is a way to reuse code of existing objects,
+or to establish a subtype from an existing object,
 or both, depending upon programming language support.
 
 ---
 
 # Reusability
 
-Let's consider next situation:  
+Let's consider next situation:
 you have 2 object to represent student and teacher.
 
 ```
@@ -79,7 +79,7 @@ describe(student); // -> "Vasya"
 describe(teacher); // -> "Vasili Alibabayevich"
 ```
 
-But such approach will create many functions without explaining their purpose;  
+But such approach will create many functions without explaining their purpose;
 May lead to name conflicts and lost object context:
 
 ```
@@ -114,57 +114,52 @@ student.describe(); // -> "Vasya"
 teacher.describe(); // -> "Vasili Alibabayevich"
 ```
 
-This approach also called "mixin",  
+This approach also called "mixin",
 since you basically mix parent object methods and properties to your object.
 
 merge implementations:
 [jQuery.extend](http://api.jquery.com/jQuery.extend/),
 [underscore.extend](http://underscorejs.org/#extend),
 [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+
 ---
 
 # Prototype
 
-Unlike "traditional" class-based approach,  
-JS uses constructors and _prototype_ objects as default extension mechanism.
+Unlike "traditional" class-based approach,
+JS uses constructors and `[[prototype]]` objects as default extension mechanism.
 
 You need to assign prototype object to constructor property called `prototype`,
 and when you create a new object - this object will be automatically assigned as a prototype:
-```
-Student.prototype = {type: 'human'}
-```
----
 
-# Prototype (cont.)
-
-Prototype object is an object where property or method will be searched if it is not found in object.
-
-.columns[.col-50[
-```
-function Person() {
-  this.describe = function() {
-    console.log(this.name);
-  }
+```javascript
+var someObject = {
+  name: 'test'
 }
 
-function Student(name) {
-  this.name = name;
-}
+// create an object linked to `someObject`
+var newObject = Object.create(someObject)
 
-Student.prototype = new Person();
-
-var student = new Student('Vasya');
-student.describe(); // Vasya
+newObject.name; // 'test'
 ```
-].col-50[
 
-![](chain.png)
-
-]]
+So, we have someObject that is now `[[Prototype]]` linked to newObject. Clearly newObject.name doesn't
+actually exist, but nevertheless, the property access succeeds (being found on anotherObject instead) and
+indeed finds the value test.
 
 ---
 
-# But where exactly does the [[Prototype]] chain "end"?
+class: center, middle
+
+![simple-chain](simple-chain.jpg)
+
+---
+
+class: center, middle
+
+# But where exactly does the [[Prototype]] chain "end" ?
+
+---
 
 The top-end of every *normal* `[[Prototype]]` chain is the built-in `Object.prototype`. This object
 includes a variety of common utilities used all over JS, because all normal objects in JavaScript "descend from"
@@ -179,114 +174,13 @@ the prototype chain of the object this method is called upon.
 
 ---
 
-# Change prototype properties
+class: center, middle
 
-When you change prototype object - all childs are automatically updated:
-
-```
-function Dog(name) {
-  this.name = name;
-}
-
-var dog = new Dog('Fido');
-var doge = new Dog('Shiba');
-dog.sayName(); // -> dog.sayName is not a function
-
-Dog.prototype.sayName = function() {
-  console.log(this.name);
-};
-
-dog.sayName(); // Fido
-doge.sayName(); // Shiba
-```
----
-
-# Change prototype properties (cont.)
-
-But notice, that when you change properties of specific prototype - only that
-constructor childs updated:
-
-```
-function Animal() {}
-function Cat(name) {
-  this.name = name;
-}
-Cat.prototype = new Animal;
-function Dog(name) {
-  this.name = name;
-}
-Dog.prototype = new Animal;
-
-var cat = new Cat('Kitty');
-var dog = new Dog('Fido');
-var doge = new Dog('Shiba');
-
-Dog.prototype.woof = function() {
-  console.log(this.name + ' say "woof"');
-};
-
-dog.woof(); // Fido say "woof"
-dog.woof(); // Shiba say "woof"
-cat.woof(); // TypeError: undefined is not a function
-```
+![chain](chain.png)
 
 ---
 
-# Detect property source
-
-You can find out where property or method comes from - object itself or prototype;  
-by using `hasOwnProperty(key)`.
-
-```
-cat.hasOwnProperty('name'); // true
-cat.hasOwnProperty('sayName'); // false
-```
-
-Prototype methods and properties are captured by `for..in` loop,  
-so if you don't need them - use `hasOwnProperty`.
-
-```
-for (var key in cat) {
-  console.log(key);
-} // name, sayName
-```
-
-```
-for (var key in cat) {
-  if (cat.hasOwnProperty(key))
-    console.log(key);
-} // name
-```
----
-
-# Sensitive data in prototypes
-
-Never store data that may change in prototype
-
-```
-function Animal() {
-  this.fed = false; // "sensitive" data
-  this.items = [];
-}
-
-function Cat(name) {
-  this.name = name;
-}
-
-Cat.ptototype = new Animal();
-Cat.prototype.give = function(item) {
-  this.items.push(item);
-};
-
-var kitty = new Cat('kitty');
-var cat = new Cat('cat');
-cat.give('food');
-cat.items; // ['food']
-kitty.items; // ['food'] -> bad, we didn't give anything to kitty
-```
----
-
-# Inheriting another prototype
+# Inheritance example
 
 ```javascript
 var Person = function(name) {
@@ -351,6 +245,116 @@ var rg = new Employee('Red Green', 'Handyman'); rg.greet(); // Hi, I am Red Gree
 
 ---
 
+# Change prototype properties
+
+When you change prototype object - all childs are automatically updated:
+
+```
+function Dog(name) {
+  this.name = name;
+}
+
+var dog = new Dog('Fido');
+var doge = new Dog('Shiba');
+dog.sayName(); // -> dog.sayName is not a function
+
+Dog.prototype.sayName = function() {
+  console.log(this.name);
+};
+
+dog.sayName(); // Fido
+doge.sayName(); // Shiba
+```
+---
+
+# Change prototype properties (cont.)
+
+But notice, that when you change properties of specific prototype - only that
+constructor childs updated:
+
+```
+function Animal() {}
+
+function Cat(name) {
+  this.name = name;
+}
+Cat.prototype = Object.create(Animal.prototype);
+Cat.prototype.constructor = Animal;
+
+function Dog(name) {
+  this.name = name;
+}
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Animal;
+
+var cat = new Cat('Kitty'); var dog = new Dog('Fido'); var doge = new Dog('Shiba');
+Dog.prototype.woof = function() {
+  console.log(this.name + ' say "woof"');
+};
+
+// Fido say "woof"    // Shiba say "woof"
+dog.woof();           dog.woof();
+cat.woof(); // TypeError: undefined is not a function
+```
+
+---
+
+# Detect property source
+
+You can find out where property or method comes from - object itself or prototype;
+by using `hasOwnProperty(key)`.
+
+```
+cat.hasOwnProperty('name'); // true
+cat.hasOwnProperty('sayName'); // false
+```
+
+Prototype methods and properties are captured by `for..in` loop,
+so if you don't need them - use `hasOwnProperty`.
+
+```
+for (var key in cat) {
+  console.log(key);
+} // name, sayName
+```
+
+```
+for (var key in cat) {
+  if (cat.hasOwnProperty(key))
+    console.log(key);
+} // name
+```
+---
+
+# Sensitive data in prototypes
+
+Never store data that may change in prototype
+
+```
+function Animal() {
+  this.fed = false;
+}
+// "sensitive" data
+Animal.prototype.items = [];
+
+function Cat(name) {
+  this.name = name;
+}
+
+Cat.prototype = Object.create(Animal.prototype);
+Cat.prototype.constructor = Animal;
+Cat.prototype.give = function(item) {
+  this.items.push(item);
+};
+
+var kitty = new Cat('kitty');
+var cat = new Cat('cat');
+cat.give('food');
+cat.items; // ['food']
+kitty.items; // ['food'] -> bad, we didn't give anything to kitty
+```
+---
+
 # Method override
 
 If you need to change an object behaviour - you can rewrite prototype's object method:
@@ -411,29 +415,6 @@ var a = 1;
 a.getId(); // -> some random id
 ```
 
----
-
-# Extending objects
-
-To extend objects without constructor you may use:
-
-```Object.create(protoObject, propertiesObject);```
-
-```
-var base = {
-  value: true
-};
-
-var o1 = Object.create(base);
-var o2 = Object.create(base);
-
-console.log(o1.value); // -> true
-console.log(o2.value); // -> true
-
-base.value = false;
-console.log(o1.value); // -> false
-console.log(o2.value); // -> false
-```
 ---
 
 # Composition
