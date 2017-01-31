@@ -137,6 +137,12 @@ class: center, middle
 
 ---
 
+# http://kangax.github.io/compat-table/es6/
+
+![kangax table](kangax.png)
+
+---
+
 class: center, middle
 
 # Lets look into deeper into ES2015
@@ -263,6 +269,39 @@ function rectArea ({ width = 5, height = 5 } = {}) {
 }
 console.log(rectArea({height: 30})); // 150
 ```
+
+---
+
+One kaveat with default function params
+```
+function test(a, b) {  }
+```
+--
+
+test.length
+--
+
+// 2
+--
+
+```
+function test(a, b = 1) {  }
+```
+
+test.length
+--
+
+// 1
+--
+
+```
+function test(a = 1, b ) {  }
+```
+
+test.length
+--
+
+// 0
 
 ---
 # Classes
