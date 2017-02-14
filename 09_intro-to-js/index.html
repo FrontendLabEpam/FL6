@@ -99,7 +99,7 @@ ECMAScript.
 
 ![Alt text](../assets/img/the-most-used-programming-languages-on-stack-overflow-2013-2014-2015.png)
 
-
+<a href="http://stackoverflow.com/research/developer-survey-2016#technology">more</a>
 ---
 
 
@@ -109,7 +109,7 @@ ECMAScript.
 
 ![Alt text](../assets/img/browsers1.jpg)
 
-
+<a href="https://www.w3counter.com/globalstats.php?year=2016&month=11">more</a>
 ---
 
 
@@ -278,7 +278,7 @@ var a = 5 + 8;
 ---
 
 
-# JS output
+# JS output and debugging
 
 For JavaScript values output you can use “console.log” or “alert” function.
 
@@ -292,11 +292,40 @@ alert(123);
 alert("the value of x is");
 </pre>
 
+You can execute JS directly into console, open dev tools (F12) and go in "Console" tab
 
+![Alt text](../assets/img/console.log.jpg)
 
 ---
 
 
+
+You can stop execution of JS in some particular place of code and take a look what is going on there.
+Open dev tools and go in 'Sources' tab
+
+index.html
+``` html
+
+<!Doctype html>
+<html>
+<head>
+    <script src=”script1.js”></script>
+</head>
+...
+</html>
+
+```
+script1.js
+<pre class="brush: jscript">
+var a = 15 + 45;
+var b = 32 + 11;
+var c = a + b; 
+</pre>
+
+![Alt text](../assets/img/debugging.jpg)
+
+---
+ 
 # Variables
 
 To catch and hold values, JavaScript provides a thing called a variable. A variable always has a name,
@@ -305,7 +334,7 @@ and it can point at a value, holding on to it.
 <pre class="brush: jscript">
 var a;
 
-var c, b, myVariable;
+var b, c, myVariable;
 
 var _x = 10, $z = 20, myVariable = 30;
 
@@ -322,14 +351,56 @@ ES6
 <pre class="brush: jscript">
 let a;
 
-let c, b, myVariable;
+let b, c, myVariable;
+
+const A = 'some A constant';
+
+const B = 'some B constant',
+      MY_CONST = 'some MY_CONST constant';
 
 ...
 </pre>
 
+---
+# Interaction with user via ‘prompt’
+
+The prompt() method displays a dialog box that prompts the visitor for input.
+
+Syntax
+
+<pre class="brush: jscript">
+prompt(text, defaultText)
+</pre>
+
+.demo1[
+<table class="table-demo">   
+    <thead>
+        <tr>
+            <th><em>Parameter</em></th>
+            <th><em>Type</em></th>
+            <th><em>Description</em></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>text</td>
+            <td>string</td>
+            <td>Required. The text to display in the dialog box</td>
+        </tr>
+        <tr>
+            <td>defaultText</td>
+            <td>string</td>
+            <td>Optional. The default input text</td>
+        </tr>
+    </tbody>
+</table>
+]
+
+<pre class="brush: jscript">
+var userName =  prompt("what is your name", "Petro");
+</pre>
 
 ---
-
 
 # Keywords and reserved words
 
@@ -387,7 +458,7 @@ var a = (someVar1 > someVar2) ? 4 : 2;
 console.log(0);
 //0
 console.log(-2);
-//2
+//-2
 console.log(3.5);
 //3.5
 console.log(.75);
@@ -420,7 +491,7 @@ console.log(++i);
 //21
 console.log(i);
 //21
-console.log(i++);
+console.log(i--);
 //21
 console.log(i);
 //20
@@ -446,13 +517,26 @@ Strings are used to represent text. They are written by enclosing their content 
 <pre class="brush: jscript">
 var a = “First string”;
 var b = ‘Second string’;
-var c = “Some ‘interest’ string”;
+var c = a + ' and ' + b; //First string and Second string
 
 var stringLength = “Hello”.length;
 
 var complexString = “Some \”complex \” string”
 </pre>
 
+Template Strings (ES6)
+
+it uses back-ticks (``) rather than the single or double quotes: 
+
+<pre class="brush: jscript">
+let a = `First string`;
+let b = `Second string`;
+
+let c = `${a} and ${b}`; //First string and Second string
+
+let d = `2 + 2 is equal ${2 + 2}`; //"2 + 2 is equal 4"
+
+</pre>
 
 ---
 

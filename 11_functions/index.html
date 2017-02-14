@@ -137,8 +137,22 @@ function showArg(arg) {
 showArg(1); // -> 1
 showArg();  // -> undefined
 ```
-
 ---
+# Function arguments (cont.)
+Default values (ES6)
+
+Default function parameters allow formal parameters to be initialized with default values if no value or undefined is passed.
+
+```
+function showArg(arg = 'some default value') {
+  console.log(arg);
+}
+
+showArg(1); // -> 1
+showArg();  // -> some default value
+```
+---
+
 # Function arguments object
 
 You may access all passed values with `arguments` keyword inside of a function.  
@@ -198,7 +212,7 @@ noReturn(); // -> undefined
 ---
 # Functions are values
 
-In JavaSscript, functions are values, that is why function expressions exist.
+In JavaScript, functions are values, that is why function expressions exist.
 
 ```
 function multiplier(factor) {
@@ -330,6 +344,29 @@ function countProfit(price) {
   
   return profit;
 }
+```
+
+---
+# Arrow functions (ES6)
+
+An arrow function expression has a shorter syntax than a function expression and does not bind its own this, arguments, super, or new.target. Arrow functions are always anonymous.
+```
+(param1, param2, …, paramN) => { statements }
+(param1, param2, …, paramN) => expression
+// equivalent to: (param1, param2, …, paramN) => { return expression; }
+
+// Parentheses are optional when there's only one parameter:
+(singleParam) => { statements }
+singleParam => { statements }
+
+// A function with no parameters requires parentheses:
+() => { statements }
+() => expression // equivalent to: () => { return expression; }
+
+let myVeryUsefulFunction = () => {
+  console.log('meow');
+};
+
 ```
 
 ---

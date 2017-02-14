@@ -29,6 +29,126 @@ Front-end training
 ]
 
 ---
+
+class: center, middle
+
+# A History Lesson
+
+---
+
+# ECMA-262 timeline
+--
+
+- June 1997 - First edition of ECMAScript
+--
+
+- August 1998 - ES2, to align with ISO/IEC 16262
+--
+
+- December 1999 - ES3, added regex, try/catch and more
+--
+
+- July 2008 - ~~ES4, Abandoned due to complexity~~
+--
+
+- December 2009 - ES5, strict mode, JSON, get/set, and more
+--
+
+- June 2011 - ES5.1, to align with ISO/IEC 16262 3rd edition
+--
+
+- June 2015 - ES6/ES2015, a lot of stuff!
+--
+
+- 28 January 2016 - final feature set for ES2016
+--
+
+- 29 January 2017 - final feature set for ES2017
+
+---
+
+# The TC39 process
+
+![TC-39 meeting](tc-39.png)
+
+---
+
+class: center, middle
+
+# ECMAScript 2015 is huge
+
+---
+
+# ECMAScript 2015
+
+* Arrow functions
+* Binary and Octal Literals
+* Block-scoped variables (let / const)
+* Classes
+* Default + rest + spread parameters
+* Destructuring
+* Enhanced object literals
+* Generators
+* Iterators + for..of
+* Map + Set + WeakMap + WeakSet
+
+---
+
+* new Math + Number + String + Array + Object APIs
+* Modules
+* Promises
+* Proxies
+* Reflect API
+* Subclassable Built-ins
+* Symbols
+* Tail Calls
+* Template strings
+* Unicode (full support)
+
+---
+
+class: center, middle
+
+# ECMAScript 2016 even bigger
+
+---
+
+# ECMAScript 2016
+
+* [Array.prototype.includes](http://www.2ality.com/2016/02/array-prototype-includes.html)
+* [Exponentiation Operator](http://www.2ality.com/2016/02/exponentiation-operator.html)
+
+---
+
+class: center, middle
+
+# ECMAScript 2017
+
+---
+
+# ECMAScript 2017
+
+* [Async Functions](http://www.2ality.com/2016/02/async-functions.html)
+* [Shared memory and atomics](http://www.2ality.com/2017/01/shared-array-buffer.html)
+* [Object.values/Object.entries](http://www.2ality.com/2015/11/stage3-object-entries.html)
+* [String padding](http://www.2ality.com/2015/11/string-padding.html)
+* [Object.getOwnPropertyDescriptors()](http://www.2ality.com/2016/02/object-getownpropertydescriptors.html)
+* [Trailing commas in function parameter lists and calls](http://www.2ality.com/2015/11/trailing-comma-parameters.html)
+
+---
+
+# http://kangax.github.io/compat-table/es6/
+
+![kangax table](kangax.png)
+
+---
+
+class: center, middle
+
+# Lets look into deeper into ES2015
+
+---
+
 # Variable Declarations
 
 ```
@@ -149,6 +269,39 @@ function rectArea ({ width = 5, height = 5 } = {}) {
 }
 console.log(rectArea({height: 30})); // 150
 ```
+
+---
+
+One kaveat with default function params
+```
+function test(a, b) {  }
+```
+--
+
+test.length
+--
+
+// 2
+--
+
+```
+function test(a, b = 1) {  }
+```
+
+test.length
+--
+
+// 1
+--
+
+```
+function test(a = 1, b ) {  }
+```
+
+test.length
+--
+
+// 0
 
 ---
 # Classes

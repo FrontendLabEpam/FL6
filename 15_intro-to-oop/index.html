@@ -43,62 +43,119 @@ Front-end training
 
 # OOP
 
-The OOP programming style consist of three fundamental features:
+The OOP programming style in Javascript consist of three fundamental features:
 
-- ### Encapsulation
+* ### Encapsulation
 A language mechanism for restricting access to some of the object's components.
-- ### Polymorphism
+* ### Polymorphism
 Is the ability to create a variable, a function, or an object that has more than one form.
-- ### Inheritance
+* ### Inheritance
 Is a way to reuse code of existing objects, or to establish a subtype from an existing object, or
 both, depending upon programming language support.
 
 ---
 
+class: center, middle
 
-# OOP in JS
-
-Javascript (ECMAScript) is the *** object-oriented *** programming language with the *** prototype
-based*** implementation.
-
-*** Prototype *** is an object, which is used either as an original copy for other objects, or as a
-helper object to which characteristics other objects can delegate in case if these objects do
-not have the necessary characteristic themselves.
-
-*** Mutations *** (full convertibility: not only values, but also all of characteristics) are directly
-related with dynamics of the language.
-    Such objects can independently store all their characteristics (properties, methods) and do
-not need the class.
-
-Moreover, because of dynamics, they can easily change (add, delete, modify) their
-characteristics.
-
-
+.title[
+  Front-end training
+  # This, that, self
+]
 
 ---
 
+class: center, middle
 
-# OOP models
+# What's this?
 
+---
 
-*** Prototype based model (Javascript) ***
-- the basic concept is an object;
-- objects do not have the strict classes which describe
-their structure and behavior; objects do not need
-classes;
-- objects are fully dynamic and mutable (and in the
-theory can completely mutate from one type into
-another);
-- however, not having classes, objects can have
-prototypes to which they can delegate if cannot answer
-the message themselves;
-- the object prototype can be changed at any moment at
-runtime;
-- in delegation based model changing prototype’s
-characteristics will affect on all objects related with this
-prototype;
-- instances can have unique behavior (properties and
-methods).
+class: middle
+
+> One of the most confused mechanisms in JavaScript is the `this` keyword. It's a special identifier
+keyword that's automatically defined in the scope of every function, but what exactly it refers
+to bedevils even seasoned JavaScript developers. -- Kyle Simpson
+
+---
+
+# Context "this"
+
+```javascript
+var user = {
+  firstName: 'Petya'
+};
+var admin = {
+  firstName: 'Vasya'
+};
+
+function getName() {
+  return this.firstName;
+}
+
+user.a = getName;
+user.a(); // returns 'Petya'
+showName.call(admin); // returns 'Vasya'
+showName(); // returns undefined
+              // in case 'srict mode' will throw TypeError: `this` is `undefined`
+```
+
+---
+
+class: middle
+
+> `this` is actually a binding that is made when a function is invoked, and what it references
+is determined entirely by the call-site where the function is called. -- Kyle Simpson
+
+---
+
+# Context "this"
+
+There are 4 invocation patterns in JS:
+* Default Binding
+
+```javascript
+function func() {
+  console.log(this.a);
+}
+func(); // this is bond to the global object.
+```
+
+* Implicit Binding
+
+```javascript
+var a = {
+  func: // some function
+}
+a.func(); // this refers to the object, i.e., a.
+```
+
+* Explicit Binding
+
+```javascript
+func.apply(thisArg, argArray); // this is bond to the first argument
+```
+* `new` Binding
+
+```javascript
+var func = new Func(); // this refers to func while in Func constructor
+```
+
+---
+
+class: center, middle
+
+# Constructor
+
+---
+
+class: middle
+
+When a function is invoked with `new` in front of it, otherwise known as a constructor call, the following things are done automatically:
+
+1. a brand new object is created (aka, constructed) out of thin air
+2. *the newly constructed object is `[[Prototype]]`-linked*
+3. the newly constructed object is set as the `this` binding for that function call
+4. unless the function returns its own alternate **object**, the `new`-invoked function call will *automatically* return the newly constructed object.
 
 ---
 
@@ -107,23 +164,21 @@ methods).
 Constructor is a function that creates and initializes the newly created object according to the
 template.
 
-<pre class="brush: jscript">
+```javascript
 function Animal(name) {
-    this.name = name;
-    this.canWalk = true;
+  this.name = name;
+  this.canWalk = true;
 }
 
 var dog = new Animal("dog");
 
-
 // dog = {
-//     name: "dog",
-//     canWalk: true
+//   name: "dog",
+//   canWalk: true
 // }
-		</pre>
+```
 
-		The names of the functions that are designed to create objects, as a rule, begin with a capital letter.
-
+The names of the functions that are designed to create objects, as a rule, begin with a capital letter.
 
 ---
 
@@ -134,62 +189,79 @@ constructive plan of own objects.
 
 Each object - a member of a class, is an instance of class or object.
 
-<pre class="brush: jscript">
-    function Clock(hours, minutes) {
-        this.hours = hours;
-        this.minutes = minutes;
-        this.setTime = function(hours, minutes) {
-			this.hours = hours;
-			this.minutes = minutes;
-		}
-        this.displayTime = function () {
-			alert(this.hours + ":" + this.minutes);
-		}
-    }
+```javascript
+function Clock(hours, minutes) {
+  this.hours = hours;
+  this.minutes = minutes;
+  this.setTime = function(hours, minutes) {
+    this.hours = hours;
+    this.minutes = minutes;
+  }
+  this.displayTime = function () {
+    console.log(this.hours + ":" + this.minutes);
+  }
+}
 
-	var clock = new Clock(12, 30);
-	var secondClock = new Clock(11, 45);
-	clock.setTime(12, 45);
-	clock.displayTime(); // 12:45
-	secondClock.displayTime(); // 11:45
-	console.log(clock instanceof Clock); // true
-</pre>
+  var clock = new Clock(12, 30);
+  var secondClock = new Clock(11, 45);
 
+  clock.setTime(12, 45);
+  clock.displayTime(); // 12:45
+  secondClock.displayTime(); // 11:45
 
+  console.log(clock instanceof Clock); // true
+```
 
 ---
 
-# "Classes" in ES6
+# "Classes" in ES2015
 
 ES6 classes are a simple sugar over the prototype-based OOP pattern.
 
-<pre class="brush: jscript">
-	class Clock {
-		constructor (hours, minutes) {
-			this.hours = hours;
-			this.minutes = minutes;
-		}
-		setTime (hours, minutes) {
-			this.hours = hours;
-			this.minutes = minutes;
-		}
-		displayTime () {
-			alert(this.hours + ":" + this.minutes);
-		}
-	}
+```javascript
+class Clock {
+  constructor (hours, minutes) {
+    this.hours = hours;
+    this.minutes = minutes;
+  }
+  setTime (hours, minutes) {
+    this.hours = hours;
+    this.minutes = minutes;
+  }
+  displayTime () {
+    console.log(`${this.hours}:${this.minutes}`);
+  }
+}
 
-	var clock = new Clock(12, 30);
-	var secondClock = new Clock(11, 45);
-	clock.setTime(12, 45);
-	clock.displayTime(); // 12:45
-	secondClock.displayTime(); // 11:45
-	console.log(clock instanceof Clock); // true
-</pre>
+var clock = new Clock(12, 30);
+var secondClock = new Clock(11, 45);
 
+clock.setTime(12, 45);
+clock.displayTime(); // 12:45
+secondClock.displayTime(); // 11:45
 
+console.log(clock instanceof Clock); // true
+```
 
 ---
 
+class: center, middle
+
+.title[
+  Front-end training
+  # Now lets talk about OOP
+]
+
+---
+
+class: center, middle
+
+.title[
+  Front-end training
+  # Encapsulation
+]
+
+---
 
 # Encapsulation in JS
 Encapsulation is an increasing of abstraction, but not a paranoid hiding from “malicious hackers”
@@ -199,72 +271,145 @@ It is a big (and widespread) mistake to use hiding for the sake of hiding.
 ECMAScript 5, does not define private, protected, and private modifiers how it is in other OOP languages.
 However, on practice it is possible to see something that is named “imitation of encapsulation in JS”.
 
-<pre class="brush: jscript">
-	function Clock(hours, minutes) {
-		var _hours = hours;
-		var _minutes = minutes;
+```javascript
+function Clock(hours, minutes) {
+  var _hours = hours;
+  var _minutes = minutes;
 
-		this.setHours(hours) {
-			_hours = hours;
-		}
+  this.setHours(hours) {
+    _hours = hours;
+  }
 
-		this.getHours() {
-			return _hours;
-		}
-	}
-    var clock = new Clock(12, 30);
-    alert(clock._hours); // undefined, "private"
-    alert(clock.getHours()); // 12
-</pre>
-
-
+  this.getHours() {
+    return _hours;
+  }
+}
+var clock = new Clock(12, 30);
+alert(clock._hours); // undefined, "private"
+alert(clock.getHours()); // 12
+```
 
 ---
 
+# Encapsulation in ES2015
 
-# Encapsulation in ES6
+```javascript
+const _hours = Symbol('hours');
+const _minutes = Symbol('minutes');
 
-<pre class="brush: jscript">
-	let _hours;
-	let _minutes;
+class Clock {
+  constructor (hours = 0, minutes = 0) {
+    this[_hours] = hours;
+    this[_minutes] = minutes;
+  }
+  set hours(hours) {
+    this[_hours] = hours;
+  }
+  get hours () {
+    return this[_hours];
+  }
+}
+var clock = new Clock(12, 30);
+console.log(clock.hours); // 12
 
-	class Clock {
-		constructor (hours, minutes) {
-			_hours = hours;
-			_minutes = minutes;
-		}
-		set hours(hours) {
-			_hours = hours;
-		}
-		get hours () {
-			return _hours;
-		}
-	}
-    var clock = new Clock(12, 30);
-    alert(clock.hours); // 12
-	clock.hours = 10;
-	alert(clock.hours); // 10
-	alert(clock._hours); // undefined
-</pre>
+clock.hours = 10;
+console.log(clock.hours); // 10
+console.log(clock._hours); // undefined
 
+//But...
+console.log(clock[_hours]); // 10 :( maybe WeakMap?
+```
+---
+
+# Encapsulation in ES2015
+
+```javascript
+// clock.js
+const _hours = Symbol('hours');
+const _minutes = Symbol('minutes');
+
+export default class Clock {
+  constructor (hours = 0, minutes = 0) {
+    this[_hours] = hours;
+    this[_minutes] = minutes;
+  }
+  set hours(hours) {
+    this[_hours] = hours;
+  }
+  get hours () {
+    return this[_hours];
+  }
+}
+// main.js
+import Clock from './clock'
+
+var clock = new Clock(12, 30);
+console.log(clock.hours); // 12
+
+clock.hours = 10;
+console.log(clock.hours); // 10
+console.log(clock._hours); // undefined
+```
 
 ---
 
+class: center, middle
+
+.title[
+  Front-end training
+  # Polymorphism
+]
+
+---
 
 # Polymorphism in JS
 
 Objects in ECMAScript are polymorphic in several meanings.
 
-For example, one function can be applied to different objects, just like it would be the native
-characteristic of an object (because *** this *** value determinate on entering the execution context):
+"polymorphism" describes the idea that a general behavior from a parent class can be overridden in
+a child class to give it more specifics. In fact, relative polymorphism lets us reference the base
+behavior from the overridden behavior.
 
-<pre class="brush: jscript">
-function test(o) {
-    alert(this.a, this.b);
+# Example
+
+```javascript
+
+class Cat {
+
+  voice() {
+    console.log('meow')
+  }
 }
 
-var o1 = {a: 10, b: 20};
-var o2 = {a: 100, b: 200};
+class Tiger extends Cat {
+
+  voice() {
+    console.log('meow !!!')
+  }
+}
+
+```
+
+This technique is called "polymorphism", or "virtual polymorphism".
+
+---
+
+# Polymorphism in JS
+
+Another aspect of polymorphism is that a method name can have multiple definitions at different
+levels of the inheritance chain, and these definitions are automatically selected as appropriate when
+resolving which methods are being called.
+
+For example, one function can be applied to different objects, just like it would be the native
+characteristic of an object (because `this` value determinate on entering the execution context):
+
+```javascript
+function test(o) {
+  alert(this.a, this.b);
+}
+
+var o1 = { a: 10, b: 20 };
+var o2 = { a: 100, b: 200 };
 
 test.call(o1); // 10, 20
 test.call(o2); // 100, 200
@@ -272,95 +417,7 @@ test.call(o2); // 100, 200
 var a = 1;
 var b = 2;
 test(); // 1, 2
-</pre>
-
----
-# Inheritance
-
-There are  several ways for inheritance in JS,
-one of the simple way is via Object.create
-
-<pre class="brush: jscript">
-var user = {
-    title: 'user',
-	greeting: function(){
-		return 'Hi, i am ' + this.title
-	}
-}
-user.greeting(); // Hi, i am user
-
-var developer = Object.create(user);
-developer.title = 'developer';
-developer.greeting()' // Hi, i am developer
-
-</pre>
----
-
-# Context "this"
-
-***This*** value is called the context of the call and will be determined at the time of the function call.
-
-Function "showName" does not yet know what will be the value of ***this***. It will be known when the
-program run.
-
-<pre class="brush: jscript">
-var user = { firstName: "Petya" };
-var admin = { firstName: "Vasya" };
-
-function showName() {
-    alert( this.firstName );
-}
-
-user.a = showName;
-user.a(); // Petya
-showName.call(admin); // Vasya
-showName(); // undefined
-</pre>
-
----
-
-# Context "this"
-
-There are 4 invocation patterns in JS:
-*  Method invocation
-<pre class="brush: jscript">
-a.func(); // this refers to the object, i.e., a.
-</pre>
-*  Function invocation
-<pre class="brush: jscript">
-func(); // this is bond to the global object.
-</pre>
-*  Apply invocation pattern
-<pre class="brush: jscript">
-func.apply(thisArg, argArray); // this is bond
-                                   // to the first argument
-</pre>
-*  Constructor invocation
-<pre class="brush: jscript">
-var func = new Func(); // this refers to func
-                           // while in Func constructor)
-</pre>
-
----
-
-# Context "this"
-
-How to keep bond?
-
-<pre class="brush: jscript">
-var init = function () {
-	this.clickCounter = 0;
-
-	var that = this;
-
-	var clickHandler = function () {
-		that.clickCounter++;
-	}
-
-	var element = document.getElementById('button');
-	element.addEventListener('click', clickHandler);
-}
-</pre>
+```
 
 ---
 
