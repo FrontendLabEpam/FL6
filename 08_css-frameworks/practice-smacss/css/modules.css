@@ -39,30 +39,32 @@
 .main-nav {
   margin: 0 0 20px;
   padding: 0;
-  }
+}
   .main-nav > ul {
     margin: 0;
     padding: 0;
     list-style: none;
-    }
+  }
     .main-nav > ul > li {
       margin: 0;
       padding: 0;
-      }
-      .main-nav-item {
-        display: block;
-        padding: 10px;
-        border-bottom: #ccc solid 1px;
-        color: #666;
-        text-decoration: none;
-        }
-        .main-nav-item:hover {
-          background: #ddd;
-        }
-        .main-nav-item.is-active {
-          background: #36B1B9;
-          color: #fff;
-        }
+    }
+
+
+  .main-nav-item {
+    display: block;
+    padding: 10px;
+    border-bottom: #ccc solid 1px;
+    color: #666;
+    text-decoration: none;
+  }
+    .main-nav-item:hover {
+      background: #ddd;
+    }
+    .main-nav-item.is-active {
+      background: #36B1B9;
+      color: #fff;
+    }
 
 /*Sidebar-footer */
 .sidebar-footer {
