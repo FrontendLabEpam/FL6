@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-  
+
 <div class="wrapper">
   <header class="mainheader">
     <div class="logo">
@@ -42,13 +42,9 @@ Front-end training
 
 # What is NodeJS ?
 
-Node.js is an open-source, cross-platform runtime environment for developing server-side Web applications. 
-Although Node.js is not a JavaScript framework, many of its basic modules are written in JavaScript, and developers can 
+Node.js is an open-source, cross-platform runtime environment for developing server-side Web applications.
+Although Node.js is not a JavaScript framework, many of its basic modules are written in JavaScript, and developers can
 write new modules in JavaScript. The runtime environment interprets JavaScript using Google's V8 JavaScript engine.
-
-Node.js has an event-driven architecture capable of asynchronous I/O. These design choices aim to optimize throughput 
-and scalability in Web applications with many input/output operations, as well as for real-time 
-Web applications (e.g., real-time communication programs and browser games).
 
 .center[![node](img/node.png)]
 
@@ -67,11 +63,85 @@ Test: Run **node -v**. The version should be higher than v4.4.7.
 # Tools Classification
 - One purpose tools (cssmin, imagemin, uglify)
 - Client-side package managers (NPM, Bower)
+- Task runners (Grunt, Gulp, Webpack)
 - Package Bundlers (Browserify, Webpack)
-- Task runners (Grunt, Gulp)
 - Scaffolders (Yeoman)
 
 ---
+
+# NPM
+What is npm?
+.center[![npm](img/npm.png)]
+
+---
+
+#Global package
+Find a package on https://www.npmjs.com/
+Note. You should use *sudo* before instalation command in order to have a permision to modify system folders
+```bash
+sudo npm install node-sass -g
+node-sass src/css/global.scss -o build/css
+```
+
+---
+
+#Project with local packages
+Initialise an NPM package. Creates a package.json file for you:
+
+```bash
+npm init
+```
+{
+  "name": "gulp-setup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+---
+
+#Add some local package to the project:
+```bash
+sudo npm install node-sass --save-dev
+```
+package.json:
+```javascript
+...
+"devDependencies": {
+  "node-sass": "^4.5.0"
+},
+...
+```
+Module will be installed into the local *node_modules* folder
+
+You can add an npm command to the 'scripts' section:
+```javascript
+"scripts": {
+    "build-css": "node-sass src/css/global.scss -o build/css"
+  },
+```
+
+---
+
+#Most common npm commands:
+```bash
+npm install {package name}
+sudo npm install {package name} -g #install package globally
+npm install {package name} --save-dev #write module as a devDependency to package.json
+npm uninstall {package name}
+npm update
+npm cache clean
+npm list
+npm prune #cleans node_modules of those packages which are not listed in package.json
+
+---
+
+
 
 # Client-side package management
 
@@ -79,26 +149,6 @@ What for?
 - Install dependencies (like jQuery plugins or so)
 - Keep project vendor dependencies up-to-date
 - Easily build your application
-
----
-
-# NPM
-
-Initialise an NPM package. Creates a package.json file for you:
-```bash
-npm init
-```
-Most common commands:
-```bash
-npm install {package name}
-sudo npm install {package name} -g #install package globally
-npm install {package name} --save-dev #write module as a devDependency to package.json
-npm uninstall {package name}
-npm cache clean
-npm list
-npm prune #cleans node_modules of those packages which are not listed in package.json
-```
-.center[![npm](img/npm.png)]
 
 ---
 
@@ -126,7 +176,7 @@ What for?
 
 https://www.npmjs.org/package/browserify
 
-Browserify lets you require('modules') in the browser by bundling up all of your dependencies.  
+Browserify lets you require('modules') in the browser by bundling up all of your dependencies.
 ### install
 
 ```bash
@@ -155,104 +205,6 @@ browserify main.js --output bundle.js
 
 # Webpack
 
-### install
-
-```bash
-npm install webpack -g
-```
-
-### example config file
-
-```javascript
-// webpack.config.js
-
-module.exports = {
-    entry: "./entry.js",
-    output: {
-        path: __dirname,
-        filename: "bundle.js"
-    },
-    module: {
-        loaders: [
-            { test: /\.css$/, loader: "style!css" }
-        ]
-    }
-};
-```
-
-### run bundler
-
-```bash
-webpack
-```
-
----
-
-# Build Systems (Task Runners)
-
-What for?
-- Automate routine tasks (linting, testing, compilation, etc.)
-- watch your changes appear in browser on the fly while development
-- etc., etc., etc. ...
-
-.center[![gulp-grunt](img/gulp-grunt.png)]
-
----
-
-# Grunt
-Javascript task runner http://gruntjs.com/
-
-```bash
-sudo npm install -g grunt-cli
-npm install grunt
-grunt init #creates Gruntfile.js
-grunt {task}:{subtask}
-```
-```js
-// Gruntfile.js
-module.exports = function(grunt) {
-  grunt.initConfig({
-    // watch for file changes
-    watch: {
-      sass: {
-        files: '**/*.scss',
-        tasks: ['sass'] // anytime .scss files are changed - run sass:dev task
-      }
-    }
-  });
-  // register tasks to be called from CLI
-  grunt.registerTask('default', ['sass']);
-};
-```
-
----
-
-# Gulp
-
-http://gulpjs.com/
-
-Uses streams, therefore performance is better that of Grunt.  
-Less configurations, more javascript code.
-
-```bash
-sudo npm install -g gulp
-gulp build_scripts #custom task name
-```
-
-```js
-// gulpfile.js
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-
-gulp.task('sass', function () { // gulp.task registers task to be called from CLI
-  gulp.src('./scss/*.scss')     // gulp.src reads file into streams
-   .pipe(sass())                // pipe any plugin/s
-   .pipe(gulp.dest('./css'));   // gulp.dest writes files to provided destination
-});
-//
-gulp.task('default', 'sass');
-```
-
 ---
 
 # Scaffolding
@@ -275,6 +227,11 @@ yo angular {my_awesome_app_name}
 
 .center[![yeoman](img/yeoman.png)]
 
+---
+Links:
+
+NPM: https://www.youtube.com/playlist?list=PLQso55XhxkgBMeiYmFEHzz1axDUBjTLC6
+
 
     </textarea>
 <!-- ================== End of Slides ================== -->
@@ -283,3 +240,382 @@ yo angular {my_awesome_app_name}
     <script type="text/javascript">remark.create({highlightStyle: 'github'});</script>
 </body>
 </html>
+
+Task runners
+
+Front-end developers are often told to do certain things:
+* 		Work in as small chunks of CSS and JavaScript as makes sense to you, then concatenate them together for the production website.
+* 		Compress your CSS and minify your JavaScript to make their file sizes as small as possible for your production website.
+* 		Optimize your images to reduce their file size without affecting quality.
+* 		Use Sass for CSS authoring because of all the useful abstraction it allows.
+That’s not a comprehensive list of course, but those are the kind of things we need to do. You might call them tasks.
+
+Grunt
+https://24ways.org/2013/grunt-is-not-weird-and-hard/
+
+Grunt runs on Node.js — I don’t know Node
+You don’t have to know Node. Just like you don’t have to know Ruby to use Sass. Or PHP to use WordPress. Or C++ to use Microsoft Word.
+
+I have other ways to do the things Grunt could do for me
+Are they all organized in one place, configured to run automatically when needed, and shared among every single person working on that project?
+
+Grunt is a command line tool — I’m just a UI developer
+The extent to which you need to use the command line is:
+* Navigate to your project’s directory.
+* Type grunt and press enter.
+
+npm init
+npm install grunt —save-dev
+npm install -g grunt-cli
+
+Grunt actually doesn’t do anything all by itself. Remember Grunt is a task runner.
+npm install grunt-contrib-concat --save-dev
+
+—
+Source files:
+
+https://github.com/chriscoyier/My-Grunt-Boilerplate
+—
+Gruntfile.js:
+
+module.exports = function(grunt) {
+
+    // 1. All configuration goes here
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+
+        concat: {
+            // 2. Configuration for concatinating files goes here.
+        }
+
+    });
+
+    // 3. Where we tell Grunt we plan to use this plug-in.
+    grunt.loadNpmTasks('grunt-contrib-concat');
+
+    // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
+    grunt.registerTask('default', ['concat']);
+
+};
+
+—
+Let’s make Grunt concatenate some files
+
+concat: {
+    dist: {
+        src: [
+            'js/libs/*.js', // All JS in the libs folder
+            'js/global.js'  // This specific file
+        ],
+        dest: 'js/build/production.js',
+    }
+}
+
+—
+Let’s make Grunt minify that JavaScript
+
+npm install grunt-contrib-uglify --save-dev
+
+grunt.loadNpmTasks('grunt-contrib-uglify');
+
+uglify: {
+    build: {
+        src: 'js/build/production.js',
+        dest: 'js/build/production.min.js'
+    }
+}
+
+Let’s make Grunt optimize our images
+
+npm install grunt-contrib-imagemin --save-dev
+
+grunt.loadNpmTasks('grunt-contrib-imagemin');
+
+imagemin: {
+    dynamic: {
+        files: [{
+            expand: true,
+            cwd: 'images/',
+            src: ['**/*.{png,jpg,gif}'],
+            dest: 'images/build/'
+        }]
+    }
+}
+
+grunt.registerTask('default', ['concat', 'uglify', 'imagemin']);
+
+
+Let’s get a little bit smarter and automate
+* Run these tasks automatically when they should
+* Run only the tasks needed at the time
+grunt-contrib-watch
+
+watch: {
+    scripts: {
+        files: ['js/*.js'],
+        tasks: ['concat', 'uglify'],
+        options: {
+            spawn: false,
+        },
+    }
+}
+
+Sass:
+
+$ npm install --save-dev grunt-sass
+
+sass: {
+        options: {
+	   outputStyle: 'compressed’,
+            sourceMap: true
+        },
+        dist: {
+            files: {
+                'css/build/global.css': 'css/global.scss'
+            }
+        }
+    }
+
+grunt.loadNpmTasks('grunt-sass');
+
+grunt.registerTask('default', ['sass']);
+
+watch: {
+css: {
+    files: ['css/*.scss'],
+    tasks: ['sass'],
+    options: {
+        spawn: false,
+    }
+}
+}
+
+
+Gulp
+
+https://www.smashingmagazine.com/2014/06/building-with-gulp/
+
+
+Install the gulp command
+
+npm install --global gulp-cli
+
+Install gulp in your devDependencies
+npm install --save-dev gulp
+
+Create a gulpfile.js
+
+var gulp = require('gulp');
+
+gulp.task('default', function() {
+  // place code for your default task here
+  console.log('Hello')
+});
+
+STREAMS
+Streams enable you to pass some data through a number of usually small functions, which will modify the data and then pass the modified data to the next function.
+In the example above, the gulp.src() function takes a string that matches a file or number of files (known as a “glob”), and creates a stream of objects representing those files. They are then passed (or piped) to the uglify()function, which takes the file objects and returns new file objects with a minified source. That output is then piped to the gulp.dest() function, which saves the changed files.
+
+SCSS
+
+npm i gulp-sass -D
+
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+
+gulp.task('css', function(){
+  return gulp.src('src/css/global.scss')
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(gulp.dest('build/css'))
+});
+
+gulp.task('default', [ 'css' ]);
+
+Watch scss
+
+var watch = require('gulp-watch');
+
+gulp.task('css', function(){
+  return gulp.src('src/css/global.scss')
+    .pipe(watch('src/css/*/*.scss'))
+    .pipe(sass())
+   …
+});
+
+Source Maps
+npm i gulp-sourcemaps -D
+
+var sourcemaps = require('gulp-sourcemaps');
+gulp.task('css', function () {
+ return gulp.src('src/css/global.scs')
+  .pipe(sourcemaps.init())
+  .pipe(sass({outputStyle: 'compressed'}))
+  .pipe(sourcemaps.write('.'))
+  .pipe(gulp.dest('./css'));
+});
+
+
+JS
+
+npm install jshint gulp-jshint gulp-uglify
+gulp-concat  --save-dev
+
+var eslint = require('gulp-eslint');
+var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
+
+gulp.task('js', function () {
+   return gulp.src(['src/js/libs/**/*.js', 'src/js/*.js'])
+      pipe(eslint({
+        'rules':{
+            "camelcase": 1,
+        }
+      }))
+      .pipe(eslint.format())
+      .pipe(eslint.failAfterError())
+      .pipe(uglify())
+      .pipe(concat('production.min.js'))
+      .pipe(gulp.dest('build/js'));
+});
+
+WATCHING FILES
+
+npm install gulp-watch --save-dev
+
+var watch = require('gulp-watch');
+
+gulp.task('watch', function () {
+   gulp.watch('src/**/*.scss', ['css']);
+   gulp.watch('src/**/*.js', ['js']);
+});
+
+browsersync
+https://browsersync.io/
+npm install -g browser-sync
+browser-sync start --server --files "build/**/*"
+
+or
+$ npm install --save-dev browser-sync
+
+var browserSync = require('browser-sync');
+gulp.task('browser-sync', function () {
+   browserSync.init(['build/**/*'], {
+      server: {
+         baseDir: '.'
+      }
+   });
+});
+
+
+Babel
+https://babeljs.io
+npm install --save-dev babel-cli babel-preset-env
+
+.babelrc:
+{
+  "presets": ["env"]
+}
+
+Create a file:
+[1,2,3].map(n => n + 1);
+
+run
+babel src -d lib // if installed globally
+./node_modules/.bin/babel src -d lib
+
+or
+package.json:
+"scripts": {
+     "build": "babel src -d lib"
+ },
+
+npm run build
+
+
+Gulp-babel
+npm install --save-dev gulp-babel babel-preset-env
+
+.babelrc:
+{
+  "presets": ["env"]
+}
+
+gulp.js:
+var babel = require("gulp-babel");
+…
+gulp.task(“babel”, function () {
+  return gulp.src("src/app.js")
+    .pipe(babel())
+    .pipe(gulp.dest("dist"));
+});
+
+gulp babel source maps
+var sourcemaps = require("gulp-sourcemaps");
+var babel = require("gulp-babel");
+var concat = require("gulp-concat");
+
+gulp.task("default", function () {
+  return gulp.src("src/**/*.js")
+    .pipe(sourcemaps.init())
+    .pipe(babel())
+    .pipe(concat("all.js"))
+    .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest("dist"));
+});
+
+
+
+webpack
+https://blog.madewithenvy.com/getting-started-with-webpack-2-ed2b86c68783#.gfthzq2ob
+
+npm i -g webpack webpack-dev-server@2
+
+webpack.config.js:
+const path = require('path');
+const webpack = require('webpack');
+module.exports = {
+  context: path.resolve(__dirname, './src'),
+  entry: {
+    app: './app.js',
+  },
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: '[name].bundle.js',
+  },
+};
+
+npm i  --dev babel-loader babel-core babel-preset-es2015
+
+module.exports = {
+  // …
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: [{
+          loader: 'babel-loader',
+          options: { presets: ['es2015'] }
+          exclude: [/node_modules/],
+        }],
+      },
+
+      // Loaders for other file types can go here
+    ],
+  },
+  // …
+};
+
+
+
+Other useful plugins:
+https://www.npmjs.com/browse/star
+
+http-server
+postcss
+autoprefixer
+express
+mongoose
+lodash
+browserify
+bower
+mocha
