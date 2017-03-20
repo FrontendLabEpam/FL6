@@ -30,16 +30,18 @@ Front-end training
 
 ---
 
-### About
+# About
 
-- A javascript *library* for building user interfaces
-- Made by [Facebook's and Instagram's](https://facebook.github.io/react/support.html) teams
-- ~50k stars on [github](https://github.com/facebook/react)
+- Not a framework ( js *library* for building user interfaces )
+- Made by [Facebook's](https://facebook.github.io/react/support.html) teams
+- ~60k stars on [github](https://github.com/facebook/react)
 - HTML-like syntax ([JSX](https://facebook.github.io/react/docs/jsx-in-depth.html)) in javascript files
 - Very easy to learn and understand the logic behind main approaches
+- Lot of examples are available
+- Learn Once, Write Anywhere
 
 ---
-### Key Points
+# Key Points
 
 - UI components are the cohesive units
 - UI description and UI logic are tightly coupled
@@ -47,7 +49,7 @@ Front-end training
 - Virtual DOM and Synthetic Events
 
 ---
-### Virtual DOM
+# Virtual DOM
 
 1. Create lightweight description of component UI
 2. Diff it with the old one
@@ -56,7 +58,7 @@ Front-end training
 
 ---
 
-### Hello World!
+# Hello World!
 
 ```html
 ...
@@ -65,37 +67,73 @@ Front-end training
 ```
 
 ```
-var HelloMessage = React.createClass({
-  render: function() {
-    return <div>Hello World</div>;
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class HelloWorldComponent extends React.Component {
+  render() {
+      return (
+          <div>Hello world</div>
+      );
   }
-});
+}
 
 ReactDOM.render(
-  <HelloMessage />,
+  <HelloWorldComponent />,
   document.getElementById('app')
 );
 ```
 ---
 
-### Component Composition
+# Component Composition
 
 ```
-var HomePage = React.createClass({
-  render: function() {
+import Header from './Header';
+import Header from './SearchBar';
+import Header from './BearList';
+
+
+class HomePageComponent extends React.Component {
+  render() {
     return (
-      <div>
-        <Header />
-        <SearchBar />
-        <BearList />
-      </div>
+        <div>
+          <Header />
+          <SearchBar />
+          <BearList />
+        </div>
     );
   }
-});
+}
+
 ```
 
 ---
-### Data Flow
+# Handling Events
+
+Handling events with React elements is very similar to handling events on DOM elements. There are some syntactic differences:
+
+- React events are named using camelCase, rather than lowercase.
+- With JSX you pass a function as the event handler, rather than a string.
+
+For example, the HTML:
+
+```
+<button onclick="activateLasers()">
+  Activate Lasers
+</button>
+
+```
+is slightly different in React:
+
+```
+<button onClick={activateLasers}>
+  Activate Lasers
+</button>
+
+``` 
+[Supported events](https://facebook.github.io/react/docs/events.html#supported-events)
+---
+# Data Flow
 
 - Parent-to-Child
   - Data can be passed to children as properties and available as `this.props`
@@ -106,63 +144,105 @@ var HomePage = React.createClass({
 
 ```
 ...
-onSearch: function(keyword) {
+onSearch(keyword) {
   alert(keyword)
-},
-render: function() {
+}, 
+
+render() {
   return (
-    <Header title="Hello World" />
-    <SearchBar onSearch={this.onSearch} />
+    <div>
+      <Header title="Hello World" />
+      <SearchBar onSearch={this.onSearch} />
+    </div>
   );
 }
 ...
 ```
 
 ---
-### Data Flow cont.
+# Data Flow cont.
 
 ```
 // Header.js
 ...
-propTypes: {
-  title: React.PropTypes.string
+
+static get propTypes() {
+    return {
+        title: React.PropTypes.string
+    };
 },
-render: function() {
+
+static get defaultProps() {
+    return {
+        title: 'Some default title'
+    }
+}
+
+render () {
   return <h1>{this.props.title}</h1>;
 }
 ...
 ```
+---
+
+# Data Flow cont.
 ```
 // SearchBar.js
 ...
-onChange: function(e) {
+onChange (e) {
   this.props.onSearch(e.target.value);
 },
-render: function() {
+render () {
   return (
-    <input type="text" onChange={this.onChange} />;
+    <input type="text" onChange={this.onChange.bind(this)} />;
   );
 }
 ...
 ```
-
 ---
 
-### State
+# State
 
-State is mutable and a [private](https://medium.com/react-tutorials/react-state-14a6d4f736f5#.6byg04o4r) data-set of a component
-
+State is mutable and a [private](https://medium.com/react-tutorials/react-state-14a6d4f736f5#.6byg04o4r) data-set of a component.
+Each time state is changed, UI will be changed.
 ```
-var HomePage = React.createClass({
-  getInitialState: function() {
-    return { beers: [] }
+...
+constructor(props) {
+  this.state.name = 'Michael';
+}
+
+render() {
+  return (
+    <h1>Hello {this.state.name}</h1>
+  );
+}
+```
+
+Do Not Modify State Directly
+```
+this.state.name = 'Petro'; //wrong
+```
+In order to update state use setState method
+```
+this.setState({name: 'Petro'})```
+
+Thanks to the setState() call, React knows the state has changed, and calls render() method again to learn what should be on the screen
+---
+
+# State cont.
+```
+class HomePageComponent extends React.Component {
+  constructor () {
+    super(props);
+    this.state.beers = []
+  }
+
+  onSearch (q) {
+    this.props.service.findByKey(q)
+      .then( items => this.setState({ beers: items }) );
   },
-  onSearch: function(q) {
-    this.props.service.findByKey(q).then(function(items) {
-      this.setState({ beers: items });
-    }.bind(this));
-  },
-  render: function() {
+
+  render () {
     return (
       <div>
         <SearchBar onSearch={this.onSearch} />
@@ -170,16 +250,44 @@ var HomePage = React.createClass({
       </div>
     );
   }
-});
+
+};
 ```
 
 ---
-### Component Lifecycle
+# The Component Lifecycle
 
-![component lifecycle](https://staminaloops.github.io/undefinedisnotafunction/images/react-lifecycle.jpg)
+## Mounting
+These methods are called when an instance of a component is being created and inserted into the DOM:
+
+- constructor()
+- componentWillMount()
+- render()
+- componentDidMount()
+
+## Updating
+An update can be caused by changes to props or state. These methods are called when a component is being re-rendered:
+
+- componentWillReceiveProps()
+- shouldComponentUpdate()
+- componentWillUpdate()
+- render()
+- componentDidUpdate()
+---
+# The Component Lifecycle cont.
+## Unmounting
+This method is called when a component is being removed from the DOM:
+
+- componentWillUnmount()
+
+## Other APIs
+Each component also provides some other APIs:
+
+- setState()
+- forceUpdate()
 
 ---
-### Resources
+# Resources
 <br />
 - https://facebook.github.io/react/
 - https://facebook.github.io/flux/docs/overview.html
