@@ -59,7 +59,7 @@
 </div>
 
 <!-- ================== Slides ================== -->
-    <textarea id="source">
+<textarea id="source">
 
 
 class: center, middle
@@ -69,101 +69,60 @@ Front-end training
 # CSS basics
 ]
 
----
- # Intent
-
-<img src="assets/virtual-epam-site.png" >
-
-```html
-<table width="100%">
-    <tr valign="middle">
-        <td width="5%">&nbsp;</td>
-        <td width="40%"><img src="images/logo.svg" width="108"></td>
-        <td><font color="#464547" face="helvetica"><strong>SOLUTIONS</strong></font></td>
-        <td><font color="#464547" face="helvetica"><strong>INDUSTRIES</strong></font></td>
-        <td><font color="#464547" face="helvetica"><strong>ABOUT</strong></font></td>
-        ...
-    </tr>
-</table>
-<img src="image.jpg" width="100%" alt="EPAM"/>
-```
 
 ---
 
-#Cons
 
-<ul>
-    <li>Additional tags/attributes for styling</li>
-    <li>Duplications</li>
-    <li>Hard to maintain</li>
-    <li>No common style guides</li>
-</ul>
+#CSS definitions
+Cascading Style Sheets (CSS) are a stylesheet language used to describe the presentation of a document written in HTML or XML (including XML dialects like SVG or XHTML).
+CSS describes how elements should be rendered on screen, on paper, in speech, or on other media.
+CSS is the only document styling language that browsers understand.
 
-```html
-<table width="100%">
-    <tr valign="middle">
-        <td width="5%">&nbsp;</td>
-        <td width="40%"><img src="images/logo.svg" width="108"></td>
-        <td><font color="#464547" face="helvetica"><strong>SOLUTIONS</strong></font></td>
-        <td><font color="#464547" face="helvetica"><strong>INDUSTRIES</strong></font></td>
-        <td><font color="#464547" face="helvetica"><strong>ABOUT</strong></font></td>
-        ...
-    </tr>
-</table>
-<img src="image.jpg" width="100%" alt="EPAM"/>
-```
----
-
-#CSS is a solution
-- presenting language
-- present markup languages
+CSS has a standardized W3C specification.
+- CSS1 is now obsolete,
+- CSS2.1 is a recommendation,
+- CSS3 is split into smaller modules, progressing on the standardization track.
 
 The types of styles:
 - a browser’s style
 - an author’s style
 - a user’s styles
 
----
-#What we get with CSS
-
-```html
-<div class="logo">
-    <img src="images/logo.svg" width="108">
-</div>
-<div class="navigation">
-    <div>SOLUTIONS</div>
-    <div>INDUSTRIES</div>
-    <div>ABOUT</div>
-    ...
-</div>
-```
-```css
-.logo {
-    float: left;
-    padding: 10px;
-}
-.navigation {
-    text-align: right;
-}
-.navigation > div {
-    display: inline-block;
-    padding: 20px;
-    color: #464547;
-    font-family: helvetica;
-}
-```
-
 
 ---
 
 
-# Benefits of styles
+# The basic syntax of CSS
 
-- The separation of markup and design;
-- Different design for different devices;
-- Accelerate site download speed;
-- The only style design set for all documents on a web site;
-- Centralized storage.
+Syntax:
+``` css
+h1 {
+  color: #a6780a;
+  font-weight: normal;
+}
+```
+.center[
+      <img src="assets/css-syntax.png" width="100%" >
+]
+---
+# The basic syntax of CSS
+
+Priority matters:
+``` css
+p { COLOR: green; }
+p { color: RED; }
+```
+
+Comments in CSS-file:
+``` css
+ /*
+  Style is designed for introductory purposes
+ */
+
+div {
+  width: 200px; /* a width of the block */
+}
+```
 
 
 ---
@@ -320,7 +279,9 @@ example-4.html:
 
 # How to add styles to the page.
 
-All described methods of using CSS can be used either alone or in combination with each other. In this case, is necessary to remember their hierarchy.
+All described methods of using CSS can be used either alone or in combination with each other.
+
+In the second case, is necessary to remember their hierarchy.
  - tag inner style - highest priority
  - global style, external style - lower priority
 
@@ -355,7 +316,7 @@ All described methods of using CSS can be used either alone or in combination wi
 <html>
  <head>
   <meta charset="utf-8">
-  <title>Імпорт стилю</title>
+  <title>Style import</title>
   <style>
     @import "/style/main.css" screen; /* Style for output to monitor */
     @import "/style/print-and-speech.css" print, speech; /* Style Print and Screenreaders */
@@ -421,45 +382,10 @@ All described methods of using CSS can be used either alone or in combination wi
 ```
 
 
-
----
-# The basic syntax of CSS
-
-Syntax:
-``` css
-h1 {
-  color: #a6780a;
-  font-weight: normal;
-}
-```
-.center[
-      <img src="assets/css-syntax.png" width="100%" >
-]
----
-# The basic syntax of CSS
-
-Priority matters:
-``` css
-p { COLOR: green; }
-p { color: RED; }
-```
-
-Comments in CSS-file:
-``` css
- /*
-  Style is designed for introductory purposes
- */
-
-div {
-  width: 200px; /* a width of the block */
-}
-```
-
-
 ---
 
 
-# The types of style properties
+# Main types of style properties
 
 .columns[.col-50[
 
@@ -495,16 +421,39 @@ Color:
 - HSL:  `hsl(120,100%, 25%)`
 - HSLA: `hsla(120,100%, 50%, 0.3)`
 
-Dimensions. Relative units:
-``` css
-em, rem, px, %, vw, vh, vmin, vmax
-```
-Dimensions. Absolute units:
-``` css
-/*For a long time on the dump*/
-in, cm, mm, pt, pc
-```
 ]]
+
+
+---
+
+
+# Dimensions.
+
+## Relative units:
+``` css
+em /*Represents the calculated font-size of the element*/,
+ex /*Represents the x-height of the element's font.*/,
+rem /*Represents the font-size of the root element*/,
+% /*Represents the calculated font-size of the element*/,
+vw /*1% of the height of viewports initial containing block*/,
+vh /*1% of the width of viewports initial containing block*/,
+vmin /*Equal to the smaller of vw or vh*/,
+vmax /*Equal to the larger of vw or vh*/
+fr /*Fractional unit, used mostly with CSS Grid*/
+```
+
+## Absolute units:
+``` css
+px /*Relative to the viewing device, typically one device pixel (dot) of the display*/,
+mm /*One millimeter*/,
+q /*A quarter of a millimeter (1/40th of a centimeter)*/,
+cm /*One centimeter (10 millimeters)*/,
+in /*One inch (2.54 centimeters)*/,
+pt /*One point (1/72nd of an inch)*/,
+pc /*One pica (12 points)*/
+```
+
+[Read more](https://developer.mozilla.org/en-US/docs/Web/CSS/length)
 
 
 ---
@@ -619,7 +568,7 @@ p {
 ---
 
 
-# Contextual selectors
+# Descendant Selectors
 
 .columns[
 .col-50[
@@ -673,7 +622,7 @@ p {
 ---
 
 
-# Sequential selectors (one next)
+# Adjacent Sibling Selector (one next)
 
 ``` html
 <style>
@@ -696,7 +645,7 @@ p {
 ]
 
 ---
-# Sequential selectors (all next)
+# General Sibling Selector (all next)
 
 ``` html
 <style>
@@ -722,7 +671,7 @@ p {
 ---
 
 
-# Parents selectors
+# Child Selector
 
 .columns[.col-60[
 ``` html
@@ -942,7 +891,9 @@ a[href$=".com"] {
 </p>
 ]
 
-<a href="http://www.w3schools.com/css/css_pseudo_classes.asp">Pseudoclasses. Read More</a>
+
+[Read more](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)
+
 
 ---
 
@@ -993,7 +944,7 @@ a[href$=".com"] {
 <p>Search method of a lion by a simple sort.</p>
 ]
 
-<a href="http://www.w3schools.com/css/css_pseudo_elements.asp">Pseudoelements. Read More</a>
+[Read more](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements)
 
 
 ---
@@ -1065,6 +1016,36 @@ Hello
 Hello<div>Hello, i’m div!</div>
 <div class="red">Hello, i’m red!</div>
 ]
+
+
+---
+
+
+# CSS Variables
+
+CSS Variables are entities defined by CSS authors which contain specific values to be reused throughout a document
+
+They are set using custom property notation (e.g. --main-color: black;) and are accessed using the var() function (e.g. color: var(--main-color);)
+
+``` css
+:root {
+  --spacing: 1.5em; // declaring a variable
+  --base-colors: {  // declaring a mixin
+    color: #fff;
+    background-color: color(#fff shade(+80%)); // modifying a color
+  }
+}
+ 
+.some-class {
+  padding: var(--spacing);
+  width: calc(100% - var(--spacing)); // dynamically calculating a value
+  @apply --base-colors;
+}
+
+```
+[Read more in spec](https://www.w3.org/TR/css-variables/)
+
+[Read more in MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
 
 
 ---
@@ -1147,8 +1128,6 @@ For each identifier (hereinafter denote the number through a) there are 100 poin
 |#t34           {} | a=1 b=0 c=0 |points = 100 |
 |#content #wrap {} | a=2 b=0 c=0 |points = 200 |
 
-<a href="http://css.yoksel.ru/specifity/">Read More</a>
-
 ]
 
 
@@ -1196,158 +1175,21 @@ overflow: hidden;
 ```
 ]]
 
----
+[Full table(W3C)](https://www.w3.org/TR/CSS21/propidx.html)
 
-# Background
-
-.columns[
-.col-50[
-``` css
-  background:
-    url('http://lorempixel.com/100/100/')
-    no-repeat 50px 50% grey;
-```
-
-].col-50[
-
-``` html
-    background-image:
-      url('http://lorempixel.com/100/100/');
-    background-position: 50px 50%;
-    background-repeat: no-repeat;
-    background-color: grey;
-```
-&nbsp;
-.demo[
-* <a href="assets/example-no-repeat.html">example-no-repeat.html</a>
-* <a href="http://omfgdogs.com/">example-repeat.html</a>
-]]]
-
----
-
-# Border
-
-.columns[
-.col-50[
-``` css
-    border: 3px solid black;
-```
-
-].col-50[
-
-``` html
-    border-width: 3px;
-    border-style: solid;
-    border-color: black;
-
-    border-right: 3px;
-    border-right-width: 3px;
-```
-&nbsp;
-.demo[
-<a href="assets/border.html">border.html</a>
-]]]
-
----
-
-#Cursors
-
-<img src="assets/CSS-Custom-Cursors1.png" height="250" width="600">
-
-.columns[
-.col-100[
-``` css
-    a:hover {
-      cursor: pointer;
-    }
-```
-]]
----
-
-# Font
-
-.columns[
-.col-100[
-``` css
-  font: font-style font-weight font-size/line-height font-family;
-  font: italic bold 16px/22px Arial, Verdana, sans-serif;
-```
-
-].col-100[
-
-<img src="assets/font-size-line-height.png" width="486">
-]]
-
-
----
-
-# Text Indent
-
-.columns[
-.col-100[
-``` css
-  text-indent: 200px;
-```
-
-].col-100[
-
-<img src="assets/download.png" height="124" width="405">
-]]
+[Full table with examples](https://pageresource.com/css-properties-list/)
 
 
 ---
 
 
-# List Style
-
-.columns[
-.col-50[
-``` css
-    list-style: none;
-    list-style: square
-      url('../img/dino.png')
-      inside;
-```
-
-].col-50[
-
-``` html
-    list-style: square;
-    list-style: url('../img/dino.png');
-    list-style: inside;
-```
-&nbsp;
-.demo[
-<a href="assets/list.html">list.html</a>
-]]]
-
-
----
-
-Let's play with selectors
-<a href="http://flukeout.github.io/">CSS Selectors Game</a>
-
----
-
-Let's style squares
-<a href="./assets/squares.7z">Download archive</a>
-
----
-
-Let's add styles to real site
-<a href="./assets/yachtclub.zip">Download archive</a>
-
----
-# Additional links
+# Useful links
 
 - [Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-- [CSS Reference Htmlbook (http://htmlbook.ru/)](http://htmlbook.ru/)
-- [Codeacademy. Learn to code interactively, for free (codecademy.com)](http://www.codecademy.com/tracks/web)
-- [W3Schools CSS Reference](http://www.w3schools.com/css/default.asp)
-
-
-#Homework
-https://docs.google.com/document/d/1J5wzKwRIOzHe5TmfTq_pp29mrI3z0amyhaZrRJ12dd8
+- [CSS Validation Service](http://jigsaw.w3.org/css-validator/)
+- [CSS CURRENT STATUS by W3C](https://www.w3.org/standards/techs/css#)
+- [Can I use - Browser's support checker](https://caniuse.com/)
+- [CSS Weekly Newsletter](http://css-weekly.com/)
 
     </textarea>
 <!-- ================== End of Slides ================== -->
