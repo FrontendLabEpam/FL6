@@ -590,10 +590,6 @@ div {
    position: static; /* normal flow */
 }
 ```
----
-#position: relative
-
-
 .columns[.col-50[
 ```html
 <div></div>
@@ -612,6 +608,8 @@ margin: 10px; }
 <div style="width: 400px;height: 50px;border: 1px red solid;margin: 10px"></div>
 <div style="width: 400px;height: 50px;border: 1px red solid;margin: 10px"></div>
 <div style="width: 400px;height: 50px;border: 1px red solid;margin: 10px"></div>
+
+
 ---
 
 #position: relative
@@ -778,6 +776,68 @@ div:nth-of-type(2){
 ---
 
 #position: sticky
+```html
+<style>
+  dt {
+    position: sticky;
+    top: -1px;
+  }
+</style>
+<dl>
+  <dt>E</dt>
+  <dd>Explosions In The Sky</dd>
+  <dt>T</dt>
+  <dd>Ted Leo &amp; The Pharmacists</dd>
+  ...
+</dl>
+```
+.demo.demo-1[
+<style>
+  .demo-1 * {
+    box-sizing: border-box;
+  }
+  .demo-1 dl {
+    height: 200px;
+    overflow: auto;
+    margin: 0;
+  }
+  .demo-1 dt {
+    background: #B8C1C8;
+    border-bottom: 1px solid #989EA4;
+    border-top: 1px solid #717D85;
+    color: #FFF;
+    position: sticky;
+    top: -1px;
+  }
+  .demo-1 dd + dd {
+    border-top: 1px solid #CCC;
+  }
+</style>
+
+<dl>
+  <dt>A</dt>
+  <dd>Andrew W.K.</dd>
+  <dd>Apparat</dd>
+  <dd>Arcade Fire</dd>
+  <dd>At The Drive-In</dd>
+  <dd>Aziz Ansari</dd>
+  <dt>C</dt>
+  <dd>Chromeo</dd>
+  <dd>Common</dd>
+  <dd>Converge</dd>
+  <dd>Crystal Castles</dd>
+  <dd>Cursive</dd>
+  <dt>E</dt>
+  <dd>Explosions In The Sky</dd>
+  <dt>T</dt>
+  <dd>Ted Leo &amp; The Pharmacists</dd>
+  <dd>T-Pain</dd>
+  <dd>Thrice</dd>
+  <dd>TV On The Radio</dd>
+  <dd>Two Gallants</dd>
+</dl>
+]
+
 
 ---
 #Modern layouts: intent
