@@ -55,10 +55,10 @@ Front-end training
 ---
 
 
-class: center, middle
+class: center
 # CSS Layouts: Intent
 <figure style="text-align: center">
-    <img src="images/layout.svg" width="450"/>
+    <img src="images/layout.jpg" width="750"/>
 </figure>
 
 ---
@@ -453,30 +453,30 @@ div > div {
 </div>
 ---
 
-        <div style="float: left; margin-right: 40px;"><h2>Block HTML elements</h2>
-<ul>
-<li class="w3rlist">p</li>
-<li class="w3rlist">h1, h2, h3, h4, h5, h6</li>
-<li class="w3rlist">ol, ul</li>
-<li class="w3rlist">pre</li>
-<li class="w3rlist">address</li>
-<li class="w3rlist">blockquote</li>
-<li class="w3rlist">dl</li>
-<li class="w3rlist">div</li>
-<li class="w3rlist">fieldset</li>
-<li class="w3rlist">form</li>
-<li class="w3rlist">hr</li>
-<li class="w3rlist">noscript</li>
-<li class="w3rlist">table</li>
-</ul>
+<div style="float: left; margin-right: 40px;"><h2>Block HTML elements</h2>
+  <ul>
+    <li class="w3rlist">p</li>
+    <li class="w3rlist">h1, h2, h3, h4, h5, h6</li>
+    <li class="w3rlist">ol, ul</li>
+    <li class="w3rlist">pre</li>
+    <li class="w3rlist">address</li>
+    <li class="w3rlist">blockquote</li>
+    <li class="w3rlist">dl</li>
+    <li class="w3rlist">div</li>
+    <li class="w3rlist">fieldset</li>
+    <li class="w3rlist">form</li>
+    <li class="w3rlist">hr</li>
+    <li class="w3rlist">noscript</li>
+    <li class="w3rlist">table</li>
+  </ul>
 </div>
-        <div><h2>Inline HTML elements</h2></div>
-<ul>
-<li class="w3rlist"> b, big, i, small, tt</li>
-<li class="w3rlist">abbr, acronym, cite, code, dfn, em, kbd, strong, samp, var</li>
-<li class="w3rlist">a, bdo, br, img, map, object, q, script, span, sub, sup</li>
-<li class="w3rlist">button, input, label, select, textarea </li>
-</ul>
+<div><h2>Inline HTML elements</h2></div>
+  <ul>
+    <li class="w3rlist"> b, big, i, small, tt</li>
+    <li class="w3rlist">abbr, acronym, cite, code, dfn, em, kbd, strong, samp, var</li>
+    <li class="w3rlist">a, bdo, br, img, map, object, q, script, span, sub, sup</li>
+    <li class="w3rlist">button, input, label, select, textarea </li>
+  </ul>
 
 ---
 
@@ -552,7 +552,7 @@ div:nth-of-type(2) {
 - both
 
 ---
-class: left, middle
+class: left
 
 # Floating specifics
 
@@ -748,7 +748,8 @@ div:nth-of-type(2){
 #position: fixed
 ```html
 <div style="position: relative; overflow: auto; height: 100px; width: 400px">
-    <div style="position: fixed; width: 390px; background-color: green; padding: 5px;">Fixed element</div>
+    <div style="position: fixed; width: 390px; background-color: green; padding: 5px;">
+      Fixed element</div>
     <div style="height: 30px;"></div>
     <div>Simple element 1</div>
     <div>Simple element 2</div>
@@ -851,24 +852,59 @@ div:nth-of-type(2){
 - screen resolution
 - screen orientation
 
-[Link to flexbox presentation](https://goo.gl/cAhFQI)
----
-class: center, middle
-# Play with flexboxes
-
-[Fun with flexbox](http://flexboxfroggy.com/)
 
 ---
-class: left, middle
-# Additional links
 
+
+# Flexboxes
+Flexbox model is a 1-dimensional system, that operates with:
+- flex items, the elements being controlled in size and way of alignment
+- flex container, which contains flex items
+- flow direction, which determines the layout direction of flex items
+<figure style="text-align: center;">
+    <img src="images/flexbox-model.png" height="400"/>
+</figure>
+[Extended guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+
+
+---
+
+
+# Grid
+Grid model is a 2-dimensional system, that operates with:
+- grid container, parent element which contains grid items
+- grid items, direct descendants of the grid container
+- grid line: vertical ("column grid lines") or horizontal ("row grid lines")
+- grid track, space between two adjacent grid lines(columns or rows)
+- grid cell, space between two adjacent row and two adjacent column grid lines
+- grid are, the total space surrounded by four grid lines
+<figure style="text-align: center;">
+    <img src="images/grid-start-end-a.png" height="300"/>
+</figure>
+[Extended guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
+
+
+---
+
+
+# Useful links
+
+## General
 - [CSS-Tricks Almanac](http://css-tricks.com/almanac/)
-- [Codecademy CSS lessons](http://www.codecademy.com)
 - [Learn Layout](http://learnlayout.com)
-- [Fun with flexbox](http://flexboxfroggy.com/)
----
-class: center, middle
-#Thank you :)
+- [.clear-fix](https://css-tricks.com/snippets/css/clear-fix/)
+
+## Flex Module
+- [FlexBox Cheatsheet](http://vudav.github.io/flexbox-cheatsheet/)
+- [Flexbox Playground](http://the-echoplex.net/flexyboxes/)
+- [Practical tricks](https://hackernoon.com/11-things-i-learned-reading-the-flexbox-spec-5f0c799c776b)
+
+## Grid Module
+- [Grid Cheatsheet](https://alialaa.github.io/css-grid-cheat-sheet/)
+- [Grid by Example](https://gridbyexample.com/)
+- [CSS Fractional Unit in a simple way](https://medium.com/flexbox-and-grids/the-css-fractional-unit-fr-in-approachable-plain-language-fdc47bd387f7)
+- [Grid Layout examples+](http://labs.jensimmons.com/)
+
 
     </textarea>
 <!-- ================== End of Slides ================== -->
