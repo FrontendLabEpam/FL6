@@ -72,58 +72,6 @@ Front-end training
 ---
 
 
-# Modernizr
-
-.columns[.col-50[
-
-  Modernizr is a JavaScript library that detects HTML5 and CSS3 features in the user’s browser.
-
-  - It tests for over 40 next-generation features, all in a matter of milliseconds
-  - It creates a JavaScript object (named Modernizr) that contains the results of these tests as boolean properties
-  - It adds classes to the html element that explain precisely what features are and are not natively supported
-  - It provides a script loader so you can pull in polyfills to backfill functionality in old browsers
-
-].col-50[
-
-  ![modernizr](assets/img/modernizr_view.jpg)
-
-  .center[
-    [http://modernizr.com/](http://modernizr.com/)
-  ]
-
-]]
-
-
----
-
-
-# Modernizr
-
-In javascript:
-
-``` javascript
-
-if (Modernizr.webgl){
-    loadAllWebGLScripts();
-} else {
-    var msg = 'Your browser doesn’t support webgl';
-    document.getElementById( '#notice' ).innerHTML = msg;
-}
-
-```
-
-In HTML:
-
-``` html
-
-<html class="js no-touch postmessage history multiplebgs boxshadow opacity cssanimations csscolumns cssgradients csstransforms csstransitions fontface localstorage sessionstorage svg inlinesvg">
-
-```
-
-
----
-
-
 # HTML5 Boilerplate
 
 .columns[.col-50[
@@ -496,6 +444,35 @@ An element is a part of a block that performs a certain function. Elements are c
 ]]
 
 
+---
+
+
+#Style guides
+
+When a company builds a design system, they have a goal they’re trying to achieve: improving brand consistency, preventing duplicate work across teams, or increasing code quality.
+
+.center[
+
+  .img-wrap-70[![Styleguides](assets/img/styleguides.png)]
+
+  [http://styleguides.io](http://styleguides.io)
+]
+
+
+---
+
+
+#Material design style guide
+
+Google needed a more consistent user experience for users of its applications (Gmail, Calendar, Docs, etc.) and for the third-party applications on platforms like Chrome Add-ons and Android Apps. Using of Material Design is the easiest way for a developer to setup a good-looking Android interface.
+
+.center[
+
+  .img-wrap-70[![Material](assets/img/material-design.png)]
+
+  [https://material.io/guidelines/](https://material.io/guidelines/)
+]
+
 
 ---
 
@@ -541,12 +518,13 @@ The most popular front-end framework for developing responsive, mobile first pro
 ]]
 
 
-
 ---
 
 
 # Related resources
 - SMACSS book [https://smacss.com/book/](https://smacss.com/book/)
+- Bem by examples
+[https://seesparkbox.com/foundry/bem_by_example](https://seesparkbox.com/foundry/bem_by_example)
 - Bootstrap. Getting started [http://getbootstrap.com/getting-started/](http://getbootstrap.com/getting-started/)
 
     </textarea>
