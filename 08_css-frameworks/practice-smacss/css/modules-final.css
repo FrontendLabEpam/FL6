@@ -73,36 +73,36 @@
 }
 
 /* Task */
-article {
+.task {
   margin: 0 0 20px;
   padding: 15px 20px;
   border: #ccc solid 1px;
   border-radius: 2px;
 }
-  article header {
+  .task-header {
     padding: 0 0 10px;
     border-bottom: #eee solid 1px;
     color: #000;
     font-weight: bold;
   }
-  article > div {
+  .task-body {
     padding: 10px 0;
   }
-  article footer {
+  .task-footer {
     padding: 10px 20px;
     font-style: italic;
     font-size: 12px;;
     margin: 0 -20px -15px;
     background: #eee;
   }
-    article footer .date {
+    .task-footer-date {
       display: inline-block;
       margin-right: 20px;
     }
-    article footer .left {
+    .task-footer-left {
       display: inline-block;
     }
-      article footer .left:before {
+      .task-footer-left:before {
         content: '';
         display: inline-block;
         width: 10px;
@@ -112,19 +112,22 @@ article {
         background: #36B1B9;
         margin: 0 5px 0 0;
       }
+      .task-footer-left.is-late:before {
+        background: red;
+      }
 
   /* state: is-primary */
-  article#primary {
+  .task.is-primary {
     border-color: #36B1B9;
   }
-    article#primary footer {
-      background: #B8E4E7;
-    }
+  .task.is-primary .task-footer {
+    background: #B8E4E7;
+  }
   /* state: is-disabled */
-  article#disabled {
+  .task.is-disabled {
     background: #eee;
     color: #999;
   }
-    article#disabled header {
-      color: #999;
-    }
+  .task.is-disabled .task-header {
+    color: #999;
+  }
