@@ -397,9 +397,30 @@ _(.news-item .news-item-primary)_
 
 ##Project structure (using SCSS)
 
-.img-wrap-90[
-  ![SMACSS](assets/img/SMACSS_structure.jpg)
-]
+Every project needs some organization.
+Much of the purpose of categorizing things is to codify patterns—things that repeat themselves within our design. Repetition results in less code, easier maintenance, and greater consistency in the user experience. Exceptions to the rule can be advantageous but they should be justified.
+
+
+
+.columns[.col-40[
+``` css
+@import 'setting';
+@import 'mixin';
+
+@import 'base';
+
+@import 'layout/grid';
+@import 'layout/alternate';
+
+@import 'module/btn';
+@import 'module/profile';
+@import 'module/nav';
+```
+].col-60[
+
+  ![SMACSS](assets/img/project-structure.jpg)
+
+]]
 
 
 ---
