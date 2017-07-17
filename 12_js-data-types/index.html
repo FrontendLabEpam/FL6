@@ -54,10 +54,10 @@ Front-end training
 - Plain Object
 - Array
 - Date
-- Map (ES6)
-- WeakMap (ES6)
-- Set (ES6)
-- WeakSet (ES6)
+<!-- - Map (ES6)-->
+<!-- - WeakMap (ES6)-->
+<!-- - Set (ES6)-->
+<!-- - WeakSet (ES6)-->
 
 ---
 
@@ -233,145 +233,145 @@ var anotherEnergy = fruits.join('+'); // "Banana+Orange+Apple+Mango"
   var now = Date.now() // current date as milliseconds
   ```
 https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Date
----
+ ---
 
-# Map (ES6)
+<!--# Map (ES6)-->
 
-  ```javascript
-  var myMap = new Map();
+  <!--```javascript-->
+  <!--var myMap = new Map();-->
 
-  var keyString = "a string",
-      keyObj = {},
-      keyFunc = function () {};
+  <!--var keyString = "a string",-->
+      <!--keyObj = {},-->
+      <!--keyFunc = function () {};-->
 
-  // setting the values
-  myMap.set(keyString, "value associated with 'a string'");
-  myMap.set(keyObj, "value associated with keyObj");
-  myMap.set(keyFunc, "value associated with keyFunc");
+  <!--// setting the values-->
+  <!--myMap.set(keyString, "value associated with 'a string'");-->
+  <!--myMap.set(keyObj, "value associated with keyObj");-->
+  <!--myMap.set(keyFunc, "value associated with keyFunc");-->
 
-  myMap.size; // 3
+  <!--myMap.size; // 3-->
 
-  // getting the values
-  myMap.get(keyString);    // "value associated with 'a string'"
-  myMap.get(keyObj);       // "value associated with keyObj"
-  myMap.get(keyFunc);      // "value associated with keyFunc"
+  <!--// getting the values-->
+  <!--myMap.get(keyString);    // "value associated with 'a string'"-->
+  <!--myMap.get(keyObj);       // "value associated with keyObj"-->
+  <!--myMap.get(keyFunc);      // "value associated with keyFunc"-->
 
-  myMap.get("a string");   // "value associated with 'a string'"
-                           // because keyString === 'a string'
-  myMap.get({});           // undefined, because keyObj !== {}
-  myMap.get(function() {}) // undefined, because keyFunc !== function () {}
-  ```
-  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+  <!--myMap.get("a string");   // "value associated with 'a string'"-->
+                           <!--// because keyString === 'a string'-->
+  <!--myMap.get({});           // undefined, because keyObj !== {}-->
+  <!--myMap.get(function() {}) // undefined, because keyFunc !== function () {}-->
+  <!--```-->
+  <!--https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map-->
 
----
+<!-- -&#45;&#45;-->
 
-# WeakMap (ES6)
+<!--# WeakMap (ES6)-->
 
-  ```javascript
-  var wm1 = new WeakMap(),
-      wm2 = new WeakMap(),
-      wm3 = new WeakMap();
-  var o1 = {},
-      o2 = function(){},
-      o3 = window;
+  <!--```javascript-->
+  <!--var wm1 = new WeakMap(),-->
+      <!--wm2 = new WeakMap(),-->
+      <!--wm3 = new WeakMap();-->
+  <!--var o1 = {},-->
+      <!--o2 = function(){},-->
+      <!--o3 = window;-->
 
-  wm1.set(o1, 37);
-  wm1.set(o2, "azerty");
-  wm2.set(o1, o2); // a value can be anything, including an object or a function
-  wm2.set(o3, undefined);
-  wm2.set(wm1, wm2); // keys and values can be any objects. Even WeakMaps!
+  <!--wm1.set(o1, 37);-->
+  <!--wm1.set(o2, "azerty");-->
+  <!--wm2.set(o1, o2); // a value can be anything, including an object or a function-->
+  <!--wm2.set(o3, undefined);-->
+  <!--wm2.set(wm1, wm2); // keys and values can be any objects. Even WeakMaps!-->
 
-  wm1.get(o2); // "azerty"
-  wm2.get(o2); // undefined, because there is no value for o2 on wm2
-  wm2.get(o3); // undefined, because that is the set value
+  <!--wm1.get(o2); // "azerty"-->
+  <!--wm2.get(o2); // undefined, because there is no value for o2 on wm2-->
+  <!--wm2.get(o3); // undefined, because that is the set value-->
 
-  wm1.has(o2); // true
-  wm2.has(o2); // false
-  wm2.has(o3); // true (even if the value itself is 'undefined')
+  <!--wm1.has(o2); // true-->
+  <!--wm2.has(o2); // false-->
+  <!--wm2.has(o3); // true (even if the value itself is 'undefined')-->
 
-  wm3.set(o1, 37);
-  wm3.get(o1); // 37
+  <!--wm3.set(o1, 37);-->
+  <!--wm3.get(o1); // 37-->
 
-  wm1.has(o1); // true
-  wm1.delete(o1);
-  wm1.has(o1); // false
-  ```
-  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap
+  <!--wm1.has(o1); // true-->
+  <!--wm1.delete(o1);-->
+  <!--wm1.has(o1); // false-->
+  <!--```-->
+  <!--https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap-->
 
----
+<!-- -&#45;&#45;-->
 
-# Set (ES6)
+<!--# Set (ES6)-->
 
-  The Set object lets you store unique values of any type, whether primitive values or object references.
-  ```javascript
-  var mySet = new Set();
+  <!--The Set object lets you store unique values of any type, whether primitive values or object references.-->
+  <!--```javascript-->
+  <!--var mySet = new Set();-->
 
-  mySet.add(1);
-  mySet.add(5);
-  mySet.add("some text");
-  var o = {a: 1, b: 2};
-  mySet.add(o);
+  <!--mySet.add(1);-->
+  <!--mySet.add(5);-->
+  <!--mySet.add("some text");-->
+  <!--var o = {a: 1, b: 2};-->
+  <!--mySet.add(o);-->
 
-  mySet.has(1); // true
-  mySet.has(3); // false, 3 has not been added to the set
-  mySet.has(5);              // true
-  mySet.has(Math.sqrt(25));  // true
-  mySet.has("Some Text".toLowerCase()); // true
-  mySet.has(o); // true
+  <!--mySet.has(1); // true-->
+  <!--mySet.has(3); // false, 3 has not been added to the set-->
+  <!--mySet.has(5);              // true-->
+  <!--mySet.has(Math.sqrt(25));  // true-->
+  <!--mySet.has("Some Text".toLowerCase()); // true-->
+  <!--mySet.has(o); // true-->
 
-  mySet.size; // 4
+  <!--mySet.size; // 4-->
 
-  mySet.delete(5); // removes 5 from the set
-  mySet.has(5);    // false, 5 has been removed
+  <!--mySet.delete(5); // removes 5 from the set-->
+  <!--mySet.has(5);    // false, 5 has been removed-->
 
-  mySet.size; // 3, we just removed one value
-  ```
-  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
+  <!--mySet.size; // 3, we just removed one value-->
+  <!--```-->
+  <!--https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set-->
 
----
+<!-- -&#45;&#45;-->
 
-# WeakSet (ES6)
+<!--# WeakSet (ES6)-->
 
-  The WeakSet object lets you store weakly held objects in a collection.
-  ```javascript
-  var ws = new WeakSet();
-  var obj = {};
-  var foo = {};
+  <!--The WeakSet object lets you store weakly held objects in a collection.-->
+  <!--```javascript-->
+  <!--var ws = new WeakSet();-->
+  <!--var obj = {};-->
+  <!--var foo = {};-->
 
-  ws.add(window);
-  ws.add(obj);
+  <!--ws.add(window);-->
+  <!--ws.add(obj);-->
 
-  ws.has(window); // true
-  ws.has(foo);    // false, foo has not been added to the set
+  <!--ws.has(window); // true-->
+  <!--ws.has(foo);    // false, foo has not been added to the set-->
 
-  ws.delete(window); // removes window from the set
-  ws.has(window);    // false, window has been removed
-  ```
-  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet
+  <!--ws.delete(window); // removes window from the set-->
+  <!--ws.has(window);    // false, window has been removed-->
+  <!--```-->
+  <!--https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet-->
 
----
+<!-- -&#45;&#45;-->
 
-# Practice
-1. Write a function "vote" which takes an array as argument and returns an object where keys are elements of array and values are numbers of how many they are in an array
-  ```javascript
-var votes = ["angular","angular","react","react","react","angular","ember","react","vanilla"];
-var vote = function(arr){...}
-var result = vote(votes); // {angular: 3, react: 4, ember: 1, vanilla: 1}
-  ```
-2. Create a page with textarea and a button
-3. Go to http://mockaroo.com/ and generate some data
-  - Add field with name favorite_color and Type Color
-  - Rows: 100
-  - Format JSON
-  - Click Preview
-  - Copy to generated data to textarea
-  - Display statistics (from 4.) on data below in any format (preferably table)
-4. Lets find out something about generated data
-  - How many Female and Male
-  - How many favorite unique colors
-  - How many each of color
-  - What is the most favorite color
-  - Find out not unique names first_name if there are such
+<!--# Practice-->
+<!--1. Write a function "vote" which takes an array as argument and returns an object where keys are elements of array and values are numbers of how many they are in an array-->
+  <!--```javascript-->
+<!--var votes = ["angular","angular","react","react","react","angular","ember","react","vanilla"];-->
+<!--var vote = function(arr){...}-->
+<!--var result = vote(votes); // {angular: 3, react: 4, ember: 1, vanilla: 1}-->
+  <!--```-->
+<!--2. Create a page with textarea and a button-->
+<!--3. Go to http://mockaroo.com/ and generate some data-->
+  <!-- - Add field with name favorite_color and Type Color-->
+  <!-- - Rows: 100-->
+  <!-- - Format JSON-->
+  <!-- - Click Preview-->
+  <!-- - Copy to generated data to textarea-->
+  <!-- - Display statistics (from 4.) on data below in any format (preferably table)-->
+<!--4. Lets find out something about generated data-->
+  <!-- - How many Female and Male-->
+  <!-- - How many favorite unique colors-->
+  <!-- - How many each of color-->
+  <!-- - What is the most favorite color-->
+  <!-- - Find out not unique names first_name if there are such-->
 ---
 
 # Links
