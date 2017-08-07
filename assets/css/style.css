@@ -299,3 +299,6 @@ input[type="search"] {
 input[type="checkbox"] {
   width: auto;
 }
+.bubbling-img {
+  width: 70%;
+}
