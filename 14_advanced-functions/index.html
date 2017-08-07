@@ -31,32 +31,44 @@ Front-end training
 
 ---
 
-# Function properties
+class: center, middle
 
-Functions have builtin properties:
+.title[
+# Closures ?
+]
 
-`.length` shows how many arguments function awaits to get.
-`.name` shows function's name if there is one.
+---
+
+# Closures
+
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment).
+In other words, a closure gives you access to an outer function’s scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
+
+To use a closure, simply define a function inside another function and expose it. To expose a function, return it or pass it to another function.
+
+The inner function will have access to the variables in the outer function scope, even after the outer function has returned.
+
 ```
-function isBigger(a, b) { return a > b; }
-var ib = isBigger;
-
-ib.length; // -> 2
-ib.name; // -> "isBigger"
-```
-
-Also you may add your own properties to function and use them later:
-```
-function runIfPropertySet() {
-  if (runIfPropertySet.shouldRun) {
-    console.log('run');
-  }
+function bind(fn, context) {
+  return function() {
+    return fn.apply(context, arguments);
+  };
 }
-runIfPropertySet.shouldRun = true;
-runIfPropertySet(); // -> 'run'
-runIfPropertySet.shouldRun = false;
-runIfPropertySet(); // -> nothing
+
+var alwaysSameContext = bind(function() {
+  console.log(this.value);
+}, { value: 'custom-object' });
+
+alwaysSameContext(); // -> 'custom-object'
 ```
+
+---
+
+class: center, middle
+
+.title[
+# 'this' keyword ?
+]
 
 ---
 
@@ -128,127 +140,38 @@ var showObj2Value = obj.showValue.bind(obj2);
 showObj2Value(1, 2); // -> obj2 3
 
 ```
----
-
-# Closures
-
-Closures are functions that refers to variables from outer scopes.
-
-Scopes can be nested, but if there are no closures - scope exists only to the end
-of function.
-
-```
-function bind(fn, thisp) {
-  return function() {
-    return fn.apply(thisp, arguments);
-  };
-}
-
-var alwaysSameContext = bind(function() {
-  console.log(this.value);
-}, { value: 'custom-object' });
-
-alwaysSameContext(); // -> 'custom-object'
-alwaysSameContext.call({ value: 'other-object' }); // -> 'custom-object'
-alwaysSameContext.call(null); // -> 'custom-object'
-```
 
 ---
 
-# Recursion
+class: center, middle
 
-A recursive function is a function which calls itself.
-
-
-```
-var factorial = function(number) {
-  if (number <= 0) { // terminal case
-    return 1;
-  } else { // block to execute
-    return (number * factorial(number - 1));
-  }
-};
-
-factorial(6); // -> 720
-```
+.title[
+# Call Stack ?
+]
 
 ---
 
-# Recursion (cont.)
+# Call Stack
 
-Function that builds DOM according to given config:
+A call stack is a mechanism for an interpreter (like the JavaScript interpreter in a web browser) to keep track of its place in a script that calls multiple functions — what function is currently being run, what functions are called from within that function and should be called next, etc.
 
-```
-function createEl(domObj) {
-  var el = document.createElement(domObj.tag);
-  if (domObj.children) {
-    for (var i = 0; i < domObj.children.length; i++) {
-      el.appendChild(createEl(domObj.children[i]));
-    }
-  }
-  return el;
-}
-
-createEl({
-  tag: 'div',
-  children: [
-    { tag: 'span' },
-    { tag: 'ul',
-      children: [
-        { tag: 'li' }
-      ]
-    }
-  ]
-});
-```
+- When a script calls a function, the interpreter adds it to the call stack and then starts carrying out the function.
+- Any functions that are called by that function are added to the call stack further up, and run where their calls are reached.
+- When the main function is finished, the interpreter takes it off the stack and resumes execution it left off in the main code listing.
+- If the stack takes up more space than it had assigned to it, it results in a "stack overflow" error.
 
 ---
 
-# Callback functions
+class: center, middle
 
-A common JS practice is to pass some callback-function if result don&apos;t appear immediately (think about calling to server...):
-
-```
-function logTick() { console.log(Date.now()); }
-
-function executeLoop(fn, ms) {
-  if (fn) {
-    executeLoop.fns.push(fn);
-  } else {
-    setTimeout(function() {
-      for (var i = 0; i < executeLoop.fns.length; i++) {
-        executeLoop.fns[i]();
-      }
-      executeLoop(null, ms);
-    }, ms);
-  }
-}
-executeLoop.fns = [];
-
-// add some functions to execute
-executeLoop(logTick);
-executeLoop(logTick);
-executeLoop(logTick);
-
-// and start loop with 10 ms
-executeLoop(null, 100);
-```
-
----
-
-# Event Loop
-
-Main Parts:
-
-- Call Stack
-- Task Queue
-- Web APIs
+.title[
+# Call Stack Demos
+# http://latentflip.com/loupe/
+]
 
 ---
 
 # Call Stack Demos
-
-http://latentflip.com/loupe/
 
 ```
 function multiply(a, b) {
@@ -291,6 +214,25 @@ baz();
 
 ---
 
+# Recursion
+
+A recursive function is a function which calls itself.
+
+
+```
+var factorial = function(number) {
+  if (number <= 0) { // terminal case
+    return 1;
+  } else { // block to execute
+    return (number * factorial(number - 1));
+  }
+};
+
+factorial(6); // -> 720
+```
+
+---
+
 # Call Stack Demos
 
 "Blowing" the stack
@@ -302,6 +244,86 @@ function foo () {
 
 foo();
 ```
+
+---
+
+
+# Recursion (cont.)
+
+Function that builds DOM according to given config:
+
+```
+function createEl(domObj) {
+  var el = document.createElement(domObj.tag);
+  if (domObj.children) {
+    for (var i = 0; i < domObj.children.length; i++) {
+      el.appendChild(createEl(domObj.children[i]));
+    }
+  }
+  return el;
+}
+
+createEl({
+  tag: 'div',
+  children: [
+    { tag: 'span' },
+    { tag: 'ul',
+      children: [
+        { tag: 'li' }
+      ]
+    }
+  ]
+});
+```
+
+---
+
+class: center, middle
+
+.title[
+# Async function invokation
+]
+
+---
+
+# Callback functions
+
+A common JS practice is to pass some callback-function if result don&apos;t appear immediately (think about calling to server...):
+
+```
+const logTick => console.log(Date.now());
+
+function executeLoop(fn, ms) {
+  if (fn) {
+    executeLoop.fns.push(fn);
+  } else {
+    setTimeout(function() {
+      for (var i = 0; i < executeLoop.fns.length; i++) {
+        executeLoop.fns[i]();
+      }
+      executeLoop(null, ms);
+    }, ms);
+  }
+}
+executeLoop.fns = [];
+
+// add some functions to execute
+executeLoop(logTick);
+executeLoop(logTick);
+
+// and start loop with 10 ms
+executeLoop(null, 100);
+```
+
+---
+
+# Event Loop
+
+Main Parts:
+
+- Call Stack
+- Task Queue
+- Web APIs
 
 ---
 
