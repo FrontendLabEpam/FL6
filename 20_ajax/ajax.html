@@ -86,9 +86,11 @@ AJAX allows web pages to be updated asynchronously by exchanging small amounts o
 
 # AJAX transports
 
-There ara couple Javascript object or HTML tags that can provide server-client comunication:
+There are couple Javascript object or HTML tags that can provide server-client comunication:
 
 - XMLHttpRequest
+
+- Fetch
 
 - Iframe
 
@@ -169,7 +171,7 @@ function vote(outputElem) {
 | error  |  The fetch failed.  |
 | load |  The fetch succeeded. |
 | timeout  |  The author specified timeout has passed before the fetch completed.  |
-| loadend  |  The fetch completed (success or failure).  |
+| loaded  |  The fetch completed (success or failure).  |
 
 ---
 
@@ -198,6 +200,47 @@ xhr.send(formData);
 .small[
 ***Browsers***: all, except IE< 10
 ]
+
+---
+
+# Fetch
+
+Fetch is a modern concept equivalent to XMLHttpRequest. It offers
+a lot of the same functionality as the  XMLHttpRequest, but is designed
+to be more extensible and efficient.<br><br>
+
+Fetch provides a generic definition of Request and Response objects
+(and other things involved with network requests). This will allow
+them to be used wherever they are needed in the future, whether it’s
+for service workers, Cache API and other similar things that handle
+or modify requests and responses, or any kind of use case that might
+require you to generate your own responses programmatically.
+
+---
+
+# Fetch. Basic usage
+
+```
+// Chaining for more "advanced" handling
+fetch('https://davidwalsh.name/some/url').then(function(response) {
+  return response.json();
+}).then(function(returnedValue) {
+  console.log(returnedValue);
+	// ...
+}).catch(function(err) {
+	// Error :(
+});
+```
+<br>
+```
+var request = new Request('https://davidwalsh.name/some-url', {
+	headers: new Headers({
+		'Content-Type': 'text/plain'
+	})
+});
+
+fetch(request).then(function() { /* handle response */ });
+```
 
 ---
 
@@ -259,9 +302,12 @@ The typical use of JSONP provides cross-domain access to an existing JSON API, b
 
 - http://json.org/
 - https://xhr.spec.whatwg.org/
+- https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+- https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
 - https://en.wikipedia.org/wiki/Same-origin_policy
 - https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
 - http://www.html5rocks.com/en/tutorials/cors/
+
 
 
 
