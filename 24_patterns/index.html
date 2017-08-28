@@ -42,7 +42,8 @@ Front-end training
 # What is pattern?
 
 
-- A pattern is a recurring solution to a standard problem in a context.
+- A pattern is a recurring recipe of solution to a standard problem in a context.
+- It's a not a piece of ready-to-use code, it's the way
 - Each pattern is a three-part rule which expresses a relation between a certain context, a problem, and a solution.
 
 
@@ -53,10 +54,9 @@ Front-end training
 
 
 - Started in 1987 by Ward Cunningham and Ken Beck who were working with Smalltalk and designing GUIs.
-- Popularized by Gamma, Helm, Johnson and Vlissides (The gang of four, Go4)
-- The three of Go4 were working on frameworks (E++,Unidraw, HotDraw)
-- Design pattern use a consistent documentation approach
-- Design pattern are granular and applied at different levels such as frameworks, subsystems and sub-subsystems
+- Popularized by Gamma, Helm, Johnson and Vlissides (The gang of four, GoF, Go4)
+- Design patterns use a consistent documentation approach
+- Design patterns are granular and can be applied at different levels such as frameworks, subsystems and sub-subsystems
 - Design patterns are often organized as creational, structural or behavioral
 
 
@@ -66,19 +66,187 @@ Front-end training
 # Types of Patterns
 
 - ### Creational
-    - Deal with initializing and configuring classes and objects
+    - Deal with initializing and configuring class instances
+	- Examples: Singleton, Factory, Object pool, Lazy instantiation
 - ### Structural
-    - Deal with decoupling interface and implementation of classes and objects
-    - Composition of classes or objects
+    - Deal with decoupling interface and implementation of classes
+    - Composition of classes
+	- Examples: Module, Adapter (wrapper), Decorator
 - ### Behavioural
     - Deal with dynamic interactions among societies of classes and objects
     - Distribute responsibility
+	- Examples: Observer/PubSub, Strategy, Chain of responsibility
 
+---
+
+
+# Creational: Singleton
+
+- ### Wherefore
+	- Provide single instance of class. When you try to create another instance, the program should receive an item that has already been created.
+
+- ### Howto
+    - Use closure to access instantiated object
 
 
 ---
 
-# Module
+# Singleton
+
+```
+var Singleton = (function () {
+
+    var instance;
+
+    function createInstance() {
+        var object = new Object("I am the instance");
+        return object;
+    }
+
+    return {
+        getInstance: function () {
+        	// creates instance if it doesn't exist, lazy instantiation
+            if (!instance) {
+                instance = createInstance();
+            }
+
+            return instance;
+        }
+    };
+})();
+
+
+// Usage:
+// Creates new instance
+var instance1 = Singleton.getInstance();
+var instance2 = Singleton.getInstance();
+
+// Outputs: true
+console.log(instance1 === instance2);
+```
+
+---
+
+
+# Singleton. Pros/Cons
+
+- ### Advantages
+	- controlled access to a single instance
+
+- ### Disadvantages
+    - global access
+    - problems with testing are possible
+    - often there is a desire to expand singleton
+
+
+---
+
+
+# Factory
+
+- ### Wherefore
+	- Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.
+
+- ### Howto
+    - Using the factory method, which will select the appropriate constructor.
+
+
+---
+
+# Build-in Factory
+
+```
+var o = new Object(),
+	n = new Object(1),
+	s = Object(‘1’),
+	b = Object(true);
+
+// test
+o.constructor === Object;  // true
+n.constructor === Number;  // true
+s.constructor === String;  // true
+b.constructor === Boolean; // true
+```
+
+---
+
+# Factory. Example part 1
+
+```
+// parent constructor
+function CarsFactory() {}
+
+// a method of the parent
+CarMaker.prototype.makeCar = function () {
+	return “Vroom, I have “ + this.doors + “ doors”;
+};
+
+// the static factory method
+CarMaker.factory = function (type) {
+	var constr = type,
+		newcar;
+
+	if (typeof CarMaker[constr] !== “function”) {
+		// error appears
+	}
+
+	// at this point the constructor is known to exist
+ 	// let's have it inherit the parent but only once
+	if (typeof CarMaker[constr].prototype.drive !== “function”) {
+		CarMaker[constr].prototype = new CarMaker();
+	}
+
+	newcar = new CarMaker[constr]();
+	return newcar;
+};
+```
+
+---
+
+# Factory. Example part 2
+
+```
+// define specific car makers
+CarMaker.Compact = function () {
+	this.doors = 4;
+};
+
+CarMaker.Convertible = function () {
+	this.doors = 2;
+};
+
+CarMaker.SUV = function () {
+	this.doors = 24;
+};
+
+
+// Usage:
+
+// objects creating
+var corolla  = CarMaker.factory(‘Compact’),
+	solstice = CarMaker.factory(‘Convertible’),
+	cherokee = CarMaker.factory(‘SUV’);
+
+corolla.drive();  // “Vroom, I have 4 doors”
+solstice.drive(); // “Vroom, I have 2 doors”
+cherokee.drive(); // “Vroom, I have 24 doors”
+```
+
+---
+
+
+# Factory. Pros/Cons
+
+- ### Advantages
+	- allows you to make the code more flexible
+    - provides a single interface for creating objects
+
+- ### Disadvantages
+    - difficult to add support for new types of objects
+
+
+
+# Structural: Module
 
 - ### Wherefore
     In JavaScript, the Module pattern is used to further emulate the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope.
@@ -176,173 +344,6 @@ brainCell.learn('math');
 - ### Disadvantages
     - modules structure organization (we still need amd, cjs, etc.)
 
-
----
-
-
-# Singleton
-
-- ### Wherefore
-	- Provide single instance of class. When you try to create another instance, the program should receive an item that has already been created.
-
-- ### Howto
-    - Using module pattern
-
-
----
-
-# Singleton
-
-```
-var Singleton = (function () {
-
-    var instance;
-
-    function createInstance() {
-        var object = new Object("I am the instance");
-        return object;
-    }
-
-    return {
-        getInstance: function () {
-        	// creates instans if it doesn't exist
-            if (!instance) {
-                instance = createInstance();
-            }
-
-            return instance;
-        }
-    };
-})();
-
-
-// Usage:
-// Creates new instance
-var instance1 = Singleton.getInstance();
-var instance2 = Singleton.getInstance();
-
-// Outputs: true
-console.log(instance1 === instance2);
-```
-
----
-
-
-# Singleton. Pros/Cons
-
-- ### Advantages
-	- controlled access to a single instance
-
-- ### Disadvantages
-    - global access
-    - problems with testing are possible
-    - often there is a desire to expand singleton
-
-
----
-
-
-# Factory
-
-- ### Wherefore
-	- Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.
-
-- ### Howto
-    - Using the factory method, which will select the appropriate constructor.
-
-
----
-
-# Build-in Factory
-
-```
-var o = new Object(),
-	n = new Object(1),
-	s = Object(‘1’),
-	b = Object(true);
-
-// test
-o.constructor === Object;  // true
-n.constructor === Number;  // true
-s.constructor === String;  // true
-b.constructor === Boolean; // true
-```
-
----
-
-# Factory. Example part 1
-
-```
-// parent constructor
-function CarMaker() {}
-
-// a method of the parent
-CarMaker.prototype.drive = function () {
-	return “Vroom, I have “ + this.doors + “ doors”;
-};
-
-// the static factory method
-CarMaker.factory = function (type) {
-	var constr = type,
-		newcar;
-
-	if (typeof CarMaker[constr] !== “function”) {
-		// error appears
-	}
-
-	// at this point the constructor is known to exist
- 	// let's have it inherit the parent but only once
-	if (typeof CarMaker[constr].prototype.drive !== “function”) {
-		CarMaker[constr].prototype = new CarMaker();
-	}
-
-	newcar = new CarMaker[constr]();
-	return newcar;
-};
-```
-
----
-
-# Factory. Example part 2
-
-```
-// define specific car makers
-CarMaker.Compact = function () {
-	this.doors = 4;
-};
-
-CarMaker.Convertible = function () {
-	this.doors = 2;
-};
-
-CarMaker.SUV = function () {
-	this.doors = 24;
-};
-
-
-// Usage:
-
-// objects creating
-var corolla  = CarMaker.factory(‘Compact’),
-	solstice = CarMaker.factory(‘Convertible’),
-	cherokee = CarMaker.factory(‘SUV’);
-
-corolla.drive();  // “Vroom, I have 4 doors”
-solstice.drive(); // “Vroom, I have 2 doors”
-cherokee.drive(); // “Vroom, I have 24 doors”
-```
-
----
-
-
-# Factory. Pros/Cons
-
-- ### Advantages
-	- allows you to make the code more flexible
-    - provides a single interface for creating objects
-
-- ### Disadvantages
-    - difficult to add support for new types of objects
 
 
 ---
