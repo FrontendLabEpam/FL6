@@ -3,29 +3,29 @@
 <head>
     <title>Design Patterns</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../assets/css/reset.css" rel="stylesheet" type="text/css" />
-    <link href="../assets/css/fonts.css" rel="stylesheet" type="text/css" />
-    <link href="../assets/css/typography.css" rel="stylesheet" type="text/css" />
-    <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/fonts.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/typography.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
-      .javascript {
-        font-size: 14px;
-      }
+        .javascript {
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-	
+
 <div class="wrapper">
-	<header class="mainheader">
-		<div class="logo">
-			<div class="divider"><a href="../index.html"><img src="../assets/img/Logo.png"></a></div>
+    <header class="mainheader">
+        <div class="logo">
+            <div class="divider"><a href="../index.html"><img src="../assets/img/Logo.png"></a></div>
             <a href="../patterns/index.html#1"><span class="logotext">Design Patterns</span></a>
-		</div>
-	</header>
+        </div>
+    </header>
 </div>
 
 <!-- ================== Slides ================== -->
-    <textarea id="source">
+<textarea id="source">
 
 
 class: center, middle
@@ -42,7 +42,8 @@ Front-end training
 # What is pattern?
 
 
-- A pattern is a recurring solution to a standard problem in a context.
+- A pattern is a recurring recipe of solution to a standard problem in a context.
+- It's a not a piece of ready-to-use code, it's the way
 - Each pattern is a three-part rule which expresses a relation between a certain context, a problem, and a solution.
 
 
@@ -53,10 +54,9 @@ Front-end training
 
 
 - Started in 1987 by Ward Cunningham and Ken Beck who were working with Smalltalk and designing GUIs.
-- Popularized by Gamma, Helm, Johnson and Vlissides (The gang of four, Go4)
-- The three of Go4 were working on frameworks (E++,Unidraw, HotDraw)
-- Design pattern use a consistent documentation approach
-- Design pattern are granular and applied at different levels such as frameworks, subsystems and sub-subsystems
+- Popularized by Gamma, Helm, Johnson and Vlissides (The gang of four, GoF, Go4)
+- Design patterns use a consistent documentation approach
+- Design patterns are granular and can be applied at different levels such as frameworks, subsystems and sub-subsystems
 - Design patterns are often organized as creational, structural or behavioral
 
 
@@ -66,19 +66,201 @@ Front-end training
 # Types of Patterns
 
 - ### Creational
-    - Deal with initializing and configuring classes and objects
+    - Deal with initializing and configuring class instances
+	- Examples: Singleton, Factory, Object pool, Lazy instantiation
 - ### Structural
-    - Deal with decoupling interface and implementation of classes and objects
-    - Composition of classes or objects
+    - Deal with decoupling interface and implementation of classes
+    - Composition of classes
+	- Examples: Module, Adapter (wrapper), Decorator
 - ### Behavioural
     - Deal with dynamic interactions among societies of classes and objects
     - Distribute responsibility
+	- Examples: Observer/PubSub, Strategy, Chain of responsibility
 
+---
+
+
+# Creational: Singleton
+
+- ### Wherefore
+	- Provide single instance of class. When you try to create another instance, the program should receive an item that has already been created.
+
+- ### Howto
+    - Use closure to access instantiated object
 
 
 ---
 
-# Module
+# Singleton
+
+```
+var Singleton = (function () {
+
+    var instance;
+
+    function createInstance() {
+        var object = new Object("I am the instance");
+        return object;
+    }
+
+    return {
+        getInstance: function () {
+        	// creates instance if it doesn't exist, lazy instantiation
+            if (!instance) {
+                instance = createInstance();
+            }
+
+            return instance;
+        }
+    };
+})();
+
+
+// Usage:
+// Creates new instance
+var instance1 = Singleton.getInstance();
+var instance2 = Singleton.getInstance();
+
+// Outputs: true
+console.log(instance1 === instance2);
+```
+
+---
+
+
+# Singleton. Pros/Cons
+
+- ### Advantages
+	- controlled access to a single instance
+
+- ### Disadvantages
+    - global access
+    - problems with testing are possible
+    - often there is a desire to expand singleton
+
+
+---
+
+
+# Creational: Factory
+
+- ### Wherefore
+	- Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.
+
+- ### Howto
+    - Using the factory method, which will select the appropriate constructor.
+
+
+---
+
+# Build-in Factory
+
+```
+var o = new Object(),
+	n = new Object(1),
+	s = Object(‘1’),
+	b = Object(true);
+
+// test
+o.constructor === Object;  // true
+n.constructor === Number;  // true
+s.constructor === String;  // true
+b.constructor === Boolean; // true
+```
+
+---
+
+# Factory. Example part 1
+
+```
+class Car {
+
+	constructor() {
+		this.color = 'no color';
+		this.doors = 0;
+	}
+
+	applyColor(newColor) {
+		this.color = newColor;
+	}
+
+	assemble() {
+		console.log('Assembling car. Setup ' + this.doors + ' doors');
+	}
+}
+
+class Sedan extends Car {
+
+	constructor() {
+		super();
+		this.doors = 4;
+	}
+
+}
+
+class Hatchback extends Car {
+
+	constructor() {
+		super();
+		this.doors = 5;
+	}
+}
+
+
+```
+
+---
+
+# Factory. Example part 2
+
+```
+class CarsFactory {
+
+	makeCar(specification) {
+		const car;
+		switch(specification.type) {
+			case 'sedan':
+				car = new Sedan();
+				break;
+			case 'hatchback':
+				car = new Hatchback();
+				break;
+			default:
+				throw new Error('Unknown car type, check your specification');
+		}
+		car.assemble();
+		car.applyColor(specification.color);
+		return car;
+	}
+}
+
+
+const carsFactory = new CarsFactory();
+const firstCar = carsFactory.makeCar({type: 'sedan', color: 'red'});
+// Assembling car. Setup 4 doors
+// firstCar instanceof Sedan === true
+const secondCar = carsFactory.makeCar({type: 'hatchback', color: 'blue'});
+// Assembling car. Setup 5 doors
+// secondCar instanceof Sedan === true
+
+```
+
+---
+
+
+# Factory. Pros/Cons
+
+- ### Advantages
+	- allows you to make the code more flexible
+    - provides a single interface for creating objects
+
+- ### Disadvantages
+    - difficult to add support for new types of objects
+
+
+---
+
+# Structural: Module
 
 - ### Wherefore
     In JavaScript, the Module pattern is used to further emulate the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope.
@@ -177,178 +359,11 @@ brainCell.learn('math');
     - modules structure organization (we still need amd, cjs, etc.)
 
 
----
-
-
-# Singleton
-
-- ### Wherefore
-	- Provide single instance of class. When you try to create another instance, the program should receive an item that has already been created.
-
-- ### Howto
-    - Using module pattern
-
-
----
-
-# Singleton
-
-```
-var Singleton = (function () {
-
-    var instance;
-
-    function createInstance() {
-        var object = new Object("I am the instance");
-        return object;
-    }
-
-    return {
-        getInstance: function () {
-        	// creates instans if it doesn't exist
-            if (!instance) {
-                instance = createInstance();
-            }
-
-            return instance;
-        }
-    };
-})();
-
-
-// Usage:
-// Creates new instance
-var instance1 = Singleton.getInstance();
-var instance2 = Singleton.getInstance();
-
-// Outputs: true
-console.log(instance1 === instance2);
-```
 
 ---
 
 
-# Singleton. Pros/Cons
-
-- ### Advantages
-	- controlled access to a single instance
-
-- ### Disadvantages
-    - global access
-    - problems with testing are possible
-    - often there is a desire to expand singleton
-
-
----
-
-
-# Factory
-
-- ### Wherefore
-	- Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.
-
-- ### Howto
-    - Using the factory method, which will select the appropriate constructor.
-
-
----
-
-# Build-in Factory
-
-```
-var o = new Object(),
-	n = new Object(1),
-	s = Object(‘1’),
-	b = Object(true);
-
-// test
-o.constructor === Object;  // true
-n.constructor === Number;  // true
-s.constructor === String;  // true
-b.constructor === Boolean; // true
-```
-
----
-
-# Factory. Example part 1
-
-```
-// parent constructor
-function CarMaker() {}
-
-// a method of the parent
-CarMaker.prototype.drive = function () {
-	return “Vroom, I have “ + this.doors + “ doors”;
-};
-
-// the static factory method
-CarMaker.factory = function (type) {
-	var constr = type,
-		newcar;
-
-	if (typeof CarMaker[constr] !== “function”) {
-		// error appears
-	}
-
-	// at this point the constructor is known to exist
- 	// let's have it inherit the parent but only once
-	if (typeof CarMaker[constr].prototype.drive !== “function”) {
-		CarMaker[constr].prototype = new CarMaker();
-	}
-
-	newcar = new CarMaker[constr]();
-	return newcar;
-};
-```
-
----
-
-# Factory. Example part 2
-
-```
-// define specific car makers
-CarMaker.Compact = function () {
-	this.doors = 4;
-};
-
-CarMaker.Convertible = function () {
-	this.doors = 2;
-};
-
-CarMaker.SUV = function () {
-	this.doors = 24;
-};
-
-
-// Usage:
-
-// objects creating
-var corolla  = CarMaker.factory(‘Compact’),
-	solstice = CarMaker.factory(‘Convertible’),
-	cherokee = CarMaker.factory(‘SUV’);
-
-corolla.drive();  // “Vroom, I have 4 doors”
-solstice.drive(); // “Vroom, I have 2 doors”
-cherokee.drive(); // “Vroom, I have 24 doors”
-```
-
----
-
-
-# Factory. Pros/Cons
-
-- ### Advantages
-	- allows you to make the code more flexible
-    - provides a single interface for creating objects
-
-- ### Disadvantages
-    - difficult to add support for new types of objects
-
-
----
-
-
-# Observer/PubSub
+# Behavioral: Observer/PubSub
 
 - ### Wherefore
 	- This is where the objects in a system may subscribe to other objects and be notified by them when an event of interest occurs.
@@ -362,31 +377,32 @@ cherokee.drive(); // “Vroom, I have 24 doors”
 # Observer/PubSub
 
 ```
-(function( $ ) {
-	var o = $( {} );
+const refrigerator = {
+		listeners: [],
+		addListener: (listener) => {
+			this.listeners.push(listener);
+		},
+		openDoor: () => {
+			this.listeners.forEach(listener => listener.onRefrigeratorDoorOpened());
+		}
+	}
 
-	$.each({
-		trigger: 'publish',
-		on: 'subscribe',
-		off: 'unsubscribe'
-	}, function( key, val ) {
-		jQuery[val] = function() {
-			o[key].apply( o, arguments );
-		};
-	});
-})( jQuery );
+const kitty = {
+		meow: () => { console.log('Meow!') },
 
-$.getJSON('http://search.twitter.com/search.json?q=dogs&callback=?', function( results) {
-	$.publish( 'twitter/results', results );
-});
+		moveToRefrigerator: () => {
+			console.log('Searching... seek and move forward to refrigerator');
+		},
 
-$.subscribe( 'twitter/results', function( e, results ) {
-	$('body').html(
-		$.map( results.results, function( obj, index) {
-			return '<li>' + obj.text + '</li>';
-		}).join('')
-	);
-});
+	    onRefrigeratorDoorOpened: () => {
+			this.moveToRefrigerator();
+			this.meow();
+		}
+	}
+
+refrigerator.addListener(kitty);
+refrigerator.openDoor();
+
 ```
 
 ---
@@ -406,7 +422,7 @@ $.subscribe( 'twitter/results', function( e, results ) {
 ---
 
 
-# Mediator
+# Behavioral: Mediator
 
 - ### Wherefore
 	- Mediator is a behavioral design pattern that allows us to expose a unified interface through which the different parts of a system may communicate.
@@ -417,84 +433,35 @@ $.subscribe( 'twitter/results', function( e, results ) {
 
 ---
 
-# Mediator. Part 1
-
+# Mediator
 ```
-function Player(name) {
-	this.points = 0;
-	this.name = name;
-}
+const kitty = {
 
-Player.prototype.play = function () {
-	this.points += 1;
-	mediator.played();
-};
+		brain: {
+			openedRefrigeratorDetected: () => kitty.paws.move(),
+			refrigeratorIsNear: () => kitty.meow()
+		},
 
-var scoreboard = {
-	// HTML element to be updated
-	element: document.getElementById('results'),
-	// update the score display
-	update: function (score) {
-		// playing with DOM
+		eyes: {
+			seeRefrigeratorIsNear: () => kitty.brain.refrigeratorIsNear()
+		},
+
+		ears: {
+			hearRefrigeratorDoorOpened: () => kitty.brain.openedRefrigeratorDetected()
+		},
+
+		paws: {
+			move: () => console.log('moving');
+		},
+
+		meow: () => console.log('Meow!')
 	}
-};
+
+	refrigerator.addListener(kitty.ears.hearRefrigeratorDoorOpened);
+	refrigerator.openDoor();
 ```
 
 ---
-
-# Mediator. Part 2
-
-```
-var mediator = {
-	// all the players
-	players: {},
-	// initialization
-	setup: function () {
-		var players = this.players;
-		players.home = new Player('Home');
-		players.guest = new Player('Guest');
-	},
-	
-	// someone plays, update the score
-	played: function () {
-		var players = this.players,
-		score = {
-			Home: players.home.points,
-			Guest: players.guest.points
-		};
-		scoreboard.update(score);
-	},
-	keypress: function (e) {
-		e = e || window.event; // IE
-		if (e.which === 49) { // key "1"
-			mediator.players.home.play();
-			return;
-		}
-		if (e.which === 48) { // key "0"
-			mediator.players.guest.play();
-			return;
-		}
-	}
-};
-```
-
----
-
-# Mediator. Part 3
-
-```
-mediator.setup();
-
-window.onkeypress = mediator.keypress;
-// game over in 30 seconds
-setTimeout(function () {
-	window.onkeypress = null;
-	alert('Game over!');
-}, 30000);
-```
-
----
-
 
 # Mediator. Pros/Cons
 
@@ -510,7 +477,7 @@ setTimeout(function () {
 ---
 
 
-# Facade
+# Behavioral: Facade
 
 - ### Wherefore
 	- This pattern provides a convenient higher-level interface to a larger body of code, hiding its true underlying complexity.
@@ -589,10 +556,10 @@ pageFacade.updateMenu();
     </textarea>
 <!-- ================== End of Slides ================== -->
 
-    <script src="../assets/js/remark-latest.min.js" type="text/javascript"></script>
-    <script type="text/javascript">remark.create({
-      highlightStyle: 'github',
-      highlightLanguage: 'javascript'
-    });</script>
+<script src="../assets/js/remark-latest.min.js" type="text/javascript"></script>
+<script type="text/javascript">remark.create({
+    highlightStyle: 'github',
+    highlightLanguage: 'javascript'
+});</script>
 </body>
 </html>
