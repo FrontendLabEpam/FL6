@@ -217,7 +217,7 @@ class Hatchback extends Car {
 class CarsFactory {
 
 	makeCar(specification) {
-		const car;
+		let car;
 		switch(specification.type) {
 			case 'sedan':
 				car = new Sedan();
