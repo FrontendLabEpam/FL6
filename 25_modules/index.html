@@ -176,6 +176,19 @@ define (function (require, exports, module){
   }
 });
 ```
+---
+# EcmaScript 6 Module
+
+Simplified CommonJS wrapping
+
+```js  
+import { load } from 'store/customer';
+import when from 'when';
+
+export default = function (id) {
+    return when(id).then(load);
+};
+```
 
 ---
 # Loaders
@@ -225,6 +238,14 @@ require.config({
   }
 });
 ```
+---
+# Build Tools
+
+Follows the dependency chain specified in the define() and require() calls, concatenates those into one or few files. Specify which top-level modules or resources are in each file and the build tool finds the rest.
+
+- [r.js (requirejs optimizer)](http://requirejs.org/docs/optimization.html)
+- [browserify](https://github.com/substack/node-browserify)
+- [webpack](https://webpack.js.org)
 
 ---
 # Build tools/Webpack
@@ -237,14 +258,6 @@ module.exports = {
   }
 };
 ```
----
-# Build Tools
-
-Follows the dependency chain specified in the define() and require() calls, concatenates those into one or few files. Specify which top-level modules or resources are in each file and the build tool finds the rest.
-
-- [r.js (requirejs optimizer)](http://requirejs.org/docs/optimization.html)
-- [browserify](https://github.com/substack/node-browserify)
-
 ---
 # Links
 .litle[
@@ -261,7 +274,8 @@ http://unscriptable.com/2011/09/30/amd-versus-cjs-whats-the-best-format - 2011
 http://blog.millermedeiros.com/amd-is-better-for-the-web-than-commonjs-modules - 2011  
 http://derickbailey.com/2014/06/10/browserify-my-new-choice-for-modules-in-a-browser-backbone-app - 2014
 
-Tools:  
+Tools:
+http://webpack.js.org
 http://requirejs.org   ~7.8k stars  
 http://browserify.org ~7.9k stars  
 https://github.com/cujojs/curl ~1.5k stars
