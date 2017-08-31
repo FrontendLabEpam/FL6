@@ -37,6 +37,11 @@ Front-end training
 ]
 
 ---
+# What?
+        
+Small units of independent, reusable code
+        
+---
 # Why? Because!
 
 - Pollution of global scope
@@ -54,7 +59,7 @@ Front-end training
 - Module pattern
 - AMD
 - CommonJS
-- Harmony modules
+- EcmaScript 6 Module
 
 ---
 # Object literal
@@ -107,7 +112,7 @@ But browser assumes you load files in right order :(
 
 - Module format
 - Loader
-- Build tools (optimizers)
+- Build tools
 - Ease of development and debugging
 
 ---
@@ -128,10 +133,9 @@ define (['config'], function (config){
 Plugins for loading something other than js
 ```js
 // [Plugin Module ID] ! [resource ID]
-define (['text!../templ/start.html'],
-  function (template) {
-    // do something with loaded html
-  });
+define (['text!../templ/start.html'], function (template) {
+  // do something with loaded html
+});
 ```
 ---
 
@@ -183,7 +187,7 @@ function loadJS(file) {
   var jsElm = document.createElement("script");
   // set the type attribute
   jsElm.type = "application/javascript";
-  // make the script element load file
+  // set file path
   jsElm.src = file;
   // finally insert the element to the body element in order to load the script
   document.body.appendChild(jsElm);
@@ -195,7 +199,7 @@ Popular AMD &amp; CommonJS loaders:
 [curl.js](https://github.com/cujojs/curl)  
 
 ---
-# RequireJS
+# Loaders/RequireJS
 
 ``` html
 <!-- data-main attribute tells require.js to load scripts/main.js after require.js loads -->
@@ -223,62 +227,23 @@ require.config({
 ```
 
 ---
+# Build tools/Webpack
+
+```js  
+module.exports = {
+  entry: './js/app.js',
+  output: {
+    filename: 'bundle.js'
+  }
+};
+```
+---
 # Build Tools
 
 Follows the dependency chain specified in the define() and require() calls, concatenates those into one or few files. Specify which top-level modules or resources are in each file and the build tool finds the rest.
 
 - [r.js (requirejs optimizer)](http://requirejs.org/docs/optimization.html)
 - [browserify](https://github.com/substack/node-browserify)
-
----
-# Browserify
-
-Browsers don't have the require method defined, but Node.js does. With Browserify you can write code that uses require in the same way that you would use it in Node.
- 
-``` bash
-$ npm install -g browserify
-$ browserify main.js -o build.js
-```
-
-Building app every time you change file might be slow  
-But there's an optimized plugin to do that really fast
-
-``` bash
-$ npm install -g watchify
-$ watchify main.js -o build.js
-```
-
-Debug with sourcemaps
-``` bash
-$ browserify main.js -- outfile build.js --debug
-```
-
----
-# ES Harmony
-
-```js  
-// lib/math.js
-export function sum(x, y) {
-  return x + y;
-}
-export var pi = 3.141593;
-
-// app.js
-module math from "lib/math";
-alert("2π = " + math.sum(math.pi, math.pi));
-
-// otherApp.js
-import {sum, pi} from "lib/math";
-alert(""2π = " + sum(pi, pi));
-
-// load from remote sources
-module $ from "http://whateva.org/jquery.js"
-
-// Module loader API
-Loader.load("http://whateva.org/jquery.js", function($){
-  ...
-});
-```
 
 ---
 # Links
