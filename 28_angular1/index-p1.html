@@ -65,10 +65,6 @@ class: center middle
 
 class: center, middle
 
-.title[
-# Simple App - Code
-]
-
 .left[
 ## Angular module
 ```js
@@ -87,7 +83,7 @@ angular.module('simpleApp',[])
 <body ng-app="simpleApp" ng-controller="Ctrl">
     <input type="text" ng-model="query" placeholder="Search...">
     <p>Found: {{ query.length ? filtered.length : 0 }}</p>
-    <div ng-show="filtered.length" style="background: #ccc; border: 1px solid #ddd; padding: 10px;">
+    <div ng-show="filtered.length">
         <ul ng-show="query.length > 0" >
             <li ng-repeat="name in students | filter : query as filtered">
                 {{ name }}
@@ -102,79 +98,63 @@ angular.module('simpleApp',[])
 
 class: center middle
 
-.title[
 # How it works...?
 ## !@#$%^%$&
-]
 ![magic](assets/img/magic.gif)
 
 ---
 
+# Entrance points:
 
-class: center, middle
-
-.title[
-# B U T ...
-]
-
----
-
-
-
-class: center, middle
-
-.title[
-# Simple App - Code
-]
-
-.left[
-## Angular module
-```js
-angular.module('simpleApp',[])
-    .controller('Ctrl', function ( $scope ) {
-        $scope.students = [
-            ...
-        ];
-    });
-```
-]
-
+- ###Custom HTML nodes
+- ###Custom HTML attributes
+- ###Special instructions in HTML template
+- ###AngularJS to process it all
+<br>
 .left[
 ## HTML markup
 ```html
-<body ng-app="simpleApp" ng-controller="Ctrl">
-    <input type="text" ng-model="query" placeholder="Search...">
-    <p>Found: {{ query.length ? filtered.length : 0 }}</p>
-*    <div ng-if="filtered.length" style="background: #ccc; border: 1px solid #ddd; padding: 10px;">
-        <ul ng-show="query.length > 0" >
-            <li ng-repeat="name in students | filter : query as filtered">
-                {{ name }}
-            </li>
-        </ul>
-    </div>
+<body ng-app="simpleApp" ng-controller="MyCoolController as $ctrl">
+        <students-list list-source="$crtl.studentsArray" ></students-list>
 </body>
 ```
-]
 
----
-class: center middle
-
-.title[
-# Simple App Broken :(- [Demo](examples/simple-app-not-working.html)
-]
-
-.demo[
-<iframe src="examples/simple-app-not-working.html" frameborder="0" width="100%" height="80%"></iframe>
 ]
 
 ---
 
-class: center, middle
+# How Angular processes HTML:
 
-.title[
-![learning-curve](assets/img/angular-js-learning-curve.png)
+- ###Read node/attribute name
+- ###Search internal registry for attribute logic
+- ###Runs that logic
+
+
+## HTML markup
+```html
+<body ng-app="simpleApp" ng-controller="MyCoolController as $ctrl">
+    <div>{{$ctrl.valueFromController}}</div>    <!-- "This will be displayed in div" -->
+    <div>{{valueFromControllerScope}}</div>    <!-- "Another way to display something" -->
+</body>
+```
+```javascript
+const module = angular.module('simpleApp',[]);
+module.controller('MyCoolController', ['$scope', function($scope) {
+        this.valueFromController = "This will be displayed in div";
+        $scope.valueFromControllerScope = "Another way to display something"
+    });
+```
+
+
 ]
 ---
+
+#Learning curve
+
+<img src="assets/img/angular-js-learning-curve.png" alt="Drawing" style="width: 80%"/>
+---
+
+
 class: center middle
 
 .title[
@@ -196,11 +176,7 @@ class: center middle
 ]
 ---
 
-class: center middle
-
-.title[
 #Scope
-]
 
 .left[
 - ###Scope is an object that refers to the application model.
@@ -208,6 +184,26 @@ class: center middle
 - ###Scopes are arranged in hierarchical structure which mimic the DOM structure of the application.
 - ###Scopes can watch expressions and propagate events.
 ]
+
+```html
+<body ng-app="simpleApp">
+    <div ng-controller="MyCoolController as $ctrl">
+        {{someValue}}
+        {{$ctrl.anotherValue}}
+    </div>
+</body>
+```
+
+```javascript
+const module = angular.module('simpleApp',[]);
+module.controller('MyCoolController', ['$scope', function($scope) {
+        console.log($scope.$ctrl === this); // <-- true;
+        $scope.someValue = "some string value";
+        this.anotherValue = "another value";
+});
+```
+
+
 
 ---
 
@@ -231,23 +227,46 @@ class: center middle
 ---
 class: center middle
 
-.title[
 # Event Loop
-]
-![event-loop](assets/img/event-loop.png)
+<img src="assets/img/event-loop.png" alt="Drawing" style="width: 80%"/>
 
 ---
-class: center middle
 
-.title[
 #Data Binding
-]
 
 .left[
-- ###Any changes to the view are immediately reflected in the model, and any changes in the model are propagated to the view.
+- ###Any changes to the view are immediately (after digest loop) reflected in the model, and any changes in the model are propagated to the view.
 - ###The model is the single-source-of-truth for the application state, greatly simplifying the programming model for the developer.
 - ###You can think of the view as simply an instant projection of your model.
 ]
+
+---
+
+#Data Binding. How it works?
+
+```html
+<div ng-app="es2015App" ng-controller="someController as $crtl">
+    <div some-directive="$ctrl.controllerValue">{{scopeProperty}}</div>
+</div>
+```
+```javascript
+    class SomeController {
+        constructor($scope) {
+            $scope.scopeProperty = 123;
+            this.controllerValue = 456;
+        }
+    }
+    SomeController.$inject = ['$scope'];
+    angular.module('es2015App', []).controller('someController', SomeController);
+```
+###It creates 2 watches:
+```javascript
+    $scope.$watch('scopeProperty', ...);
+    $scope.$watch('$ctrl.controllerValue', ...);
+```
+
+
+
 
 ---
 
@@ -279,29 +298,46 @@ class: center middle
 
 
 .left[
-- ###Using the inline array annotation (preferred)
+- ###Using the inline array annotation
 ```js
-someModule.controller('MyController', ['$scope', 'greeter', function($scope, greeter) {
+someModule.controller('MyController', ['$scope', '$http', function($scope, $http) {
   // ...
 }]);
 ```
 - ###Using the $inject property annotation
 ```js
-var MyController = function($scope, greeter) {
+var MyController = function($scope, $http) {
   // ...
 }
-MyController.$inject = ['$scope', 'greeter'];
+MyController.$inject = ['$scope', '$http'];
 someModule.controller('MyController', MyController);
 ```
 - ###Implicitly from the function parameter names (has caveats)
 ```js
-someModule.controller('MyController', function($scope, greeter) {
+someModule.controller('MyController', function($scope, $http) {
   // ...
 });
 ```
 ]
 
 ---
+
+#Dependency Annotation
+
+- ###Using the $inject property annotation for class
+```js
+    class MyController {
+        constructor($scope, $http) {
+            //...
+        }
+    }
+    MyController.$inject = ['$scope', '$http'];
+    someModule.controller('MyController', MyController);
+```
+
+---
+
+
 
 class: center middle
 
@@ -330,36 +366,6 @@ myModule.directive('directiveName', function factory(injectables) {
 ```html
 <directive-name></directive-name>
 ```
-]
-
----
-class: center middle
-
-.title[
-#Practice
-]
-.middle[
-.img-wrap-70[![practice](assets/img/practice.png)]
-]
-.center[
-##Create angular directive to display/edit student info in card view. ([ref1](practice/index.html), [ref2](https://plnkr.co/edit/ZejRPicd7UjDD3UIso9Y?p=preview))
-]
-.left[
-- create js file called studentname-studentsurname.js (e.g. john-doe.js)
-- create angular module called 'studentname.studentsurname' (e.g. 'john.doe')
-- create angular directive that can be used as element ```<studentname-studentsurname></studentname-studentsurname>``` (e.g. ```<john-doe></john-doe>```)
-]
----
-# Related resources
-- [AngularJS API Reference](https://docs.angularjs.org/api)
-- [Creating AngularJS Custom Directives](http://weblogs.asp.net/dwahlin/creating-custom-angularjs-directives-part-i-the-fundamentals)
-- [Angular 1 Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)
-
----
-class: center, middle
-
-.title[
-![angular-logo](assets/img/angular-js-logo.png)
 ]
 
 ---
@@ -785,11 +791,27 @@ $rootScope.$on(
 ]
 
 ---
+class: center middle
+
+.title[
+#Practice
+]
+.middle[
+.img-wrap-70[![practice](assets/img/practice.png)]
+]
+.center[
+##Create angular directive to display/edit student info in card view. ([ref1](practice/index.html), [ref2](https://plnkr.co/edit/ZejRPicd7UjDD3UIso9Y?p=preview))
+]
+.left[
+- create js file called studentname-studentsurname.js (e.g. john-doe.js)
+- create angular module called 'studentname.studentsurname' (e.g. 'john.doe')
+- create angular directive that can be used as element ```<studentname-studentsurname></studentname-studentsurname>``` (e.g. ```<john-doe></john-doe>```)
+]
+---
 # Related resources
 - [AngularJS API Reference](https://docs.angularjs.org/api)
-- [Angular UI Router](https://github.com/angular-ui/ui-router)
+- [Creating AngularJS Custom Directives](http://weblogs.asp.net/dwahlin/creating-custom-angularjs-directives-part-i-the-fundamentals)
 - [Angular 1 Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)
-
 
 
     </textarea>
