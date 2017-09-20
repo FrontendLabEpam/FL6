@@ -89,22 +89,53 @@ ReactDOM.render(
 
 ```
 import Header from './Header';
-import Header from './SearchBar';
-import Header from './BearList';
+import SearchBar from './SearchBar';
+import BearList from './BearList';
 
 
 class HomePageComponent extends React.Component {
-  render() {
-    return (
-        <div>
-          <Header />
-          <SearchBar />
-          <BearList />
-        </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <Header />
+                <SearchBar />
+                <BearList />
+            </div>
+        );
+    }
 }
 
+```
+
+---
+# Component Composition. Children
+
+```
+// App.jsx
+class App extends React.Component {
+    render() {
+        const { children } = this.props;
+        return (
+            <div className="app-root">{children}</div>
+        )
+    }
+}
+// Client.jsx
+import React from 'react';
+import { render } from 'react-dom';
+import App from './App';
+import Header from './Header';
+import SearchBar from './SearchBar';
+import BearList from './BearList';
+
+render(
+    <App>
+        <Header />
+        <SearchBar />
+        <BearList />
+    </App>,
+    document.getElementById('app')
+);
 ```
 
 ---
