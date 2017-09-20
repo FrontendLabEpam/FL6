@@ -152,7 +152,6 @@ For example, the HTML:
 <button onclick="activateLasers()">
   Activate Lasers
 </button>
-
 ```
 is slightly different in React:
 
@@ -160,7 +159,6 @@ is slightly different in React:
 <button onClick={activateLasers}>
   Activate Lasers
 </button>
-
 ``` 
 [Supported events](https://facebook.github.io/react/docs/events.html#supported-events)
 ---
@@ -195,11 +193,12 @@ render() {
 
 ```
 // Header.js
+import PropTypes from 'prop-types';
 ...
 
 static get propTypes() {
     return {
-        title: React.PropTypes.string
+        title: PropTypes.string
     };
 },
 
@@ -263,7 +262,7 @@ Thanks to the setState() call, React knows the state has changed, and calls rend
 # State cont.
 ```
 class HomePageComponent extends React.Component {
-  constructor () {
+  constructor (props) {
     super(props);
     this.state.beers = []
   }
