@@ -264,19 +264,19 @@ Thanks to the setState() call, React knows the state has changed, and calls rend
 class HomePageComponent extends React.Component {
   constructor (props) {
     super(props);
-    this.state.beers = []
+    this.state.bears = [];
   }
 
   onSearch (q) {
     this.props.service.findByKey(q)
-      .then( items => this.setState({ beers: items }) );
-  },
+      .then(items => this.setState({ bears: items }));
+  }
 
   render () {
     return (
       <div>
         <SearchBar onSearch={this.onSearch} />
-        <BeerList items={this.state.beers} />
+        <BearList items={this.state.bears} />
       </div>
     );
   }
