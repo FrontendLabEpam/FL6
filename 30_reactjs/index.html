@@ -317,6 +317,54 @@ Each component also provides some other APIs:
 - forceUpdate()
 
 ---
+
+# Stateless Functional Component 
+
+```
+// Link.jsx
+...
+const Link = ({ caption, url, newWindow }) => {
+    return (
+        <a href={url} target={newWindow ? '_blank' : null}>{caption}</a>
+    )
+};
+
+export default Link;
+```
+
+---
+# Stateless Functional Component. Cont.
+
+```
+// Footer.jsx
+import React from 'react';
+import Link from './Link';
+
+const Footer = (props) => {
+    const { links } = props;
+    return (
+        <ul>
+            {links.map((link) => (
+                <li key={link.id}>
+                    <Link {...link} />
+                </li>
+            ))}
+        </ul>
+    );
+};
+
+Footer.defaultProps = {
+    links: []
+};
+
+Footer.propTypes = {
+    links: PropTypes.arrayOf(shape({}))
+};
+export default Footer;
+
+```
+
+---
 # Resources
 <br />
 - https://facebook.github.io/react/
