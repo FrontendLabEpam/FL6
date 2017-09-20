@@ -89,22 +89,53 @@ ReactDOM.render(
 
 ```
 import Header from './Header';
-import Header from './SearchBar';
-import Header from './BearList';
+import SearchBar from './SearchBar';
+import BearList from './BearList';
 
 
 class HomePageComponent extends React.Component {
-  render() {
-    return (
-        <div>
-          <Header />
-          <SearchBar />
-          <BearList />
-        </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <Header />
+                <SearchBar />
+                <BearList />
+            </div>
+        );
+    }
 }
 
+```
+
+---
+# Component Composition. Children
+
+```
+// App.jsx
+class App extends React.Component {
+    render() {
+        const { children } = this.props;
+        return (
+            <div className="app-root">{children}</div>
+        )
+    }
+}
+// Client.jsx
+import React from 'react';
+import { render } from 'react-dom';
+import App from './App';
+import Header from './Header';
+import SearchBar from './SearchBar';
+import BearList from './BearList';
+
+render(
+    <App>
+        <Header />
+        <SearchBar />
+        <BearList />
+    </App>,
+    document.getElementById('app')
+);
 ```
 
 ---
@@ -121,7 +152,6 @@ For example, the HTML:
 <button onclick="activateLasers()">
   Activate Lasers
 </button>
-
 ```
 is slightly different in React:
 
@@ -129,7 +159,6 @@ is slightly different in React:
 <button onClick={activateLasers}>
   Activate Lasers
 </button>
-
 ``` 
 [Supported events](https://facebook.github.io/react/docs/events.html#supported-events)
 ---
@@ -164,11 +193,12 @@ render() {
 
 ```
 // Header.js
+import PropTypes from 'prop-types';
 ...
 
 static get propTypes() {
     return {
-        title: React.PropTypes.string
+        title: PropTypes.string
     };
 },
 
@@ -232,21 +262,21 @@ Thanks to the setState() call, React knows the state has changed, and calls rend
 # State cont.
 ```
 class HomePageComponent extends React.Component {
-  constructor () {
+  constructor (props) {
     super(props);
-    this.state.beers = []
+    this.state.bears = [];
   }
 
   onSearch (q) {
     this.props.service.findByKey(q)
-      .then( items => this.setState({ beers: items }) );
-  },
+      .then(items => this.setState({ bears: items }));
+  }
 
   render () {
     return (
       <div>
         <SearchBar onSearch={this.onSearch} />
-        <BeerList items={this.state.beers} />
+        <BearList items={this.state.bears} />
       </div>
     );
   }
@@ -287,6 +317,54 @@ Each component also provides some other APIs:
 - forceUpdate()
 
 ---
+
+# Stateless Functional Component 
+
+```
+// Link.jsx
+...
+const Link = ({ caption, url, newWindow }) => {
+    return (
+        <a href={url} target={newWindow ? '_blank' : null}>{caption}</a>
+    )
+};
+
+export default Link;
+```
+
+---
+# Stateless Functional Component. Cont.
+
+```
+// Footer.jsx
+import React from 'react';
+import Link from './Link';
+
+const Footer = (props) => {
+    const { links } = props;
+    return (
+        <ul>
+            {links.map((link) => (
+                <li key={link.id}>
+                    <Link {...link} />
+                </li>
+            ))}
+        </ul>
+    );
+};
+
+Footer.defaultProps = {
+    links: []
+};
+
+Footer.propTypes = {
+    links: PropTypes.arrayOf(shape({}))
+};
+export default Footer;
+
+```
+
+---
 # Resources
 <br />
 - https://facebook.github.io/react/
@@ -306,6 +384,12 @@ class: center, middle
 # Thank You!
 ### Questions?
 
+---
+# Practice
+
+<a href="https://docs.google.com/document/d/16K-eatM6y89Hm-cU7EBvD3H89pkY5mm-iYaAD2zSDAY/edit?usp=sharing" target="_blank">Task</a>
+
+<a href="https://codesandbox.io" target="_blank">codesandbox.io</a>
     </textarea>
 <!-- ================== End of Slides ================== -->
 
