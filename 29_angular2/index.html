@@ -49,9 +49,9 @@ class: center, middle
 
 
 - TypeScript
-- Components
-- Directives
-- Form validation
+- Render and app logic splited to different web-workers
+- New change detection mechanism (directed tree dirty-check & observables)
+- Angular-cli
 
 [Comparison](https://angular.io/docs/ts/latest/cookbook/ajs-quick-reference.html) of AngularJS and Angular 2
 
@@ -68,7 +68,7 @@ class: center, middle
 ---
 
 # TypeScript
-
+## Types
 
 ```js
 let username: string = "Vasia";
@@ -83,41 +83,99 @@ function showMessage(message: string): void {
 }
 ```
 
-```js
-interface Person {
+---
+
+# TypeScript
+## Interface types
+
+
+```typescript
+interface IPerson {
     firstName: string;
     lastName: string;
 }
 
-function greeter(person: Person) {
+function greeter(person: IPerson) {
     return "Hello, " + person.firstName + " " + person.lastName;
 }
 ```
+---
 
+# TypeScript
+## Classes
+
+```typescript
+class Person implements IPerson {
+    public firstName: string = "";
+    public lastName: string = "";
+
+    constructor(firstName: string, lastName: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public greetPerson(person: IPerson) {
+        console.log("Hello, " + this.firstName + ' ' + this.lastName);
+    }
+}
+
+function greeter() {
+    const andriy = new Person("Andriy", "Makarov");
+    const serhiy = new Person("Sergiy", "Kovaliv");
+    andriy.greetPerson(serhiy);
+    serhiy.greetPerson(andriy);
+}
+```
 
 ---
 
-# First component
+# Angular directive evolution
+### AngularJS (<1.5.0)
+```js
+    angular.directive('student', function() {
+        return {
+            template: '<div></div>',
+            restrict: 'E'
+            scope: {
+                course: '@',
+                name: '=',
+                group: '=',
+                onStudentProfileChanged: '&'
+            }
+        }
+    }
+```
+### AngularJS (1.5.x - 1.6.x)
+```js
+    angular.component('student', {
+        template: '<div></div>',
+        bindings: {
+            course: '@',
+            name: '=',
+            group: '<',
+            onStudentProfileChanged: '&'
+        }
+    });
+```
 
-ts source for component
+---
+
+# Angular 2
+
 ```js
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'first',
-    template: '<h1>{{name}}</h1>'
+    selector: 'student',
+    inputs: ['course', 'name', 'group'],
+    outputs: ['onStudentProfileChanged']
+    template: '<div>{{name}}</div>'
 })
-export class FirstComponent {
-    constructor() {
-        this.name = 'Max'
-    }
+export class Student {
+    ...
 }
 ```
-<br/><br/>
-how to use in our app
-```html
-<first></first>
-```
+
 
 ---
 
@@ -128,14 +186,47 @@ One-way data binding
 <input [value]="myValue"></input>
 ```
 <br/>
-Two-way data binding
-```html
-<input [(ngModel)]="myValue"></input>
-```
-<br/>
 Event binding
 ```html
 <button (click)="doSmth($event)"></button>
+```
+<br/>
+Two-way data binding (mix of first and second)
+```html
+<input [(ngModel)]="myValue"></input>
+```
+
+---
+
+# Angular 2 Directives
+
+- ### Component
+- ### Structural
+- ### Attribute
+```html
+<student *ngFor="let item of list" [hidden]="false">{{item}}</student>
+```
+
+
+---
+
+# First component
+
+```js
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'list',
+    template: '<div *ngFor="let item of list">{{name}}</div>'
+})
+export class ListComponent {
+    @Input() list: Array;
+}
+```
+<br/><br/>
+how to use in our app
+```html
+<list [list]="$ctrl.items"></list>
 ```
 
 ---
