@@ -191,10 +191,17 @@ Two-way data binding (mix of first and second)
 - ### Component
 - ### Structural
 - ### Attribute
-```html
-<student *ngFor="let item of list" [hidden]="false">{{item}}</student>
+```js
+    @Directive({
+        selector: '[appHighlight]'
+    })
+    export class HighlightDirective {
+        constructor() { }
+    }
 ```
-
+```html
+<student *ngFor="let item of list" [hidden]="false" appHighlight>{{item}}</student>
+```
 
 ---
 
@@ -214,7 +221,7 @@ export class ListComponent {
 <br/><br/>
 how to use in our app
 ```html
-<list [list]="$ctrl.items"></list>
+<list [list]="[....]"></list>
 ```
 
 ---
@@ -343,16 +350,15 @@ export class FirstModule {}
 - ng new PROJECT-NAME
 - cd PROJECT-NAME
 - ng serve
+### Create component
+- ng g component students-list
 
 ### Docs
 - [TypeScript](https://www.typescriptlang.org/docs/handbook/basic-types.html)
 - [Tutorial](https://angular.io/tutorial)
 - [Angular CLI](https://github.com/angular/angular-cli)
 
----
 
-- ng g component first
-- ng g service first
 
 ---
 
