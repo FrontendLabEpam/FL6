@@ -45,8 +45,8 @@ var myName = 'Petro';
 console.log(window.myName); //Petro
 console.log(window['myName']); //Petro
 
-window.lastName = 'Jordand';
-console.log(lastName) //Jordand
+window.lastName = 'Jordan';
+console.log(lastName) //Jordan
 window['oneAnotherName'] = 'Ivan';
 console.log(oneAnotherName); //Ivan;
 ```
@@ -85,12 +85,26 @@ Time of code execution can be changed with ["WindowTimers"](https://developer.mo
 
 `clearInterval(interval);` stop interval execution.
 
-Execute `fn` after 1/60 of second. Useful for animations.
+Execute `fn` after 1/60 (probably) of second. Useful for animations.
 
 ```
 var animFrame = requestAnimationFrame(fn);
 cancelAnimationFrame(animFrame);
 ```
+
+---
+
+```
+function main(){
+  console.log('A');
+  setTimeout(
+    function display(){ console.log('B'); }
+  ,0);
+	console.log('C');
+}
+main(); //	Output: A -> C -> B
+```
+![Alt text](./event-loop.png)
 
 ---
 
@@ -119,7 +133,7 @@ window.addEventListener('hashchange', function(e) {
 ```
 ---
 
-# Encoding/deconding
+# Encoding/decoding
 
 Since some characters (like, /, ?, #, :, =, etc) are reserved for using as URL delimiters,
 as well as non-ascii characters (non-latin alphabet), you need to encode values in order
@@ -138,6 +152,11 @@ decodeURI(value);
 
 // Decode all delimiter characters
 decodeURIComponent(value);
+
+// Base64 String
+// B for binary (UTF string), A - for ASCII - for Base64 string
+window.btoa(str); // encode
+window.atob(str); // decode
 ```
 
 [Article Explaining URL and encodings](http://www.skorks.com/2010/05/what-every-developer-should-know-about-urls/)
@@ -148,7 +167,7 @@ decodeURIComponent(value);
 
 [Navigator](https://developer.mozilla.org/en-US/docs/Web/API/Navigator) object is used to detect client browser type.
 
-Since earlier many sites support only Netscape - all browsers use _'Mozilla'_ as
+Since earlier many sites support only Netscape - all browsers should use _'Netscape'_ as
 values for `appName`. This, actually, is written in standard, so this property is not
 very useful.
 
@@ -218,6 +237,8 @@ Regular expressions are used to perform pattern-matching and "search-and-replace
 `/^word$/` matches lines that consist only of 'word'.
 
 RegExps are matched __line by line__.
+
+https://regex101.com/
 
 http://regexr.com/
 
