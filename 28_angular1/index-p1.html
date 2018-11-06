@@ -145,8 +145,6 @@ module.controller('MyCoolController', ['$scope', function($scope) {
     });
 ```
 
-
-]
 ---
 
 #Learning curve
@@ -154,6 +152,43 @@ module.controller('MyCoolController', ['$scope', function($scope) {
 <img src="assets/img/angular-js-learning-curve.png" alt="Drawing" style="width: 80%"/>
 ---
 
+## AngularJS and MVC
+
+- ###Controller + Scope + HTML template = MVC
+- ###HTML template - for a View. No business logic.
+- ###Scope - Simple object to link JS values with HTML nodes
+- ###Controller - JS function to change values in Scope.
+- ###Component: Controller + Scope + Template. And public API: Bindings
+
+## HTML markup
+```html
+<body ng-app="simpleApp" ng-controller="MyCoolController as $ctrl">
+        <students-list list-source="$crtl.studentsArray" ></students-list>
+</body>
+```
+---
+.left[
+```javascript
+const studentsListComponentDefinition = {
+        bindings: {
+            listSource: '<'
+        },
+        template: `
+            <div ng-repeat="student in $ctrl.listSource track by $index">
+                Student initials: {{$ctrl.getInitials(item)}}
+            </div>`,
+        controller: function() {
+            this.getInitials = function (student) {
+                return `${student.name[0]}. ${student.surname[0]}.`
+            }
+        },
+        controllerAs: '$ctrl'
+    }
+const module = angular.module('simpleApp',[]);
+module.component('StudentsList', studentsListComponentDefinition);
+```
+]
+---
 
 class: center middle
 
@@ -162,18 +197,63 @@ class: center middle
 ]
 
 .left[
+- ##Dependency Injection
+
 - ##Scope
 
 - ##Data Binding
 
-- ##Dependency Injection
-
-- ##Directive
+- ##Directive/Component
 
 - ##Controller
 
 - ##Service
 ]
+---
+class: center middle
+
+.title[
+#Dependency Injection
+]
+
+##There are only three ways a component (object or function) can get a hold of its dependencies:
+
+.left[
+- ###The component can create the dependency, typically using the ***new*** operator.
+- ###The component can look up the dependency, by referring to a global variable.
+- ###The component can have the dependency passed to it where it is needed.
+]
+
+---
+class: center middle
+
+.title[
+#Dependency Annotation
+]
+
+.left[
+- ###Using the inline array annotation
+```js
+someModule.controller('MyController', ['$scope', '$http', function($scope, $http) {
+  // ...
+}]);
+```
+- ###Using the $inject property annotation
+```js
+var MyController = function($scope, $http) {
+  // ...
+}
+MyController.$inject = ['$scope', '$http'];
+someModule.controller('MyController', MyController);
+```
+- ###Implicitly from the function parameter names (has caveats)
+```js
+someModule.controller('MyController', function($scope, $http) {
+  // ...
+});
+```
+]
+
 ---
 
 #Scope
@@ -274,53 +354,7 @@ class: center middle
 
 ![data-binding](assets/img/data-binding.png)
 ---
-class: center middle
 
-.title[
-#Dependency Injection
-]
-
-##There are only three ways a component (object or function) can get a hold of its dependencies:
-
-.left[
-- ###The component can create the dependency, typically using the ***new*** operator.
-- ###The component can look up the dependency, by referring to a global variable.
-- ###The component can have the dependency passed to it where it is needed.
-]
-
----
-class: center middle
-
-.title[
-#Dependency Annotation
-]
-
-
-
-.left[
-- ###Using the inline array annotation
-```js
-someModule.controller('MyController', ['$scope', '$http', function($scope, $http) {
-  // ...
-}]);
-```
-- ###Using the $inject property annotation
-```js
-var MyController = function($scope, $http) {
-  // ...
-}
-MyController.$inject = ['$scope', '$http'];
-someModule.controller('MyController', MyController);
-```
-- ###Implicitly from the function parameter names (has caveats)
-```js
-someModule.controller('MyController', function($scope, $http) {
-  // ...
-});
-```
-]
-
----
 
 #Dependency Annotation
 
@@ -337,38 +371,6 @@ someModule.controller('MyController', function($scope, $http) {
 
 ---
 
-
-
-class: center middle
-
-.title[
-#Directive
-]
-
-.left[
-```js
-myModule.directive('directiveName', function factory(injectables) {
-  var directiveDefinitionObject = {
-    priority: 0,
-    template: '<div></div>',
-    // templateUrl: 'directive.html',
-    transclude: false,
-    restrict: 'E',// 'A', 'C', 'M'
-    scope: false, // true, {}
-    controller: function($scope, $element, $attrs, $transclude, otherInjectables) { ... },
-    controllerAs: 'stringIdentifier',
-    bindToController: false,
-    link: function postLink( scope, iElement, iAttrs, controller ) { ... }
-  };
-  return directiveDefinitionObject;
-});
-```
-```html
-<directive-name></directive-name>
-```
-]
-
----
 class: center middle
 
 .title[
